@@ -1,0 +1,125 @@
+site_name: NoSQL Polyglot Persistence Workshop
+repo_url: https://github.com/ultimate-engineer/polyglot-nosql
+repo_name: ultimate-engineer
+extra_css:
+  - stylesheets/extra.css
+theme:
+  name: material
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Palette toggle for light mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - content.tabs.link
+    - content.code.copy
+extra:
+  copyright: Copyright &copy; 2023 Elias Nogueira
+  social:
+    - icon: "fontawesome/brands/github"
+      link: "https://github.com/eliasnogueira"
+    - icon: "fontawesome/brands/twitter"
+      link: "http://twitter.com/eliasnogueira"
+    - icon: "fontawesome/brands/linkedin"
+      link: "https://linkedin.com/in/eliasnogueira"
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tabbed:
+      alternate_style: true   
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - md_in_html
+nav:
+  - "🏠 Home": "index.md"
+  - "🛠️ Setup": "setup.md"
+  - "1. NoSQL Introduction":
+      - "Introduction" : "nosql-introduction/introduction.md"
+      - "Why NoSQL Database" : "nosql-introduction/why-nosql-database.md"
+      - "History of Databases" : "nosql-introduction/history-of-databases.md"
+      - "NoSQL Evolutions" : "nosql-introduction/nosql-evolutions.md"
+      - "NoSQL Overview" : "nosql-introduction/nosql-overview.md"
+      - "Flexibility vs Scalability" : "nosql-introduction/flexibility-vs-scalability.md"
+      - "Database Replication and Modeling Limitations" : "nosql-introduction/database-replication-and-modeling-limitations.md"
+      - "Partitioning" : "nosql-introduction/partitioning.md"
+      - "Quiz" : "nosql-introduction/quiz.md"
+  - "2. Jakarta EE/NoSQL Overview":
+      - "Introduction": "jakartaee-nosql-review/introduction.md"
+      - "CDI": "jakartaee-nosql-review/cdi.md"
+      - "JAX-RS": "jakartaee-nosql-review/jax-rs.md"
+      - "Live Coding": "jakartaee-nosql-review/live-coding.md"
+      - " 🧪 Lab": "jakartaee-nosql-review/lab.md"
+  - "3. Key-Value":
+      - "Introduction": "key-value/introduction.md"
+      - "User Cases": "key-value/user-cases.md"
+      - "Modeling Tips": "key-value/modeling-tips.md"
+      - "Redis Overview": "key-value/redis-overview.md"
+      - "🧪 Lab time: exploring Redis":
+          - "Special Structures": "key-value/lab/special-structures.md"
+          - "Exploring the Redis Architecture": "key-value/lab/exploring-the-redis-architecture.md"
+          - "Redis Commands Overview": "key-value/lab/redis-commands-overview.md"
+      - "Challenge Time": "key-value/challenge-time.md"
+      - "Quiz": "key-value/quiz.md"
+  - "4. Wide-Column":
+      - "Introduction": "wide-column/introduction.md"
+      - "User Cases": "wide-column/user-cases.md"
+      - "Modeling Tips": "wide-column/modeling-tips.md"
+      - "Cassandra Overview": "wide-column/cassandra-overview.md"
+      - "🧪 Lab time: Exploring Cassandra":
+         - "Cassandra Query Language": "wide-column/lab/cassandra-query-language.md"
+         - "Cassandra UDT": "wide-column/lab/cassandra-udt.md"
+         - "Exploring Cassandra Architecture":
+            - "Architecture": "wide-column/lab/exploring-cassandra/architecture.md"
+            - "Commit Log": "wide-column/lab/exploring-cassandra/commit-log.md"
+            - "Read Repair": "wide-column/lab/exploring-cassandra/read-repair.md"
+            - "Clock Vector": "wide-column/lab/exploring-cassandra/clock-vector.md"
+      - "Challenge Time": "wide-column/challenge-time.md"
+      - "Quiz": "wide-column/quiz.md"
+  - "5. Document":
+      - "Introduction": "document/introduction.md"
+      - "User Cases": "document/user-cases.md"
+      - "Modeling Tips": "document/modeling-tips.md"
+      - "MongoDB Overview": "document/mongodb-overview.md"
+      - "🧪 Lab time: Exploring MongoDB":
+         - "MongoDB Architecture": "document/lab/mongodb-architecture.md"
+         - "MongoDB Features": "document/lab/mongodb-features.md"
+      - "Challenge Time": "document/challenge-time.md"
+      - "Quiz": "document/quiz.md"
+  - "6. Graph":
+      - "Introduction": "graph/introduction.md"
+      - "User Cases": "graph/user-cases.md"
+      - "Modeling Tips": "graph/modeling-tips.md"
+      - "Neo4J Overview": "graph/neo4j-overview.md"
+      - "🧪 Lab Time: Exploring Neo4J":
+         - "Neo4J Architecture": "graph/lab/neo4j-architecture.md"
+         - "Apache Tinkerpop": "graph/lab/apache-tinkerpop.md"
+         - "Cipher": "graph/lab/cipher.md"
+         - "Exploring Graphs Queries": "graph/lab/exploring-graphs-queries.md"
+      - "Challenge Time": "graph/challenge-time.md"
+      - "Quiz": "graph/quiz.md"
