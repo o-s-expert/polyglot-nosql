@@ -1,7 +1,5 @@
 # Apache Cassandra and Java Lab
 
-
-
 ## 1. The Cassandra structure
 
  In this lab session, we will explore Apache Cassandra by executing various commands to create a keyspace, define column families, and create a secondary index.

@@ -64,14 +64,13 @@ public class Author {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Person{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", phones=").append(phones);
-        sb.append(", address=").append(address);
-        sb.append(", job=").append(job);
-        sb.append('}');
-        return sb.toString();
+        return "Author{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", phones=" + phones +
+                ", address=" + address +
+                ", job=" + job +
+                '}';
     }
 
     public static AuthorBuilder builder() {
