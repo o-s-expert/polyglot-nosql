@@ -109,5 +109,3 @@ To create the `Worker` class with Jakarta Validation annotations step by step, f
        private String email;
    }
    ```
-
-That's it! You've created the `Worker` class with Jakarta Validation annotations. These annotations will enforce the specified validation rules when you use this class in your application.
