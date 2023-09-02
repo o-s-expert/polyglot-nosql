@@ -15,6 +15,7 @@
         <module>03-key-value</module>
         <module>04-column</module>
         <module>05-document</module>
+        <module>06-graph</module>
     </modules>
     
 </project>

@@ -63,11 +63,10 @@ public class Category {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Traveler{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append('}');
-        return sb.toString();
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public static Category of(String name) {

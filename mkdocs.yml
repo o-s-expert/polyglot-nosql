@@ -88,7 +88,7 @@ nav:
         - "5.1 Introduction": "document/introduction.md" 
         - "5.2 MongoDB": "document/mongodb.md"
         - "5.2.1 🧪 MongoDB Basic": "document/database-lab.md"
-        - "5.2.2 🧪 MongoDB Java": "key-value/java-lab.md"
+        - "5.2.2 🧪 MongoDB Java": "document/java-lab.md"
   - "👨‍👨‍👧‍👧 6. Graph database":
         - "6.1 Introduction": "graph/introduction.md" 
         - "6.2 Neo4J": "graph/neo4j.md"
