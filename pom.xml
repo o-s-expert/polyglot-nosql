@@ -12,6 +12,7 @@
     <modules>
         <module>01-jakarta-ee</module>
         <module>02-jax-rs</module>
+        <module>03-key-value</module>
     </modules>
     
 </project>
