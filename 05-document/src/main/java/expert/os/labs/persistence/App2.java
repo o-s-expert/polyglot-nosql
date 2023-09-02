@@ -9,7 +9,7 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package expert.os.books.persistence.nosql.chapter14;
+package expert.os.labs.persistence;
 
 
 import com.github.javafaker.Faker;
@@ -18,10 +18,6 @@ import jakarta.data.repository.Pageable;
 import jakarta.data.repository.Sort;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
-import jakarta.nosql.document.DocumentTemplate;
-
-import java.util.Optional;
-import java.util.UUID;
 
 public class App2 {
 

@@ -1,4 +1,4 @@
-package expert.os.books.persistence.nosql.chapter14;
+package expert.os.labs.persistence;
 
 import com.github.javafaker.Faker;
 import jakarta.nosql.Column;
