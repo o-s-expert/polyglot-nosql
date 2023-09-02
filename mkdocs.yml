@@ -70,4 +70,7 @@ nav:
       - "2.3.2 🧪 CDI Intermediate": "jakarta-ee/cdi-lab-2.md"
       - "2.3.3 🧪 CDI After-Intermediate": "jakarta-ee/cdi-lab-3.md"  
       - "2.4 JAX-RS": "jakarta-ee/jax.md"
-      - "2.4.1 🧪 JAX-RS Basic": "jakarta-ee/jax-rs-lab.md"    
+      - "2.4.1 🧪 JAX-RS Basic": "jakarta-ee/jax-rs-lab.md" 
+  - "3. Key-Value database":
+        - "3.1 Introduction": "key-value/introduction.md" 
+        - "3.2 Redis": "key-value/redis.md"
