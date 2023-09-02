@@ -3,7 +3,7 @@
 
 
 
-## 4. Redis with entity
+## 1. Redis with entity
 
 
 This lab will introduce an entity integration with Redis database with Java.
@@ -319,7 +319,7 @@ public class App6 {
 
 
 
-## 4. Redis with Repository
+## 2. Redis with Repository
 
 
 This lab will introduce Repository integration with Redis database with Java.
