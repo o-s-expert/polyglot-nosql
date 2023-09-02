@@ -75,3 +75,7 @@ nav:
         - "3.1 Introduction": "key-value/introduction.md" 
         - "3.2 Redis": "key-value/redis.md"
         - "3.2.1 🧪 Redis Basic": "key-value/database-lab.md"
+  - "4. Wide-Column database":
+        - "4.1 Introduction": "column/introduction.md" 
+        - "4.2 Apache Cassandra": "column/cassandra.md"
+        - "4.2.1 🧪 Apache Cassandra Basic": "column/database-lab.md"

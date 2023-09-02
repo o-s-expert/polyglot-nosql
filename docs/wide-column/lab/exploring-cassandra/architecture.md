@@ -1,1 +1,0 @@
-# Lab: Exploring Cassandra - Architecture

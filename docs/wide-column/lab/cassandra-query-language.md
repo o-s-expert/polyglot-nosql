@@ -1,1 +1,0 @@
-# Lab: Cassandra Query Language
