@@ -1,7 +1,5 @@
 # Jakarta CDI - Lab 2
 
-
-
 ## 1. Object lifecycle
 
   
