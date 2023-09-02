@@ -29,7 +29,7 @@ public class App4 {
             RedisBucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
             SortedSet game = factory.getSortedSet("game");
             game.add("Otavio", 10);
-            game.add("Luiz", 20);
+            game.add("Elias", 20);
             game.add("Ada", 30);
             game.add(Ranking.of("Poliana", 40));
 

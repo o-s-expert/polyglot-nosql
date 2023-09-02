@@ -29,7 +29,7 @@ public class App {
             List<String> names = factory.getList("names", String.class);
             Set<String> fruits = factory.getSet("fruits", String.class);
 
-            names.addAll(List.of("Otavio", "Luiz", "Ada", "Poliana", "Otavio"));
+            names.addAll(List.of("Otavio", "Elias", "Ada", "Poliana", "Otavio"));
 
             fruits.addAll(List.of("Banana", "Banana", "Apple", "Watermelon", "Banana", "Apple"));
 
