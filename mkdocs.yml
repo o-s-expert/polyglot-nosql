@@ -74,3 +74,4 @@ nav:
   - "3. Key-Value database":
         - "3.1 Introduction": "key-value/introduction.md" 
         - "3.2 Redis": "key-value/redis.md"
+        - "3.2.1 🧪 Redis Basic": "key-value/database-lab.md"
