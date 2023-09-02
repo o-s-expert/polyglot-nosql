@@ -1,80 +1,70 @@
-# Redis Lab
+# Cassandra Lab
 
-In this lab session, we will explore Redis by setting up a Docker Redis instance using the provided command. We will cover the following:
+In this lab session, we will explore Apache Cassandra by setting up a Docker Cassandra instance using the provided command. We will cover the following:
 
-- Launching a Docker Redis Instance
-- Connecting to the Redis Server
-- Basic Redis Commands
+- Launching a Docker Cassandra Container
+- Connecting to the Cassandra Cluster
+- Creating a Keyspace and a Table
+- Inserting and Querying Data
 
 
 material-play-box-multiple-outline: Steps
 
-**Step 1: Launching a Docker Redis Instance**
-Open your terminal and execute the following command to launch a Docker Redis instance:
+**Step 1: Launching a Docker Cassandra Container**
+
+Open your terminal and execute the following command to launch a Docker Cassandra instance:
 
 ```bash
-docker run --name redis-instance -p 6379:6379 -d redis
+docker run -d --name cassandra-instance -p 9042:9042 cassandra
 ```
 
-This command creates a Docker container named "redis-instance" running the Redis image, maps port 6379 on your host to port 6379 inside the container, and runs Redis in the background.
+This command creates a Docker container named "cassandra-instance" running the Cassandra image, maps port 9042 on your host to port 9042 inside the container, and runs Cassandra in the background.
 
-**Step 2: Connecting to the Redis Server**
-Now, let's connect to the Redis server running in the Docker container. You can use the Redis CLI or a Redis client library in your preferred programming language. For this lab, we'll use the Redis CLI.
+**Step 2: Connecting to the Cassandra Cluster**
 
-Open a new terminal window and run the following command to start the Redis CLI and connect to the Docker Redis instance:
+Now, let's connect to the Cassandra cluster running in the Docker container. You can use the Cassandra Query Language (CQL) shell, cqlsh, for this purpose. Run the following command in a new terminal window:
 
 ```bash
-docker exec -it redis-instance redis-cli
+docker exec -it cassandra-instance cqlsh
 ```
 
-You are now connected to the Redis server within the Docker container.
+This command starts the CQL shell and connects it to the Cassandra cluster within the Docker container.
 
-**Step 3: Basic Redis Commands**
-Now that you are connected to the Redis server, let's explore some basic Redis commands:
+**Step 3: Creating a Keyspace and a Table**
 
-- Set a key-value pair:
+Once you're connected to the Cassandra cluster, let's create a keyspace named "people" and a table named "person." In the CQL shell, run the following commands:
 
-  ```bash
-  SET mykey "Hello, Redis!"
-  ```
+```sql
+CREATE KEYSPACE people WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};
+USE people;
 
-- Retrieve the value of a key:
-  ```bash
-  GET mykey
-  ```
+CREATE TABLE person (
+    id UUID PRIMARY KEY,
+    name TEXT,
+    age INT
+);
+```
 
-- Increment a key's value:
-  ```bash
-  INCR mycounter
-  ```
+These commands create a keyspace named "people" and a table named "person" within that keyspace.
 
-- Retrieve the incremented value:
-  ```bash
-  GET mycounter
-  ```
+**Step 4: Inserting Data**
 
-- List all keys in the database:
-  ```bash
-  KEYS *
-  ```
+Now, let's insert some data into the "person" table. In the CQL shell, run the following commands:
 
+```sql
+INSERT INTO person (id, name, age) VALUES (uuid(), 'Alice', 30);
+INSERT INTO person (id, name, age) VALUES (uuid(), 'Bob', 25);
+INSERT INTO person (id, name, age) VALUES (uuid(), 'Charlie', 35);
+```
 
-### Explore commands:
+These commands insert three rows of data into the "person" table.
 
-| Command                   | Description                                           |
-|---------------------------|-------------------------------------------------------|
-| **SET key value**         | Set a key with a string value.                       |
-| **GET key**               | Retrieve the value associated with a key.            |
-| **INCR key**              | Increment the integer value of a key by 1.          |
-| **DECR key**              | Decrement the integer value of a key by 1.          |
-| **DEL key**               | Delete a key and its associated value(s).            |
-| **KEYS pattern**          | Find all keys matching a specified pattern.          |
-| **EXPIRE key seconds**    | Set an expiration time (in seconds) for a key.       |
-| **TTL key**               | Get the remaining time to live of a key (in seconds).|
-| **HSET key field value**  | Set the field in a hash stored at a key to a value.  |
-| **HGET key field**        | Retrieve the value of a field from a hash.           |
-| **LPUSH key value [value]** | Insert one or more values at the head of a list.  |
-| **RPUSH key value [value]** | Insert one or more values at the tail of a list.  |
-| **LPOP key**              | Remove and return the first element from a list.     |
-| **RPOP key**              | Remove and return the last element from a list.      |
+**Step 5: Querying Data**
 
+To retrieve and view the data from the "person" table, execute the following SELECT command in the CQL shell:
+
+```sql
+SELECT * FROM person;
+```
+
+This command will display the data you inserted in the "person" table.
