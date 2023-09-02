@@ -1,80 +1,74 @@
-# Redis Lab
+# MongoDB Lab
 
-In this lab session, we will explore Redis by setting up a Docker Redis instance using the provided command. We will cover the following:
+In this lab session, we will explore MongoDB by setting up a Docker MongoDB instance using the provided command. We will cover the following:
 
-- Launching a Docker Redis Instance
-- Connecting to the Redis Server
-- Basic Redis Commands
-
+1. Launching a Docker MongoDB Container
+2. Connecting to the MongoDB Instance using the MongoDB Shell (mongosh)
+3. Creating a Database and a Collection
+4. Inserting and Querying Documents
 
 material-play-box-multiple-outline: Steps
 
-**Step 1: Launching a Docker Redis Instance**
-Open your terminal and execute the following command to launch a Docker Redis instance:
+**Step 1: Launching a Docker MongoDB Container**
+
+Open your terminal and execute the following command to launch a Docker MongoDB instance:
 
 ```bash
-docker run --name redis-instance -p 6379:6379 -d redis
+docker run -d --name mongodb-instance -p 27017:27017 mongo
 ```
 
-This command creates a Docker container named "redis-instance" running the Redis image, maps port 6379 on your host to port 6379 inside the container, and runs Redis in the background.
+This command creates a Docker container named "mongodb-instance" running the MongoDB image, mapping port 27017 on your host to port 27017 inside the container, and runs MongoDB in the background.
 
-**Step 2: Connecting to the Redis Server**
-Now, let's connect to the Redis server running in the Docker container. You can use the Redis CLI or a Redis client library in your preferred programming language. For this lab, we'll use the Redis CLI.
+**Step 2: Connecting to the MongoDB Instance**
 
-Open a new terminal window and run the following command to start the Redis CLI and connect to the Docker Redis instance:
+Now, let's connect to the MongoDB instance running in the Docker container using the MongoDB Shell (mongosh). In your terminal, run the following command:
 
 ```bash
-docker exec -it redis-instance redis-cli
+docker exec -it mongodb-instance mongosh
 ```
 
-You are now connected to the Redis server within the Docker container.
+This command starts the MongoDB Shell (mongosh) and connects it to the MongoDB instance within the Docker container.
 
-**Step 3: Basic Redis Commands**
-Now that you are connected to the Redis server, let's explore some basic Redis commands:
+**Step 3: Creating a Database and a Collection**
 
-- Set a key-value pair:
+Once you're connected to MongoDB, let's create a database named "people" and a collection named "person." In the MongoDB Shell (mongosh), run the following commands:
 
-  ```bash
-  SET mykey "Hello, Redis!"
-  ```
+```bash
+use people; // Set the current database to "people"
 
-- Retrieve the value of a key:
-  ```bash
-  GET mykey
-  ```
+db.createCollection("person"); // Create a collection named "person"
+```
 
-- Increment a key's value:
-  ```bash
-  INCR mycounter
-  ```
+These commands create a database named "people" and a collection named "person" within that database.
 
-- Retrieve the incremented value:
-  ```bash
-  GET mycounter
-  ```
+**Step 4: Inserting and Querying Documents**
 
-- List all keys in the database:
-  ```bash
-  KEYS *
-  ```
+Now, let's insert some documents into the "person" collection and query them. In the MongoDB Shell (mongosh), run the following commands:
+
+```bash
+db.person.insertOne({ name: "Alice", age: 30 });
+db.person.insertOne({ name: "Bob", age: 25 });
+db.person.insertOne({ name: "Charlie", age: 35 });
+
+db.person.find();
+```
+
+These commands insert three documents into the "person" collection and then retrieve all documents. You should see the documents you inserted displayed in the query results.
 
 
-### Explore commands:
+### MongoDB commands:
 
-| Command                   | Description                                           |
-|---------------------------|-------------------------------------------------------|
-| **SET key value**         | Set a key with a string value.                       |
-| **GET key**               | Retrieve the value associated with a key.            |
-| **INCR key**              | Increment the integer value of a key by 1.          |
-| **DECR key**              | Decrement the integer value of a key by 1.          |
-| **DEL key**               | Delete a key and its associated value(s).            |
-| **KEYS pattern**          | Find all keys matching a specified pattern.          |
-| **EXPIRE key seconds**    | Set an expiration time (in seconds) for a key.       |
-| **TTL key**               | Get the remaining time to live of a key (in seconds).|
-| **HSET key field value**  | Set the field in a hash stored at a key to a value.  |
-| **HGET key field**        | Retrieve the value of a field from a hash.           |
-| **LPUSH key value [value]** | Insert one or more values at the head of a list.  |
-| **RPUSH key value [value]** | Insert one or more values at the tail of a list.  |
-| **LPOP key**              | Remove and return the first element from a list.     |
-| **RPOP key**              | Remove and return the last element from a list.      |
+
+| Command                                       | Description                                           |
+|-----------------------------------------------|-------------------------------------------------------|
+| **use database_name;**                        | Switches to a specific database for operations. |
+| **db.createCollection("collection_name");**    | Creates a new collection within the current database. |
+| **db.collection_name.insertOne(document);**    | Inserts a single document into a collection. |
+| **db.collection_name.insertMany(documents);**  | Inserts multiple documents into a collection. |
+| **db.collection_name.find(query, projection);** | Retrieves documents from a collection based on a query. |
+| **db.collection_name.updateOne(filter, update);** | Updates a single document in a collection that matches the filter. |
+| **db.collection_name.updateMany(filter, update);** | Updates multiple documents in a collection that match the filter. |
+| **db.collection_name.deleteOne(filter);**       | Deletes a single document from a collection that matches the filter. |
+| **db.collection_name.deleteMany(filter);**     | Deletes multiple documents from a collection that match the filter. |
+| **db.collection_name.aggregate(pipeline);**     | Performs aggregation operations on documents in a collection using a pipeline. |
 

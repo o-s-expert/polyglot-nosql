@@ -59,7 +59,7 @@ Now that you are connected to the Redis server, let's explore some basic Redis c
   ```
 
 
-### Explore commands:
+### Redis commands:
 
 | Command                   | Description                                           |
 |---------------------------|-------------------------------------------------------|
