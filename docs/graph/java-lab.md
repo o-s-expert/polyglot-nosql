@@ -3,7 +3,7 @@
 
 ## 1. The fisrt integration
 
-In this lab, we will explor more about Neo4J and Java.
+In this lab, we will explore more about Neo4J and Java.
 
 
 material-play-box-multiple-outline: Steps

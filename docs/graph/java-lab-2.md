@@ -1,9 +1,9 @@
-# Neo4J and Java Lab
+# Neo4J and Java Lab 2
 
 
 ## Second scenario
 
-In this lab, we will explor more about Neo4J and Java.
+In this lab, we will explore more about Neo4J and Java.
 
 material-play-box-multiple-outline: Steps
 
