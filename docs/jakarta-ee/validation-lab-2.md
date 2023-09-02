@@ -1,4 +1,4 @@
-# Custom Bean Validation
+# Jakarta Validation - Lab 2
 
 The goal is to illustrate how to create a custom validation in Java using Jakarta Validation. We're developing a custom validation called `SalaryValidator` and an associated annotation named `SalaryConstraint`. This custom validation ensures that the `Money` field representing an employee's salary in the `Worker` class is non-null and greater than zero. This approach enhances data validation in Java applications, ensuring that salary values meet specific criteria and providing customized error messages for validation failures.
 
