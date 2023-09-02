@@ -1,80 +1,75 @@
-# Redis Lab
+# Neo4J Lab
 
-In this lab session, we will explore Redis by setting up a Docker Redis instance using the provided command. We will cover the following:
+In this lab session, we will explore Neo4j by setting up a Docker Neo4j instance using the provided command. We will cover the following:
 
-- Launching a Docker Redis Instance
-- Connecting to the Redis Server
-- Basic Redis Commands
-
+1. Launching a Docker Neo4j Container
+2. Accessing the Neo4j Browser Interface
+3. Creating a Sample Graph Database
+4. Running Cypher Queries
 
 material-play-box-multiple-outline: Steps
 
-**Step 1: Launching a Docker Redis Instance**
-Open your terminal and execute the following command to launch a Docker Redis instance:
+**Step 1: Launching a Docker Neo4j Container**
+
+Open your terminal and execute the following command to launch a Docker Neo4j instance:
 
 ```bash
-docker run --name redis-instance -p 6379:6379 -d redis
+docker run --publish=7474:7474 --publish=7687:7687 --env NEO4J_AUTH=neo4j/admin123 neo4j
 ```
 
-This command creates a Docker container named "redis-instance" running the Redis image, maps port 6379 on your host to port 6379 inside the container, and runs Redis in the background.
+This command creates a Docker container running the Neo4j image, maps ports 7474 and 7687 from the container to the host machine, and sets the initial authentication to "neo4j/admin123."
 
-**Step 2: Connecting to the Redis Server**
-Now, let's connect to the Redis server running in the Docker container. You can use the Redis CLI or a Redis client library in your preferred programming language. For this lab, we'll use the Redis CLI.
+**Step 2: Accessing the Neo4j Browser Interface**
 
-Open a new terminal window and run the following command to start the Redis CLI and connect to the Docker Redis instance:
+Once the container runs, open a web browser and navigate to `http://localhost:7474`. It will take you to the Neo4j Browser interface.
 
-```bash
-docker exec -it redis-instance redis-cli
+**Step 3: Creating a Sample Graph Database**
+
+In the Neo4j Browser, you can run Cypher queries to create a sample graph database. For example, let's create a simple graph with nodes and relationships:
+
+```cypher
+CREATE (Alice:Person {name: "Alice", age: 30})
+CREATE (Bob:Person {name: "Bob", age: 25})
+CREATE (Charlie:Person {name: "Charlie", age: 35})
+CREATE (Alice)-[:FRIEND]->(Bob)
+CREATE (Alice)-[:FRIEND]->(Charlie)
 ```
 
-You are now connected to the Redis server within the Docker container.
+These Cypher queries create three "Person" nodes with properties and two "FRIEND" relationships between them.
 
-**Step 3: Basic Redis Commands**
-Now that you are connected to the Redis server, let's explore some basic Redis commands:
+**Step 4: Running Cypher Queries**
 
-- Set a key-value pair:
+Once you have created the sample graph, you can run Cypher queries to retrieve information. For instance, let's find friends of Alice:
 
-  ```bash
-  SET mykey "Hello, Redis!"
-  ```
+```cypher
+MATCH (Alice:Person {name: "Alice"})-[:FRIEND]->(friend)
+RETURN Alice, friend
+```
 
-- Retrieve the value of a key:
-  ```bash
-  GET mykey
-  ```
-
-- Increment a key's value:
-  ```bash
-  INCR mycounter
-  ```
-
-- Retrieve the incremented value:
-  ```bash
-  GET mycounter
-  ```
-
-- List all keys in the database:
-  ```bash
-  KEYS *
-  ```
+This query retrieves Alice and her friends.
 
 
-### Explore commands:
+## Cypher commands:
 
-| Command                   | Description                                           |
-|---------------------------|-------------------------------------------------------|
-| **SET key value**         | Set a key with a string value.                       |
-| **GET key**               | Retrieve the value associated with a key.            |
-| **INCR key**              | Increment the integer value of a key by 1.          |
-| **DECR key**              | Decrement the integer value of a key by 1.          |
-| **DEL key**               | Delete a key and its associated value(s).            |
-| **KEYS pattern**          | Find all keys matching a specified pattern.          |
-| **EXPIRE key seconds**    | Set an expiration time (in seconds) for a key.       |
-| **TTL key**               | Get the remaining time to live of a key (in seconds).|
-| **HSET key field value**  | Set the field in a hash stored at a key to a value.  |
-| **HGET key field**        | Retrieve the value of a field from a hash.           |
-| **LPUSH key value [value]** | Insert one or more values at the head of a list.  |
-| **RPUSH key value [value]** | Insert one or more values at the tail of a list.  |
-| **LPOP key**              | Remove and return the first element from a list.     |
-| **RPOP key**              | Remove and return the last element from a list.      |
+| Cypher Command                             | Description                                           |
+|--------------------------------------------|-------------------------------------------------------|
+| **MATCH (node:Label)-[:RELATIONSHIP]->(other) RETURN node, other;** | Retrieves nodes and relationships based on specified criteria, filtering and returning results. |
+
+| **CREATE (node:Label {property: value});**  | Creates nodes with optional labels and properties. You can also create relationships between nodes in the same query. |
+
+| **MERGE (node:Label {property: value});**  | Combines node creation and matching, ensuring that a node with the specified properties and labels either exists or is created. |
+
+| **DELETE node;**                           | Removes nodes and their relationships from the graph. You can also use this command to delete relationships. |
+
+| **SET node.property = value;**              | Sets or updates the value of a property on a node or relationship. |
+
+| **RETURN DISTINCT node.property;**          | Returns distinct values of a specified property from the query results. |
+
+| **ORDER BY node.property ASC/DESC;**       | Orders query results based on the specified property in ascending (ASC) or descending (DESC) order. |
+
+| **LIMIT n;**                               | Limits the number of results returned by the query to the specified value (n). |
+
+| **WITH node AS alias;**                    | Creates an alias for a node or a result set, allowing you to reference it in subsequent parts of the query. |
+
+| **OPTIONAL MATCH (node)-[:RELATIONSHIP]->(other) RETURN node, other;** | Performs a match operation that doesn't require a match to exist, allowing you to retrieve optional relationships without affecting the main query. |
 
