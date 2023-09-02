@@ -59,7 +59,7 @@ markdown_extensions:
 nav:
   - "🏠 Home": "index.md"
   - "🛠️ Setup": "setup.md"
-  - "1. NoSQL Introduction":
+  - "1. NoSQL Introduction": "nosql/introduction.md"
   - "2. Jakarta EE Overview":
       - "Introduction": "jakarta-ee/introduction.md"
       - "Validation": "jakarta-ee/validation.md"
