@@ -77,15 +77,19 @@ nav:
         - "3.1 Introduction": "key-value/introduction.md" 
         - "3.2 Redis": "key-value/redis.md"
         - "3.2.1 🧪 Redis Basic": "key-value/database-lab.md"
+        - "3.2.2 🧪 Redis Java": "key-value/java-lab.md"
   - "📘 4. Wide-Column database":
         - "4.1 Introduction": "column/introduction.md" 
         - "4.2 Apache Cassandra": "column/cassandra.md"
         - "4.2.1 🧪 Apache Cassandra Basic": "column/database-lab.md"
+        - "4.2.2 🧪 Cassandra Java": "column/java-lab.md"
   - "📕 5. Document database":
         - "5.1 Introduction": "document/introduction.md" 
         - "5.2 MongoDB": "document/mongodb.md"
         - "5.2.1 🧪 MongoDB Basic": "document/database-lab.md"
+        - "5.2.2 🧪 MongoDB Java": "key-value/java-lab.md"
   - "👨‍👨‍👧‍👧 6. Graph database":
         - "6.1 Introduction": "graph/introduction.md" 
         - "6.2 Neo4J": "graph/neo4j.md"
         - "6.2.1 🧪 Neo4J Basic": "graph/database-lab.md"
+        - "6.2.2 🧪 Neo4J Java": "graph/java-lab.md"
