@@ -15,7 +15,7 @@ material-play-box-multiple-outline: Steps
 
 You can test and explore your solution by creating the App1 class as shown below:
 
-    ```java
+  ```java
 	public class App1 {
 
 	    public static void main(String[] args) {
@@ -30,7 +30,7 @@ You can test and explore your solution by creating the App1 class as shown below
 	        }
 	    }
 	}
-    ```
+  ```
 
 ### :material-check-outline: Solution
 
