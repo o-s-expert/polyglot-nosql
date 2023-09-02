@@ -9,3 +9,5 @@ The first thing we need to do is to check the setup and download the necessary p
 - [ ] Git
 - [ ] Docker
 - [ ] Docker Compose
+
+## 2. Download the project
