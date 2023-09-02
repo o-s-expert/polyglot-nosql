@@ -1,4 +1,4 @@
-package expert.os.books;
+package expert.os.labs;
 
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 

@@ -1,4 +1,4 @@
-package expert.os.books;
+package expert.os.labs;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
