@@ -8,19 +8,104 @@ This lab will introduce the first integration between Java and Redis using Eclip
 
 material-play-box-multiple-outline: Steps
 
-1. Create an App class
-2. Initialize the SeContianer with the following command:
-`SeContainer container = SeContainerInitializer.newInstance().initialize()`
-3. Explore the try-with-resources.
-4. Inject the BucketManagerFactory selecting from the container with the following command:
-`BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-`
-5. Create a List of String from the Redis instance with the bucket name "names" from the command ` factory.getList("names", String.class)`
-6. Create a Set of String from Redis instance with the bucket name fruits from the command `factory.getSet("fruits", String.class)`
+**Step 1: Create the `App` Class**
 
-7. Include in the list of names the following names: "Otavio", "Elias", "Ada", "Poliana", "Otavio"
-8. Include in the Set of fruits the following fruits: "Banana", "Banana", "Apple", "Watermelon", "Banana", "Apple"
-9. Log the result.
+- Define the `App` class:
+
+```java
+public class App {
+```
+
+
+**Step 2: Import Required Packages**
+
+- Import necessary packages and classes including Jakarta EE and Jakarta NoSQL:
+
+```java
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+import org.eclipse.jnosql.communication.keyvalue.BucketManagerFactory;
+import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
+
+import java.util.List;
+import java.util.Set;
+```
+
+
+
+**Step 3: Implement the `main` Method**
+
+- Implement the `main` method inside the `App` class:
+
+```java
+    public static void main(String[] args) {
+```
+
+**Step 4: Try-With-Resources Block**
+
+- Set up a try-with-resources block to manage the Jakarta EE `SeContainer`. The `SeContainer` is responsible for dependency injection and managing resources:
+
+```java
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+```
+
+**Step 5: Obtain a `BucketManagerFactory`**
+
+- Obtain an instance of the `BucketManagerFactory` (specifically, `RedisBucketManagerFactory`) using Jakarta EE's dependency injection. The `select` method is used to select and retrieve the factory:
+
+```java
+BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+```
+
+**Step 6: Work with Lists and Sets**
+
+- Use the `BucketManagerFactory` to create and interact with data structures in Redis. In this case, a Redis list named "names" and a Redis set named "fruits" are created and retrieved:
+
+```java
+    List<String> names = factory.getList("names", String.class);
+    Set<String> fruits = factory.getSet("fruits", String.class);
+```
+
+**Step 7: Add Data to Lists and Sets**
+
+- Add data to the Redis list and set. In this example, names and fruits are added to the respective data structures:
+
+```java
+names.addAll(List.of("Otavio", "Elias", "Ada", "Poliana", "Otavio"));
+fruits.addAll(List.of("Banana", "Banana", "Apple", "Watermelon", "Banana", "Apple"));
+```
+
+**Step 8: Print Data**
+
+- Print the data stored in the "names" and "fruits" data structures:
+
+```java
+System.out.println("Names: ");
+names.forEach(System.out::println);
+System.out.println("Fruits: ");
+fruits.forEach(System.out::println);
+```
+
+**Step 9: Close the `SeContainer`**
+
+- Close the `SeContainer` and release any resources used by the application:
+
+```java
+        }
+    }
+```
+
+**Step 10: Private Constructor**
+
+- Define a private constructor for the `App` class to prevent instantiation since it contains only static methods:
+
+```java
+    private App() {
+    }
+}
+```
+
+This lab demonstrates how to use Jakarta EE with Jakarta NoSQL to interact with a Redis database, create and work with lists and sets, and manage resources using Jakarta EE's `SeContainer`.
 
 ### :material-check-outline: Solution
 
@@ -70,18 +155,99 @@ This lab will introduce the integration with Redis and a Queue.
 
 material-play-box-multiple-outline: Steps
 
-1. Create an App2 class
-2. Initialize the SeContianer with the following command:
-`SeContainer container = SeContainerInitializer.newInstance().initialize()`
-3. Explore the try-with-resources.
-5. Inject the BucketManagerFactory selecting from the container with the following command:
-`BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-`
-6. Create a Queue of Strings from the Redis instance with the bucket name "orders" from the command ` factory.getQueue("orders", String.class)`
-7. Include in the orders queue Phone, Table, book.
-8. Use the remove `method` log the result
-9. Use the method `peek` log the result
-10. Execute a for each and log the result.
+Certainly, here's a step-by-step guide for the student to understand the `App2` class:
+
+**Step 1: Create the `App2` Class**
+
+- Define the `App2` class:
+
+```java
+public class App2 {
+```
+
+**Step 2: Import Required Packages**
+
+- Import necessary packages and classes including Jakarta EE and Jakarta NoSQL:
+
+```java
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+import org.eclipse.jnosql.communication.keyvalue.BucketManagerFactory;
+import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
+
+import java.util.List;
+import java.util.Queue;
+```
+
+
+**Step 3: Implement the `main` Method**
+
+- Implement the `main` method inside the `App2` class:
+
+```java
+    public static void main(String[] args) {
+```
+
+**Step 4: Try-With-Resources Block**
+
+- Set up a try-with-resources block to manage the Jakarta EE `SeContainer`. The `SeContainer` is responsible for dependency injection and managing resources:
+
+```java
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+```
+
+**Step 5: Obtain a `BucketManagerFactory`**
+
+- Obtain an instance of the `BucketManagerFactory` (specifically, `RedisBucketManagerFactory`) using Jakarta EE's dependency injection. The `select` method is used to select and retrieve the factory:
+
+```java
+            BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+```
+
+**Step 6: Work with a Redis Queue**
+
+- Use the `BucketManagerFactory` to create and interact with a Redis queue named "orders." Perform the following operations on the queue:
+  
+  - Clear the queue using `orders.clear()`.
+  - Add items ("Phone," "Tablet," "book") to the queue using `orders.add(...)`.
+  - Remove the element at the front of the queue using `orders.remove()`.
+  - Peek at the element at the front of the queue using `orders.peek()`.
+
+```java
+            Queue<String> orders = factory.getQueue("orders", String.class);
+            orders.clear();
+            orders.add("Phone");
+            orders.add("Tablet");
+            orders.add("book");
+            String front = orders.remove();
+            System.out.println("Front: " + front);
+            String peeked = orders.peek();
+            System.out.println("Peeked element: " + peeked);
+```
+
+**Step 7: Print Queue Contents**
+
+- Print the contents of the Redis queue after performing the operations:
+
+```java
+            System.out.println("the result");
+            orders.forEach(System.out::println);
+```
+
+**Step 8: Close the `SeContainer`**
+
+- Close the `SeContainer` and release any resources used by the application:
+
+```java
+        }
+    }
+
+    private App2() {
+    }
+}
+```
+
+This lab demonstrates how to use Jakarta EE with Jakarta NoSQL to interact with a Redis queue, perform queue operations, and manage resources using Jakarta EE's `SeContainer`.
 
 
 
@@ -136,19 +302,94 @@ This lab will introduce the integration with Redis and a Map.
 
 material-play-box-multiple-outline: Steps
 
-1. Create an App3 class
-2. Initialize the SeContianer with the following command:
-`SeContainer container = SeContainerInitializer.newInstance().initialize()`
-Explore the try-with-resources.
-3. Inject the BucketManagerFactory selecting from the container with the following command:
-`BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-`
-4. Create a Queue of Strings from the Redis instance with the bucket name "orders" from the command ` factory.getQueue("orders", String.class)`
-5. Include in the orders queue Phone, Table, book.
-6. Use the remove `method` log the result
-7. Use the method `peek` log the result
-8. Execute a for each and log the result.
+Certainly, here's a step-by-step guide for the student to understand the `App3` class:
 
+
+**Step 1: Create the `App3` Class**
+
+- Define the `App3` class:
+
+```java
+public class App3 {
+```
+
+
+**Step 2: Import Required Packages**
+
+- Import necessary packages and classes including Jakarta EE and Jakarta NoSQL:
+
+```java
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+import org.eclipse.jnosql.communication.keyvalue.BucketManagerFactory;
+import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
+
+import java.util.Map;
+```
+
+**Step 3: Implement the `main` Method**
+
+- Implement the `main` method inside the `App3` class:
+
+```java
+    public static void main(String[] args) {
+```
+
+**Step 4: Try-With-Resources Block**
+
+- Set up a try-with-resources block to manage the Jakarta EE `SeContainer`. The `SeContainer` is responsible for dependency injection and managing resources:
+
+```java
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+```
+
+**Step 5: Obtain a `BucketManagerFactory`**
+
+- Obtain an instance of the `BucketManagerFactory` (specifically, `RedisBucketManagerFactory`) using Jakarta EE's dependency injection. The `select` method is used to select and retrieve the factory:
+
+```java
+            BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+```
+
+**Step 6: Work with a Redis Map**
+
+- Use the `BucketManagerFactory` to create and interact with a Redis map named "basket." Perform the following operations on the map:
+
+  - Clear the map using `basket.clear()`.
+  - Add items to the map using `basket.put(...)`.
+  - Print the contents of the map.
+
+```java
+            Map<Integer, String> basket = factory.getMap("basket", Integer.class, String.class);
+            basket.clear();
+            basket.put(1, "Banana");
+            basket.put(2, "Watermelon");
+            basket.put(4, "Apple");
+```
+
+**Step 7: Print Map Contents**
+
+- Print the contents of the Redis map after performing the operations:
+
+```java
+            System.out.println("Basket: ");
+            basket.forEach((k, v) -> System.out.println(k + " - " + v));
+```
+
+**Step 8: Close the `SeContainer`**
+
+- Close the `SeContainer` and release any resources used by the application:
+
+```java
+        }
+    }
+
+    private App3() {
+    }
+}
+```
+
+This lab demonstrates how to use Jakarta EE with Jakarta NoSQL to interact with a Redis map, perform map operations, and manage resources using Jakarta EE's `SeContainer`.
 
 
 ### :material-check-outline: Solution
@@ -197,18 +438,97 @@ This lab will introduce the integration with Redis and a SortedSet.
 
 material-play-box-multiple-outline: Steps
 
-1. Create an App4 class
-2. Initialize the SeContianer with the following command:
-`SeContainer container = SeContainerInitializer.newInstance().initialize()`
-Explore the try-with-resources.
-3. Inject the BucketManagerFactory selecting from the container with the following command:
-`BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-`
-4. Create a SortedSet from the Redis instance with the bucket name "game" from the command ` factory.getSortedSet("game")`
-5. Include in game Otavio with 10 points, Elias with 20, Ada with 30, Poliana with 40.
-6. List the ranking with the `getRanking` method.
-7. List the reverse ranking with `getRevRanking` method
-8. Log both lits
+Certainly, here's a step-by-step guide for the student to understand the `App4` class:
+
+
+**Step 1: Create the `App4` Class**
+
+- Define the `App4` class:
+
+```java
+public class App4 {
+```
+
+**Step 2: Import Required Packages**
+
+- Import necessary packages and classes including Jakarta EE and Jakarta NoSQL:
+
+```java
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+import org.eclipse.jnosql.databases.redis.communication.Ranking;
+import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
+import org.eclipse.jnosql.databases.redis.communication.SortedSet;
+
+import java.util.List;
+import java.util.Map;
+```
+
+
+**Step 3: Implement the `main` Method**
+
+- Implement the `main` method inside the `App4` class:
+
+```java
+    public static void main(String[] args) {
+```
+
+**Step 4: Try-With-Resources Block**
+
+- Set up a try-with-resources block to manage the Jakarta EE `SeContainer`. The `SeContainer` is responsible for dependency injection and managing resources:
+
+```java
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+```
+
+**Step 5: Obtain a `RedisBucketManagerFactory`**
+
+- Obtain an instance of the `RedisBucketManagerFactory` using Jakarta EE's dependency injection. The `select` method is used to select and retrieve the factory:
+
+```java
+            RedisBucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+```
+
+**Step 6: Work with a Redis Sorted Set**
+
+- Use the `RedisBucketManagerFactory` to create and interact with a Redis sorted set named "game." Perform the following operations on the sorted set:
+
+  - Add elements to the sorted set using `game.add(...)`. Elements can be added individually or as a `Ranking` object.
+  - Get the ranking of the elements using `game.getRanking()`.
+  - Get the reverse ranking of the elements using `game.getRevRanking()`.
+
+```java
+            SortedSet game = factory.getSortedSet("game");
+            game.add("Otavio", 10);
+            game.add("Elias", 20);
+            game.add("Ada", 30);
+            game.add(Ranking.of("Poliana", 40));
+```
+
+**Step 7: Print Rankings**
+
+- Print the ranking and reverse ranking of the elements in the Redis sorted set:
+
+```java
+            List<Ranking> ranking = game.getRanking();
+            System.out.println("Ranking: " + ranking);
+            System.out.println("The reverse ranking: " + game.getRevRanking());
+```
+
+**Step 8: Close the `SeContainer`**
+
+- Close the `SeContainer` and release any resources used by the application:
+
+```java
+        }
+    }
+
+    private App4() {
+    }
+}
+```
+
+This lab demonstrates how to use Jakarta EE with Jakarta NoSQL to interact with a Redis sorted set, perform set operations, and manage resources using Jakarta EE's `SeContainer`.
 
 
 
@@ -262,18 +582,89 @@ This lab will introduce the integration with Redis and a Counter.
 
 material-play-box-multiple-outline: Steps
 
-1. Create an App5 class
-2. Initialize the SeContianer with the following command:
-`SeContainer container = SeContainerInitializer.newInstance().initialize()`
-Explore the try-with-resources.
-3. Inject the BucketManagerFactory selecting from the container with the following command:
-`BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-`
-4. Create a Counter from the Redis instance with the bucket name "home" from the command ` factory.getCounter("home")`
-5. Create a Counter from the Redis instance with the bucket name "products" from the command ` factory.getCounter("products")`
-6. Increment home
-7. Increment products tree times
-8. Log both counter
+Certainly, here's a step-by-step guide for the student to understand the `App5` class:
+
+**Step 1: Create the `App5` Class**
+
+- Define the `App5` class:
+
+```java
+public class App5 {
+```
+
+**Step 2: Import Required Packages**
+
+- Import necessary packages and classes including Jakarta EE and Jakarta NoSQL:
+
+```java
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+import org.eclipse.jnosql.databases.redis.communication.Counter;
+import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
+```
+
+**Step 3: Implement the `main` Method**
+
+- Implement the `main` method inside the `App5` class:
+
+```java
+    public static void main(String[] args) {
+```
+
+**Step 4: Try-With-Resources Block**
+
+- Set up a try-with-resources block to manage the Jakarta EE `SeContainer`. The `SeContainer` is responsible for dependency injection and managing resources:
+
+```java
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+```
+
+**Step 5: Obtain a `RedisBucketManagerFactory`**
+
+- Obtain an instance of the `RedisBucketManagerFactory` using Jakarta EE's dependency injection. The `select` method is used to select and retrieve the factory:
+
+```java
+            RedisBucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+```
+
+**Step 6: Work with Redis Counters**
+
+- Use the `RedisBucketManagerFactory` to create and interact with Redis counters named "home" and "products." Perform the following operations on the counters:
+
+  - Increment the counters using `counter.increment()`. You can increment a counter by a specified value.
+  - Get the current value of the counters using `counter.get()`.
+
+```java
+        Counter home = factory.getCounter("home");
+        Counter products = factory.getCounter("products");
+        home.increment();
+        products.increment();
+        products.increment(3L);
+```
+
+**Step 7: Print Counter Values**
+
+- Print the current values of the counters:
+
+```java
+        System.out.println("Home: " + home.get());
+        System.out.println("Products: " + products.get());
+```
+
+**Step 8: Close the `SeContainer`**
+
+- Close the `SeContainer` and release any resources used by the application:
+
+```java
+        }
+    }
+
+    private App5() {
+    }
+}
+```
+
+This lab demonstrates how to use Jakarta EE with Jakarta NoSQL to interact with Redis counters, increment counter values, and retrieve current counter values using Jakarta EE's `SeContainer`.
 
 
 
@@ -283,9 +674,6 @@ Explore the try-with-resources.
 
 
 ```java
-
-
-
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 import org.eclipse.jnosql.databases.redis.communication.Counter;
@@ -329,21 +717,137 @@ This lab will introduce an entity integration with Redis database with Java.
 
 material-play-box-multiple-outline: Steps
 
-1. Create a User class with username, name as String, settings as Map<String, String>, and languages as Set<String>.
-2. Put Entity annotation at the User class to define it as a User.
-3. In the userName field, include the Id annotation.
-4. Create a UserBuilder to make it easier to create a User instance.
-5. Create a UserRepository that extends CrudRepository<User, String>
-6. Put the Repository at the UserRepository interface
-7. Create an App6 class
-8. Create the SeContainer into try-resources
-9. Inject the KeyValueTemplate exploring the container select
-10. Create two Users
-11. Insert in the database with the put method at the KeyValueTemplate instance.
-12. Find by the key using the get method at KeyValueTemplate.
-13. Explore KeyValueTemplate
-14. Create an App7 from a copy of App6.
-15. Replace the interaction with KeyValueTemplate with the UserRepository instance.
+**Step 1: Define the `User` Entity Class**
+
+```java
+@Entity
+public class User  {
+```
+
+- The `User` class is annotated with `@Entity`, indicating that it's a persistent entity.
+- It contains fields for storing user information such as `userName`, `name`, `settings`, and `languages`.
+- Getter methods are provided for accessing these fields.
+
+**Step 2: Implement the `UserBuilder` Class**
+
+```java
+public class UserBuilder {
+```
+
+- The `UserBuilder` class is a builder pattern class for creating `User` instances.
+- It provides methods for setting the username, name, settings, and languages.
+- The `build` method constructs and returns a new `User` object.
+
+**Step 3: Define the `UserRepository` Interface**
+
+```java
+@Repository
+public interface UserRepository extends CrudRepository<User, String> {
+}
+```
+
+- The `UserRepository` interface extends `CrudRepository` and is annotated with `@Repository`.
+- It specifies methods for performing CRUD (Create, Read, Update, Delete) operations on `User` entities.
+
+**Step 4: Create the `App6` Class**
+
+```java
+public class App6 {
+```
+
+- The `App6` class is the main class that contains the `main` method.
+
+**Step 5: Implement the `main` Method**
+
+```java
+public static void main(String[] args) throws InterruptedException {
+```
+
+- The `main` method is the entry point of the application.
+
+**Step 6: Try-With-Resources Block for Jakarta EE Container**
+
+```java
+try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+```
+
+- A try-with-resources block is used to manage the Jakarta EE container, which handles dependency injection and resource management.
+
+**Step 7: Obtain a `KeyValueTemplate` Instance**
+
+```java
+KeyValueTemplate template = container.select(KeyValueTemplate.class).get();
+```
+
+- An instance of `KeyValueTemplate` is obtained from the Jakarta EE container to interact with the key-value store.
+
+**Step 8: Create `User` Instances**
+
+```java
+User otaviojava = User.builder().username("otaviojava").name("Otavio Santana")
+    .languages(Set.of("Portuguese", "English", "Spanish", "Italian", "French"))
+    .settings(Map.of("location", "Portugal", "currency", "EUR")).build();
+
+User poliana = User.builder().username("polianapo").name("Poliana Santana")
+    .languages(Set.of("Portuguese", "English"))
+    .settings(Map.of("location", "Portugal", "currency", "EUR")).build();
+```
+
+- Two `User` instances, `otaviojava` and `poliana`, are created with user information using the builder pattern.
+
+**Step 9: Put `User` Instances into the Key-Value Store**
+
+```java
+template.put(otaviojava);
+template.put(poliana, Duration.ofSeconds(1));
+```
+
+- The `put` method is used to store the `User` instances in the key-value store. A duration of 1 second is specified for the Poliana entry.
+
+**Step 10: Retrieve `User` Instances**
+
+```java
+System.out.println("Find Poliana : " + template.get("polianapo", User.class));
+```
+
+- The `get` method is used to retrieve the Poliana user by username from the key-value store.
+
+**Step 11: Wait and Retrieve Poliana Again**
+
+```java
+TimeUnit.SECONDS.sleep(2L);
+System.out.println("Find Poliana : " + template.get("polianapo", User.class));
+```
+
+- A `TimeUnit` is used to pause execution for 2 seconds to demonstrate the expiration of the Poliana entry. Then, an attempt is made to retrieve Poliana again.
+
+**Step 12: Retrieve Otavio Santana**
+
+```java
+Optional<User> user = template.get("otaviojava", User.class);
+System.out.println("Entity found: " + user);
+```
+
+- The `get` method is used to retrieve the Otavio Santana user by username from the key-value store.
+
+**Step 13: Close the Try-With-Resources Block**
+
+```java
+}
+```
+
+- The try-with-resources block is closed to release resources properly.
+
+**Step 14: Private Constructor**
+
+```java
+private App6() {
+}
+```
+
+- A private constructor is defined to prevent the instantiation of the `App6` class.
+
+This lab demonstrates how to use Jakarta EE with Jakarta NoSQL to interact with a key-value store, create and retrieve `User` entities, and manage data expiration using durations.
 
 ### :material-check-outline: Solution
 
@@ -351,8 +855,6 @@ material-play-box-multiple-outline: Steps
 
 
 ```java
-
-
 
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
@@ -476,14 +978,6 @@ public class UserBuilder {
     }
 }
 
-import jakarta.data.repository.CrudRepository;
-import jakarta.data.repository.Repository;
-
-@Repository
-public interface UserRepository extends CrudRepository<User, String> {
-}
-
-
 import jakarta.nosql.keyvalue.KeyValueTemplate;
 
 import jakarta.enterprise.inject.se.SeContainer;
@@ -525,6 +1019,149 @@ public class App6 {
 
     private App6() {
     }
+}
+
+
+```
+
+
+
+## 4. Redis with Repository
+
+
+This lab will introduce Repository integration with Redis database with Java.
+
+material-play-box-multiple-outline: Steps
+
+**Step 1: Define the `UserRepository` Interface**
+
+```java
+@Repository
+public interface UserRepository extends CrudRepository<User, String> {
+}
+```
+
+- The `UserRepository` interface extends `CrudRepository` and is annotated with `@Repository`.
+- It specifies methods for performing CRUD (Create, Read, Update, Delete) operations on `User` entities.
+
+**Step 2: Create the `App7` Class**
+
+```java
+public class App7 {
+```
+
+- The `App7` class is the main class that contains the `main` method.
+
+**Step 3: Implement the `main` Method**
+
+```java
+public static void main(String[] args) {
+```
+
+- The `main` method is the entry point of the application.
+
+**Step 4: Try-With-Resources Block for Jakarta EE Container**
+
+```java
+try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+```
+
+- A try-with-resources block is used to manage the Jakarta EE container, which handles dependency injection and resource management.
+
+**Step 5: Obtain a `UserRepository` Instance**
+
+```java
+UserRepository repository = container.select(UserRepository.class).get();
+```
+
+- An instance of `UserRepository` is obtained from the Jakarta EE container to interact with the user repository.
+
+**Step 6: Create a New `User` Instance (Ada Lovelace)**
+
+```java
+User ada = User.builder().username("ada").name("Ada Lovelace")
+        .languages(Set.of("Latin")).settings(Map.of("currency", "food")).build();
+```
+
+- A new `User` instance for Ada Lovelace is created using the builder pattern.
+- The user's username, name, languages, and settings are set.
+
+**Step 7: Save the `User` to the Repository**
+
+```java
+repository.save(ada);
+```
+
+- The `save` method is used to persist the `User` instance (Ada Lovelace) to the repository.
+
+**Step 8: Find the `User` by ID**
+
+```java
+Optional<User> user = repository.findById("ada");
+System.out.println("User found: " + user);
+```
+
+- The `findById` method is used to retrieve the user (Ada Lovelace) from the repository by ID.
+- The result is printed to the console.
+
+**Step 9: Check if the User Exists**
+
+```java
+System.out.println("Exist? " + repository.existsById("ada"));
+```
+
+- The `existsById` method is used to check if the user (Ada Lovelace) exists in the repository.
+- The result is printed to the console.
+
+**Step 10: Delete the User**
+
+```java
+repository.deleteById("ada");
+```
+
+- The `deleteById` method is used to remove the user (Ada Lovelace) from the repository.
+
+**Step 11: Check if the User Exists After Deletion**
+
+```java
+System.out.println("Exist? " + repository.existsById("ada"));
+```
+
+- After deleting the user, the `existsById` method is used again to check if the user (Ada Lovelace) still exists in the repository.
+- The result is printed to the console.
+
+**Step 12: Close the Try-With-Resources Block**
+
+```java
+}
+```
+
+- The try-with-resources block is closed to release resources properly.
+
+**Step 13: Private Constructor**
+
+```java
+private App7() {
+}
+```
+
+- A private constructor is defined to prevent the instantiation of the `App7` class.
+
+This lab demonstrates how to use Jakarta EE with Jakarta NoSQL to perform CRUD operations on a `User` repository, including creating, reading, updating, and deleting `User` entities.
+
+
+### :material-check-outline: Solution
+
+??? example "Click to see..."
+
+
+```java
+
+import jakarta.data.repository.CrudRepository;
+import jakarta.data.repository.Repository;
+
+@Repository
+public interface UserRepository extends CrudRepository<User, String> {
 }
 
 
