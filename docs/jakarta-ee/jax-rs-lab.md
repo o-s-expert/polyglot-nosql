@@ -10,6 +10,32 @@ material-play-box-multiple-outline: Steps
 2. Create a `FishDatabase` that will hold the fish information using a Map, where the key is the fish ID and the value will be the fish itself, exploring the CRUD operation.
 3. Create a `FishResource` that will return, create, return by id, and delete by id as resources exploring the good practices and the proper HTTP verb exploring the Glory of Rest.
 
+To test the `FishResource` using `curl` commands, you can perform various HTTP operations (GET, POST, DELETE) on the "/fishes" endpoint and its subpaths. Here are some examples of `curl` commands to test each of the resource's methods:
+
+1. **GET all fishes:**
+
+```bash
+curl -X GET http://localhost:8080/fishes
+```
+
+2. **POST a new fish:**
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"id":"1","name":"Nemo","color":"Orange"}' http://localhost:8080/fishes
+```
+
+3. **GET a specific fish by ID:**
+
+```bash
+curl -X GET http://localhost:8080/fishes/1
+```
+
+4. **DELETE a fish by ID:**
+
+```bash
+curl -X DELETE http://localhost:8080/fishes/1
+```
+
 
 ### :material-check-outline: Solution
 
