@@ -94,3 +94,5 @@ nav:
         - "6.2 Neo4J": "graph/neo4j.md"
         - "6.2.1 🧪 Neo4J Basic": "graph/database-lab.md"
         - "6.2.2 🧪 Neo4J Java": "graph/java-lab.md"
+        - "6.2.3 🧪 Neo4J Java": "graph/java-lab-2.md"
+        - "6.2.4 🧪 Neo4J Java": "graph/java-lab-3.md"
