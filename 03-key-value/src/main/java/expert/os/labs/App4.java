@@ -9,7 +9,7 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package org.jnosql.demo.se;
+package expert.os.labs;
 
 
 import jakarta.enterprise.inject.se.SeContainer;

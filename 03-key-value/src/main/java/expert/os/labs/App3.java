@@ -9,37 +9,36 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package org.jnosql.demo.se;
+package expert.os.labs;
 
 
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
-import org.eclipse.jnosql.databases.redis.communication.Counter;
-import org.eclipse.jnosql.databases.redis.communication.Ranking;
+import org.eclipse.jnosql.communication.keyvalue.BucketManagerFactory;
 import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
-import org.eclipse.jnosql.databases.redis.communication.SortedSet;
 
-import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
-public class App5 {
+public class App3 {
 
     public static void main(String[] args) {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-            RedisBucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-            Counter home = factory.getCounter("home");
-            Counter products = factory.getCounter("products");
-            home.increment();
-            products.increment();
-            products.increment(3L);
+            BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+            Map<Integer, String> basket = factory.getMap("basket", Integer.class, String.class);
+            basket.clear();
+            basket.put(1, "Banana");
+            basket.put(2, "Watermelon");
+            basket.put(4, "Apple");
 
-            System.out.println("Home: " + home.get());
-            System.out.println("Products: " + products.get());
+            System.out.println("Basket: ");
+            basket.forEach((k, v) -> System.out.println(k + " - " + v));
 
 
         }
     }
 
-    private App5() {
+    private App3() {
     }
 }

@@ -9,39 +9,37 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package org.jnosql.demo.se;
+package expert.os.labs;
 
 
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
-import org.eclipse.jnosql.communication.keyvalue.BucketManagerFactory;
+import org.eclipse.jnosql.databases.redis.communication.Counter;
+import org.eclipse.jnosql.databases.redis.communication.Ranking;
 import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
+import org.eclipse.jnosql.databases.redis.communication.SortedSet;
 
 import java.util.List;
-import java.util.Set;
 
-public class App {
+public class App5 {
 
     public static void main(String[] args) {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-            BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-            List<String> names = factory.getList("names", String.class);
-            Set<String> fruits = factory.getSet("fruits", String.class);
+            RedisBucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+            Counter home = factory.getCounter("home");
+            Counter products = factory.getCounter("products");
+            home.increment();
+            products.increment();
+            products.increment(3L);
 
-            names.addAll(List.of("Otavio", "Luiz", "Ada", "Poliana", "Otavio"));
-
-            fruits.addAll(List.of("Banana", "Banana", "Apple", "Watermelon", "Banana", "Apple"));
-
-            System.out.println("Names: ");
-            names.forEach(System.out::println);
-            System.out.println("Fruits: ");
-            fruits.forEach(System.out::println);
+            System.out.println("Home: " + home.get());
+            System.out.println("Products: " + products.get());
 
 
         }
     }
 
-    private App() {
+    private App5() {
     }
 }

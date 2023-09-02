@@ -9,7 +9,7 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package org.jnosql.demo.se;
+package expert.os.labs;
 
 
 import jakarta.enterprise.inject.se.SeContainer;
@@ -17,28 +17,31 @@ import jakarta.enterprise.inject.se.SeContainerInitializer;
 import org.eclipse.jnosql.communication.keyvalue.BucketManagerFactory;
 import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
 
-import java.util.Map;
-import java.util.Queue;
+import java.util.List;
+import java.util.Set;
 
-public class App3 {
+public class App {
 
     public static void main(String[] args) {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
             BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-            Map<Integer, String> basket = factory.getMap("basket", Integer.class, String.class);
-            basket.clear();
-            basket.put(1, "Banana");
-            basket.put(2, "Watermelon");
-            basket.put(4, "Apple");
+            List<String> names = factory.getList("names", String.class);
+            Set<String> fruits = factory.getSet("fruits", String.class);
 
-            System.out.println("Basket: ");
-            basket.forEach((k, v) -> System.out.println(k + " - " + v));
+            names.addAll(List.of("Otavio", "Luiz", "Ada", "Poliana", "Otavio"));
+
+            fruits.addAll(List.of("Banana", "Banana", "Apple", "Watermelon", "Banana", "Apple"));
+
+            System.out.println("Names: ");
+            names.forEach(System.out::println);
+            System.out.println("Fruits: ");
+            fruits.forEach(System.out::println);
 
 
         }
     }
 
-    private App3() {
+    private App() {
     }
 }

@@ -1,4 +1,4 @@
-package org.jnosql.demo.se;
+package expert.os.labs;
 
 
 import jakarta.enterprise.context.ApplicationScoped;

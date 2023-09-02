@@ -9,7 +9,7 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package org.jnosql.demo.se;
+package expert.os.labs;
 
 
 import jakarta.nosql.keyvalue.KeyValueTemplate;
@@ -18,7 +18,6 @@ import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
