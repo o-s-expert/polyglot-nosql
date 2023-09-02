@@ -65,7 +65,3 @@ nav:
       - "Validation": "jakarta-ee/validation.md"
       - "🧪 Validation": "jakarta-ee/validation-lab.md"
       - "🧪 Custom Validation": "jakarta-ee/validation-lab.md"
-  - "3. Key-Value":
-  - "4. Wide-Column":
-  - "5. Document":
-  - "6. Graph":
