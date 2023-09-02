@@ -61,8 +61,10 @@ nav:
   - "🛠️ Setup": "setup.md"
   - "1. NoSQL Introduction":
   - "2. Jakarta EE Overview":
+      - "Introduction": "jakarta-ee/introduction.md"
       - "Validation": "jakarta-ee/validation.md"
       - "🧪 Validation": "jakarta-ee/validation-lab.md"
+      - "🧪 Custom Validation": "jakarta-ee/validation-lab.md"
   - "3. Key-Value":
       - "Quiz": "key-value/quiz.md"
   - "4. Wide-Column":
