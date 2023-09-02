@@ -18,7 +18,6 @@ import jakarta.enterprise.inject.se.SeContainerInitializer;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.eclipse.jnosql.mapping.DatabaseQualifier.ofColumn;
 
 
 public class App3 {
