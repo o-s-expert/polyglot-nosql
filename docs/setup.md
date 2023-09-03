@@ -22,7 +22,7 @@ WIP!
 To download the project and its source code from the GitHub repository, open your terminal and execute the following command:
 
 ```bash
-git clone git@github.com:ultimate-engineer/polyglot-nosql.git
+git clone git@github.com:ultimate-engineer/polyglot-nosql-lab.git
 ```
 
 This will clone the project's repository to your local machine.
@@ -32,7 +32,7 @@ This will clone the project's repository to your local machine.
 Change your working directory to the project's directory:
 
 ```bash
-cd polyglot-nosql
+cd polyglot-nosql-lab
 ```
 
 **Step 3: Download Maven Dependencies**
