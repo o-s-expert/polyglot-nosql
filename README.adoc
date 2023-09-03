@@ -25,6 +25,22 @@ Polyglot NoSQL allows you to explore and experiment with various NoSQL databases
 - Explore polyglot persistence strategies and learn how to integrate multiple types of databases seamlessly within your Java applications
 - Stay up-to-date with the latest trends and advancements in the Jakarta EE and MicroProfile communities, specifically focusing on Jakarta NoSQL and Jakarta Data initiatives, and their integration with NoSQL databases in Java
 
+
+== Project Structure
+
+The repository is structured as follows:
+
+* link:docs[docs]: Contains the website documentation.
+
+=== Labs Solutions:
+
+1. link:01-jakarta-ee[01-jakarta-ee]: Jakarta EE labs solution, covering Jakarta Validation and CDI labs.
+2. link:02-jax-rs[02-jax-rs]: JAX-RS labs.
+3. link:03-key-value[03-key-value]: Redis labs resolution.
+4. link:04-column[04-column]: Cassandra resolution.
+5. link:05-document[05-document]: Cassandra labs resolution.
+6. link:06-graph[06-graph]: Neo4J resolution
+
 == Contributions
 
 We welcome contributions from the community. If you have any suggestions, bug reports, or feature requests, please feel free to open an issue or submit a pull request.
