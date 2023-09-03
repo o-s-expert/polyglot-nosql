@@ -1,0 +1,30 @@
+= Exploring NoSQL and Polyglot Persistence with Java
+:toc: auto
+
+link:https://ultimate-engineer.github.io/polyglot-nosql/[Project Website,role="btn",style="btn-primary"]
+
+Are you a Java developer eager to explore the world of NoSQL and polyglot persistence? Join our workshop to discover the power of enterprise Java with Jakarta EE and MicroProfile while diving into four different NoSQL databases. Learn the context, history, and fundamentals of persistence applications, and gain practical insights into key-value, wide column, document, and graph databases. We’ll provide tips, examples, best practices on when and how to use each database type, and modeling scenarios and differentiation from relational databases. Take advantage of this opportunity to enhance your skills and stay ahead of the evolving trends in the Java ecosystem!
+
+== Overview
+
+Polyglot NoSQL allows you to explore and experiment with various NoSQL databases, including Redis, Cassandra, MongoDB, and Neo4j, all within a Java-based environment. The project provides examples, code snippets, and practical use cases to help you understand how to work with these databases seamlessly.
+
+== Why attend this workshop
+
+- Gain in-depth knowledge of different NoSQL databases and their practical implementation
+- Explore polyglot persistence techniques to leverage the strengths of multiple databases in Java applications
+- Understand the differences between NoSQL and relational databases for informed database selection
+- Stay up-to-date with the latest trends in integrating NoSQL databases with Jakarta EE and MicroProfile
+- Expand your skill set as a Java developer/architect by mastering NoSQL databases and polyglot persistence
+
+== What will you learn?
+
+- Understand the fundamental concepts and principles of NoSQL databases, including key-value, wide column, document, and graph databases
+- Practical techniques for working with NoSQL databases in Java applications, including data modeling, querying, and manipulation
+- Gain insights into the use cases and scenarios where each type of NoSQL database excels, enabling you to make informed decisions when choosing the appropriate database for your projects
+- Explore polyglot persistence strategies and learn how to integrate multiple types of databases seamlessly within your Java applications
+- Stay up-to-date with the latest trends and advancements in the Jakarta EE and MicroProfile communities, specifically focusing on Jakarta NoSQL and Jakarta Data initiatives, and their integration with NoSQL databases in Java
+
+== Contributions
+
+We welcome contributions from the community. If you have any suggestions, bug reports, or feature requests, please feel free to open an issue or submit a pull request.
