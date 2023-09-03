@@ -239,6 +239,30 @@ public class SlowSupplier implements Supplier<String> {
     }
 }
 ```
+
+**Step 4:** Create a class to test and explore:
+
+```java
+import expert.os.labs.persistence.persistence.cdi.auditaded.FastSupplier;
+import expert.os.labs.persistence.persistence.cdi.auditaded.SlowSupplier;
+import jakarta.enterprise.inject.se.SeContainer;
+import jakarta.enterprise.inject.se.SeContainerInitializer;
+
+import java.util.function.Supplier;
+
+public class App6 {
+
+    public static void main(String[] args) {
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+            Supplier<String> fastSupplier = container.select(FastSupplier.class).get();
+            Supplier<String> slowSupplier = container.select(SlowSupplier.class).get();
+            System.out.println("The result: " + fastSupplier.get());
+            System.out.println("The result: " + slowSupplier.get());
+        }
+    }
+}
+```  
+
 - The `SlowSupplier` class also implements the `Supplier<String>` interface.
 - It is annotated with `@Timed`, indicating that the `get` method should be intercepted by the `TimedInterceptor`.
 - The `get` method simulates a slow operation by sleeping for 200 milliseconds.
