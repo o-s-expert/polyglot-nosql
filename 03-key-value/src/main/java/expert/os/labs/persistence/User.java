@@ -1,0 +1,93 @@
+/*
+ * Copyright (c) 2022 Contributors to the Eclipse Foundation
+ *  All rights reserved. This program and the accompanying materials
+ *  are made available under the terms of the Eclipse Public License v1.0
+ *  and Apache License v2.0 which accompanies this distribution.
+ *  The Eclipse Public License is available at http://www.eclipse.org/legal/epl-v10.html
+ *  and the Apache License v2.0 is available at http://www.opensource.org/licenses/apache2.0.php.
+ *
+ * You may elect to redistribute this code under either of these licenses.
+ */
+
+package expert.os.labs.persistence;
+
+
+import jakarta.nosql.Entity;
+import jakarta.nosql.Id;
+
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+
+
+@Entity
+public class User  {
+
+
+    @Id
+    private String userName;
+
+    private String name;
+
+    private Map<String, String> settings;
+
+    private Set<String> languages;
+
+    public User() {
+    }
+
+    User(String userName, String name, Map<String, String> settings,
+         Set<String> languages) {
+        this.userName = userName;
+        this.name = name;
+        this.settings = settings;
+        this.languages = languages;
+    }
+
+    public String userName() {
+        return userName;
+    }
+
+    public String name() {
+        return name;
+    }
+
+    public Map<String, String> settings() {
+        return settings;
+    }
+
+    public Set<String> languages() {
+        return languages;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(userName, user.userName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(userName);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", name='" + name + '\'' +
+                ", settings=" + settings +
+                ", languages=" + languages +
+                '}';
+    }
+
+    public static UserBuilder builder() {
+        return new UserBuilder();
+    }
+}

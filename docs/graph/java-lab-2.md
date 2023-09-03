@@ -96,7 +96,7 @@ import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 import java.util.List;
 
-import static expert.os.labs.persistence.Person.builder;
+import static persistence.expert.os.labs.persistence.Person.builder;
 
 public final class MarketingApp {
 
@@ -335,7 +335,7 @@ import jakarta.enterprise.inject.se.SeContainerInitializer;
 
 import java.util.List;
 
-import static expert.os.labs.persistence.Person.builder;
+import static persistence.expert.os.labs.persistence.Person.builder;
 
 public final class MarketingApp {
 
