@@ -240,7 +240,7 @@ public class SlowSupplier implements Supplier<String> {
 }
 ```
 
-**Step 4:** Create a class to test and explore:
+**Step 5:** Create a class to test and explore:
 
 ```java
 import expert.os.labs.persistence.persistence.cdi.auditaded.FastSupplier;
