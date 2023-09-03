@@ -69,7 +69,7 @@ nav:
       - "2.3.1 🧪 CDI Basic": "jakarta-ee/cdi-lab.md"
       - "2.3.2 🧪 CDI Intermediate": "jakarta-ee/cdi-lab-2.md"
       - "2.3.3 🧪 CDI After-Intermediate": "jakarta-ee/cdi-lab-3.md"  
-      - "2.4 JAX-RS": "jakarta-ee/jax.md"
+      - "2.4 JAX-RS": "jakarta-ee/jax-rs.md"
       - "2.4.1 🧪 JAX-RS Basic": "jakarta-ee/jax-rs-lab.md" 
       - "2.5 NoSQL": "jakarta-ee/nosql.md"
       - "2.6 Data": "jakarta-ee/data.md"
