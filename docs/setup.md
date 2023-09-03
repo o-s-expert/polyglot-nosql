@@ -10,7 +10,11 @@ The first thing we need to do is to check the setup and download the necessary p
 - [ ] Docker
 - [ ] Docker Compose
 
-## 2. Download the project
+## 2. Download the slides
+
+WIP!
+
+## 3. Download the project
 
 
 **Step 1: Clone the Project**
