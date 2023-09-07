@@ -59,12 +59,13 @@ markdown_extensions:
 nav:
   - "🏠 Home": "index.md"
   - "🛠️ Setup": "setup.md"
-  - "1. NoSQL Introduction": "nosql/introduction.md"
-  - "2. Jakarta EE Overview":
+  - "1. 📖 NoSQL Introduction": "nosql/introduction.md"
+  - "2. 🚢 Jakarta EE Overview":
       - "2.1 Introduction": "jakarta-ee/introduction.md"
       - "2.2 Validation": "jakarta-ee/validation.md"
-      - "2.2.1 🧪 Validation": "jakarta-ee/validation-lab.md"
-      - "2.2.2 🧪 Custom Validation": "jakarta-ee/validation-lab-2.md"
+      - "🧪 Lab":
+          - "2.2.1 Validation": "jakarta-ee/validation-lab.md"
+          - "2.2.2 Custom Validation": "jakarta-ee/validation-lab-2.md"
       - "2.3 CDI": "jakarta-ee/cdi.md"
       - "2.3.1 🧪 CDI Basic": "jakarta-ee/cdi-lab.md"
       - "2.3.2 🧪 CDI Intermediate": "jakarta-ee/cdi-lab-2.md"
