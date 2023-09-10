@@ -16,6 +16,7 @@ public class Orchestra {
     @Inject
     @MusicalInstrument(InstrumentType.PERCUSSION)
     private Instrument percussion;
+
     @Inject
     @MusicalInstrument(InstrumentType.KEYBOARD)
     private Instrument keyboard;
@@ -42,7 +43,6 @@ public class Orchestra {
     public void keyboard() {
         LOGGER.info("The keyboard's sound: " + this.keyboard.sound());
     }
-
 
     public void solo() {
         LOGGER.info("The solo's sound: " + this.keyboard.sound());

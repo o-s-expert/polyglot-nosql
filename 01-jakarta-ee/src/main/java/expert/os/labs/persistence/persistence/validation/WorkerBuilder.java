@@ -9,7 +9,6 @@ public class WorkerBuilder {
     private String bio;
     private int age;
     private String email;
-
     private Money salary;
 
     WorkerBuilder() {

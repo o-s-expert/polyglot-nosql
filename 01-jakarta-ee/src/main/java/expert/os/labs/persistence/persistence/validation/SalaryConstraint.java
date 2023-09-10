@@ -1,6 +1,5 @@
 package expert.os.labs.persistence.persistence.validation;
 
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

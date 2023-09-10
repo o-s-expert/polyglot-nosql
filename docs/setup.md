@@ -72,8 +72,11 @@ To run the project, you'll need Docker images for various databases. You can dow
     docker pull neo4j
     ```
 
-After executing these commands, Docker will download the required images to your local machine. You'll have Redis, Cassandra, MongoDB, and Neo4j images available for use with the project.
+After executing these commands, Docker will download the required images to your local machine.
+You'll have Redis, Cassandra, MongoDB, and Neo4j images available for use with the project.
 
 ### 3.5 Done!
 
-Now you have successfully downloaded the project, its source code, and the necessary dependencies. Additionally, you have the required Docker images to run the project's associated databases. You're ready to work with the Polyglot NoSQL project!
+Now you have successfully downloaded the project, its source code, and the necessary dependencies.
+Additionally, you have the required Docker images to run the project's associated databases.
+You're ready to work with the Polyglot NoSQL project!

@@ -1,473 +1,330 @@
-# Jakarta CDI - Lab 2
+# Jakarta CDI - Lab 1 - Basic part 2
 
-## 1. Object lifecycle
+In this lab, we will explore using CDI qualifiers to work when there are several implementations of a single interface.
 
+## 1. Define an instrument
+
+### :material-play-box-multiple-outline: Steps
+
+1. Open the `01-jakarta-ee` project and navigate to the `src/main/java`
+2. Create an `interface` called `Instrument` in the `expert.os.labs.persistence.cid.music` package
+3. Add a `sound()` method that returns `String`
+
+### :material-checkbox-multiple-outline: Expected results
+
+* Interface `Instrument` that will produce a `sound()` for the later instrument types
+
+### :material-check-outline: Solution
+
+??? example "Click to see..."
+
+    ```java
+    public interface Instrument {
+        String sound();
+    }
+    ```
+
+## 2. Define the instrument types
+
+### :material-play-box-multiple-outline: Steps
+
+1. Create an `enum` called `InstrumentType` in the `expert.os.labs.persistence.cid.music` package
+2. Add the following constants, related to the different musical instrument types:
+    - `STRING`
+    - `PERCUSSION`
+    - `KEYBOARD`
+
+### :material-checkbox-multiple-outline: Expected results
+
+* Enum `InstrumentType` created in the `src/main/java` at the `expert.os.labs.persistence.cdi.music`
+
+### :material-check-outline: Solution
+
+??? example "Click to see..."
+
+    ```java
+    public enum InstrumentType {
+        STRING, PERCUSSION, KEYBOARD;
+    }
+    ```
+    
+## 3. Create a custom Qualifier Annotation (the musical instruments)
+
+The annotated class will represent musical instruments and specify the instrument type.
+
+### :material-play-box-multiple-outline: Steps
+
+1. Create an `@interface` called `MusicalInstrument` in the `expert.os.labs.persistence.cid.music` package
+2. Add the following code:
+
+       ```java
+       import jakarta.inject.Qualifier;
+       import java.lang.annotation.Retention;
+       import java.lang.annotation.Target;
+       
+       import static java.lang.annotation.ElementType.*;
+       import static java.lang.annotation.RetentionPolicy.RUNTIME;
+        
+       @Qualifier
+       @Retention(RUNTIME)
+       @Target({TYPE, METHOD, FIELD, PARAMETER})
+       public @interface MusicalInstrument {
+           InstrumentType value();
+       }
+       ```
+       
+   3. Define different musical instruments (classes), implementing the `Instrument` interface:
+        
+      - the classes must be created at the `expert.os.labs.persistence.cid.music` package
+      - use the `jakarta.enterprise.inject` package to import the `@Default` annotation
+       
+       | Class | Annotation | sound |
+       |--|--|--|
+       | `Piano` | `@MusicalInstrument(InstrumentType.KEYBOARD)` and `@Default` | `return "piano"` |
+       | `Violin` | `@MusicalInstrument(InstrumentType.STRING)` | `return "violin"` |
+       | `Xylophone` | `@MusicalInstrument(InstrumentType.PERCUSSION)` | `return "xylophone"` |
+       
+
+### :material-checkbox-multiple-outline: Expected results
+
+* Three classes (`Piano`, `Violin`, and `Xylophone`) represent different musical instruments and are annotated with `MusicalInstrument` to specify their instrument types.
+* `@Default` annotation is used on the `Piano` class, indicating it as the default implementation for the `Instrument` interface.
+
+### :material-check-outline: Solution
+
+??? example "Click to see..."
+
+    Piano class
+    ```java
+    import jakarta.enterprise.inject.Default;
+
+    @MusicalInstrument(InstrumentType.KEYBOARD)
+    @Default
+    class Piano implements Instrument {
+        @Override
+        public String sound() {
+            return "piano";
+        }
+    }
+    ```
+    
+    Violin class
+    ```java
+    @MusicalInstrument(InstrumentType.STRING)
+    class Violin implements Instrument {
+        @Override
+        public String sound() {
+            return "violin";
+        }
+    }
+    ```
+    
+    Xylophone class
+    ```java
+    @MusicalInstrument(InstrumentType.PERCUSSION)
+    class Xylophone implements Instrument {
+        @Override
+        public String sound() {
+            return "xylophone";
+        }
+    }
+    ```
+       
+## 4. Create the orchestra
+
+The `Orchestra` class represents an orchestra and is annotated with `@ApplicationScoped`, indicating that there will be a single instance of this class per application.
+
+It contains fields for different types of musical instruments (`percussion`, `keyboard`, `string`, and `solo`) and an `Instance<Instrument>` to handle multiple instrument instances.
+The class includes methods to play specific types of instruments (`string()`, `percussion()`, `keyboard()`), play a solo instrument (`solo()`), and play all available instruments (`allSound()`).
+    
+### :material-play-box-multiple-outline: Steps
+
+1. Create a class called `Orchestra` in the `expert.os.labs.persistence.cid.music` package
+2. Annotate the class with `@ApplicationScoped` from the `jakarta.enterprise.context` package
+3. Add a logger for this class
   
+    ```java
+    private static final Logger LOGGER = Logger.getLogger(Orchestra.class.getName());
+    ```
+    
+4. Add the following `Instrument` fields with the related annotations
+   
+    | Field name | Annotation 1 | Annotation 2 |
+    |--|--|--|
+    | `percussion` | `@Inject` | `@MusicalInstrument(InstrumentType.PERCUSSION)` |
+    | `keyboard` | `@Inject` | `@MusicalInstrument(InstrumentType.KEYBOARD)` |
+    | `string` | `@Inject` | `@MusicalInstrument(InstrumentType.STRING)` |
+    | `solo` | `@Inject` |  |
 
-In this lab, we will create an object and destroy objects using the Produces and Dispose annotations, respectively.
+5. Add the `Instrument` instance as a new field as follows:
 
-material-play-box-multiple-outline: Steps
-
-**Step 1:** Import Required Annotations and Classes
-
-```java
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Disposes;
-import jakarta.enterprise.inject.Produces;
-import java.math.BigDecimal;
-import java.util.concurrent.ThreadLocalRandom;
-```
-- This step imports the necessary Jakarta EE annotations and Java classes used in the code.
-
-**Step 2:** Define an Application-Scoped Class
-```java
-@ApplicationScoped
-class NumberProducer {
-    // Class definition...
-}
-```
-- The `NumberProducer` class is annotated with `@ApplicationScoped`, indicating that it will be managed as an application-scoped bean by the CDI (Contexts and Dependency Injection) container. This means that there will be one instance of this class shared across the entire application.
-
-**Step 3:** Create a Producer Method
-
-```java
-@Produces
-public BigDecimal producer() {
-    ThreadLocalRandom random = ThreadLocalRandom.current();
-    double nextDouble = random.nextInt(1, 100);
-    return new BigDecimal(nextDouble);
-}
-```
-
-- The `producer()` method is annotated with `@Produces`, indicating that it is a CDI producer method. This method generates a random `BigDecimal` value within the range [1, 100) using `ThreadLocalRandom` and returns it. The produced value can be injected into other CDI-managed beans.
-
-**Step 4:** Define a Disposer Method
-```java
-public void destroy(@Disposes BigDecimal value) {
-    System.out.println("We don't need this number anymore: " + value);
-}
-```
-
-**Step 5:** Create a class to test and explore:
-
-```java
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-
-import java.math.BigDecimal;
-
-public class App3 {
-
-    public static void main(String[] args) {
-
-        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-            BigDecimal value = container.select(BigDecimal.class).get();
-            logger.log(value);
+    ```java
+    @Inject
+    @Any
+    private Instance<Instrument> instruments;
+    ```
+    
+6. Add the following methods, that are related to each instrument type
+    - you can use the following method template, replacing `${instrumentType}` with the list provided below:
+    
+        ```java
+        public void ${instrumentType}() {
+            LOGGER.info("The ${instrumentType}'s sound: " + this.${instrumentType}.sound());
         }
+        ```
+        
+        ??? abstract "Example"
+        
+            ```java
+            public void percussion() {
+                LOGGER.info("The percussion's sound: " + this.percussion.sound());
+            }
+            ```
+
+    - methods to add:
+        
+        | method |
+        |--|
+        | `percussion`|
+        | `keyboard`|
+        | `solo`|
+        
+7. Add a method to list all sounds
+
+    ```java
+    public void allSound() {
+        String sounds = this.instruments.stream().map(Instrument::sound).collect(Collectors.joining(", "));
+        LOGGER.info("All instruments sounds are: " + sounds);
     }
-}
+    ```
+        
+### :material-checkbox-multiple-outline: Expected results
 
-```  
-
-- The `destroy()` method is used as a disposer method for `BigDecimal` instances. It takes a parameter of type `BigDecimal` annotated with `@Disposes`. When an instance of `BigDecimal` is no longer needed, the CDI container will automatically call this method to perform cleanup or logging. In this case, it prints a message indicating that the number is no longer needed.
-
-In summary, this code defines an application-scoped CDI bean (`NumberProducer`) that produces random `BigDecimal` values using a producer method. It also includes a disposer method to handle the cleanup of `BigDecimal` instances when they are no longer needed within the CDI context.
-
+* Class `Orchestra` that can call any musical instrument to play
 
 ### :material-check-outline: Solution
 
-??? example "Click to see..."
+??? example "Click to see..."    
 
-```java
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Disposes;
-import jakarta.enterprise.inject.Produces;
+    ```java
+    import jakarta.enterprise.context.ApplicationScoped;
+    import jakarta.enterprise.inject.Any;
+    import jakarta.enterprise.inject.Instance;
+    import jakarta.inject.Inject;
 
-import java.math.BigDecimal;
-import java.util.concurrent.ThreadLocalRandom;
+    import java.util.logging.Logger;
+    import java.util.stream.Collectors;
 
-@ApplicationScoped
-class NumberProducer {
+    @ApplicationScoped
+    public class Orchestra {
 
-    @Produces
-    public BigDecimal producer() {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        double nextDouble = random.nextInt(1, 100);
-        return new BigDecimal(nextDouble);
-    }
+        private static final Logger LOGGER = Logger.getLogger(Orchestra.class.getName());
 
-    public void destroy(@Disposes BigDecimal value) {
-        System.out.println("We don't need this number anymore: " + value);
-    }
-}
-```
+        @Inject
+        @MusicalInstrument(InstrumentType.PERCUSSION)
+        private Instrument  <;
 
+        @Inject
+        @MusicalInstrument(InstrumentType.KEYBOARD)
+        private Instrument keyboard;
 
-## 2. Using InjectionPoint
+        @Inject
+        @MusicalInstrument(InstrumentType.STRING)
+        private Instrument string;
 
-  
+        @Inject
+        private Instrument solo;
 
-In this lab, we will create an object taking information from who needs this information using the InjectionPoint. Thus, we will create a Logger producer.
+        @Inject
+        @Any
+        private Instance<Instrument> instruments;
 
-material-play-box-multiple-outline: Steps
+            public void string() {
+                LOGGER.info("The string's sound: " + this.string.sound());
+            }
 
-**Step 1:** Define an Application-Scoped Class for Logger Production
+            public void percussion() {
+                LOGGER.info("The percussion's sound: " + this.percussion.sound());
+            }
 
-```java
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.enterprise.inject.spi.InjectionPoint;
-import java.util.logging.Logger;
+            public void keyboard() {
+                LOGGER.info("The keyboard's sound: " + this.keyboard.sound());
+            }
 
-@ApplicationScoped
-class LoggerProducer {
-    // Class definition...
-}
-```
-- The `LoggerProducer` class is annotated with `@ApplicationScoped`, indicating that it will be managed as an application-scoped bean by the CDI (Contexts and Dependency Injection) container.
+            public void solo() {
+                LOGGER.info("The solo's sound: " + this.keyboard.sound());
+            }
 
-**Step 2:** Create a Producer Method for Logger
-```java
-@Produces
-Logger getLog(InjectionPoint ip) {
-    String declaringClass = ip.getMember().getDeclaringClass().getName();
-    LOGGER.info("Creating instance log to " + declaringClass);
-    return Logger.getLogger(declaringClass);
-}
-```
-- The `getLog()` method is annotated with `@Produces`, indicating that it is a CDI producer method. This method produces `java.util.logging.Logger` instances. It takes an `InjectionPoint` as a parameter, which provides information about the injection point. It retrieves the declaring class name from the injection point and creates a `Logger` instance for that class name. It also logs a message indicating the creation of the logger.
+            public void allSound() {
+                String sounds = this.instruments.stream().map(Instrument::sound).collect(Collectors.joining(", "));
+                LOGGER.info("All instruments sounds are: " + sounds);
+            }
+        }
+    ```
+    
+## 5. Explore the class usage
 
-**Step 3:** Define a Class That Uses the Produced Logger
+### :material-play-box-multiple-outline: Steps
 
-```java
-import jakarta.inject.Inject;
-import java.math.BigDecimal;
-import java.util.logging.Logger;
+1. Create a class called `AppOrchestra` in the `expert.os.labs.persistence.cid` package
+2. Add the following code to the class
 
-public class NumberLogger {
-    // Class definition...
-}
-```
-- The `NumberLogger` class is a standard CDI bean that can be injected with a `Logger` instance.
+    ```java
+    import expert.os.labs.persistence.persistence.cdi.music.Orchestra;
+    import jakarta.enterprise.inject.se.SeContainer;
+    import jakarta.enterprise.inject.se.SeContainerInitializer;
 
-**Step 4:** Create a Constructor for Injecting Logger
-```java
-@Inject
-public NumberLogger(Logger logger) {
-    this.logger = logger;
-}
-```
-- The `NumberLogger` class defines a constructor that is annotated with `@Inject`. This constructor takes a `Logger` instance as a parameter, allowing CDI to inject the logger when creating an instance of `NumberLogger`.
+    public class App2 {
 
-**Step 5:** Use the Injected Logger
-```java
-public void log(BigDecimal value) {
-    this.logger.info("The BigDecimal value is " + value);
-}
-```
-
-**Step 6:** Create a class to test and explore:
-
-```java
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-
-import java.math.BigDecimal;
-
-public class App3 {
-
-    public static void main(String[] args) {
-
-        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-            NumberLogger logger = container.select(NumberLogger.class).get();
-            logger.log(value);
+        public static void main(String[] args) {
+            try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+                Orchestra orchestra = container.select(Orchestra.class).get();
+                
+                orchestra.percussion();
+                orchestra.keyboard();
+                orchestra.string();
+                orchestra.solo();
+                orchestra.allSound();
+            }
         }
     }
-}
+    ```
 
+3. Run the class
 
-```  
+### :material-checkbox-multiple-outline: Expected results
 
-- The `log()` method in the `NumberLogger` class uses the injected logger to log information. In this case, it logs the `BigDecimal` value provided as a parameter.
+* List of `INFO` messages related to each instrument called by the Orchestra
 
-In summary, this code defines an application-scoped CDI bean (`LoggerProducer`) responsible for producing logger instances and a CDI-managed bean (`NumberLogger`) that uses the injected logger to log information. The producer method retrieves the declaring class name from the injection point, creates a logger for that class, and logs a message when creating the logger instance.
+```
+INFO: The percussion's sound: xylophone
+INFO: The keyboard's sound: piano
+INFO: The string's sound: violin
+INFO: The solo's sound: piano
+INFO: All instruments sounds are: piano, violin, xylophone
+```
 
 ### :material-check-outline: Solution
 
-??? example "Click to see..."
+??? example "Click to see..."    
 
-```java
+    ```java
+    import expert.os.labs.persistence.persistence.cdi.music.Orchestra;
+    import jakarta.enterprise.inject.se.SeContainer;
+    import jakarta.enterprise.inject.se.SeContainerInitializer;
 
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.enterprise.inject.spi.InjectionPoint;
+    public class AppOrchestra {
 
-import java.util.logging.Logger;
+        public static void main(String[] args) {
+            try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+                Orchestra orchestra = container.select(Orchestra.class).get();
 
-@ApplicationScoped
-class LoggerProducer {
-
-    private static final Logger LOGGER = Logger.getLogger(LoggerProducer.class.getName());
-
-    @Produces
-    Logger getLog(InjectionPoint ip) {
-        String declaringClass = ip.getMember().getDeclaringClass().getName();
-        LOGGER.info("Creating instance log to " + declaringClass);
-        return Logger.getLogger(declaringClass);
-    }
-}
-
-import jakarta.inject.Inject;
-
-import java.math.BigDecimal;
-import java.util.logging.Logger;
-
-public class NumberLogger {
-
-    private Logger logger;
-
-    NumberLogger() {
-    }
-
-    @Inject
-    public NumberLogger(Logger logger) {
-        this.logger = logger;
-    }
-
-    public void log(BigDecimal value) {
-        this.logger.info("The BigDecimal value is " + value);
-    }
-
-
-}
-```
-
-## 3. CDI events
-
-
-In this lab, we will explore more about the CDI events.
-
-material-play-box-multiple-outline: Steps
-
-**Step 1:** Create a `News` Class
-```java
-import java.util.Objects;
-import java.util.function.Supplier;
-
-public final class News implements Supplier<String> {
-
-    private final String name;
-
-    private News(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String get() {
-        return name;
-    }
-
-    public static News of(String news) {
-        Objects.requireNonNull(news, "news is required");
-        return new News(news);
-    }
-}
-```
-- The `News` class implements the `Supplier<String>` interface, which means it can supply a `String`. It has a private constructor and a `get()` method that returns the `name` of the news.
-- The static factory method `of(String news)` is provided to create instances of `News` and requires a non-null `news` argument.
-
-**Step 2:** Create a `Magazine` Class
-```java
-import jakarta.enterprise.event.Observes;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
-public class Magazine implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(Magazine.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it in a magazine: " + news.get());
-    }
-}
-```
-- The `Magazine` class implements `Consumer<News>` to consume `News` events. It uses the `@Observes` annotation to indicate that it observes events of type `News`.
-- In the `accept()` method, it logs that the news will be published in a magazine.
-
-**Step 3:** Create a `NewsPaper` Class
-```java
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
-@ApplicationScoped
-public class NewsPaper implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(NewsPaper.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it in a newspaper: " + news.get());
-    }
-}
-```
-- The `NewsPaper` class is similar to the `Magazine` class but is annotated with `@ApplicationScoped`, indicating that it is an application-scoped bean.
-- In the `accept()` method, it logs that the news will be published in a newspaper.
-
-**Step 4:** Create a `SocialMedia` Class
-```java
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
-@ApplicationScoped
-public class SocialMedia implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(SocialMedia.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it on Social Media: " + news.get());
-    }
-}
-```
-- The `SocialMedia` class is similar to the previous classes but is also annotated with `@ApplicationScoped`.
-- In the `accept()` method, it logs that the news will be published on social media.
-
-**Step 5:** Create a `Journalist` Class
-```java
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Event;
-import jakarta.inject.Inject;
-
-@ApplicationScoped
-public class Journalist {
-
-    @Inject
-    private Event<News> event;
-
-    public void receiveNews(News news) {
-        this.event.fire(news);
-    }
-}
-```
-
-
-**Step 5:** Create a class to test and explore:
-
-```java
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-
-public class App4 {
-
-    public static void main(String[] args) {
-
-        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-            Journalist journalist = container.select(Journalist.class).get();
-            journalist.receiveNews(News.of("Java 17 has arrived!!"));
+                orchestra.percussion();
+                orchestra.keyboard();
+                orchestra.string();
+                orchestra.solo();
+                orchestra.allSound();
+            }
         }
     }
-}
-
-
-```  
-
-- The `Journalist` class is annotated with `@ApplicationScoped`.
-- It injects an `Event<News>` object, which allows it to fire events of type `News`.
-- The `receiveNews(News news)` method fires a `News` event using the injected `Event` object.
-
-In summary, the provided code sets up a simple event-based news distribution system using CDI (Contexts and Dependency Injection). `News` represents a piece of news, `Magazine`, `NewsPaper`, and `SocialMedia` are consumers of news events, and `Journalist` is responsible for sending news events to the consumers.
-
-
-### :material-check-outline: Solution
-
-??? example "Click to see..."
-
-```java
-
-import java.util.Objects;
-import java.util.function.Supplier;
-
-public final class News implements Supplier<String> {
-
-    private final String name;
-
-    private News(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String get() {
-        return name;
-    }
-
-    public static News of(String news) {
-        Objects.requireNonNull(news, "news is required");
-        return new News(news);
-    }
-}
-
-import jakarta.enterprise.event.Observes;
-
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
-public class Magazine implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(Magazine.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it on a magazine: " + news.get());
-    }
-}
-
-@ApplicationScoped
-public class NewsPaper implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(NewsPaper.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it on a newspaper: " + news.get());
-    }
-}
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
-
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
-@ApplicationScoped
-public class SocialMedia implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(SocialMedia.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it on Social Media: " + news.get());
-    }
-}
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Event;
-import jakarta.inject.Inject;
-
-@ApplicationScoped
-public class Journalist {
-
-    @Inject
-    private Event<News> event;
-
-    public void receiveNews(News news) {
-        this.event.fire(news);
-    }
-
-}
-
-```
+    ```

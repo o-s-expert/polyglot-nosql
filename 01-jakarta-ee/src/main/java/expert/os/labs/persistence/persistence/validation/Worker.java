@@ -17,12 +17,10 @@ public class Worker {
     @NotBlank(message = "Name cannot be blank")
     private String name;
 
-
     @AssertTrue
     private boolean working;
 
-    @Size(min = 10, max = 200, message
-            = "Bio must be between 10 and 200 characters")
+    @Size(min = 10, max = 200, message= "Bio must be between 10 and 200 characters")
     private String bio;
 
     @Min(value = 18, message = "A worker should not be less than 18")
@@ -35,9 +33,7 @@ public class Worker {
     @SalaryConstraint(message = "Salary should be greater than zero")
     private Money salary;
 
-    Worker(String nickname, String name, boolean working,
-                  String bio, int age,
-                  String email, Money salary) {
+    Worker(String nickname, String name, boolean working,String bio, int age, String email, Money salary) {
         this.nickname = nickname;
         this.name = name;
         this.working = working;

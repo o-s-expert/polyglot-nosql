@@ -5,7 +5,7 @@ import expert.os.labs.persistence.persistence.cdi.vehicle.Vehicle;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 
-public class App1 {
+public class AppVehicle {
 
     public static void main(String[] args) {
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {

@@ -1,6 +1,6 @@
 # Jakarta Validation - Lab 1
 
-In this lab we will create a model class containing the Jakarta Validation annotations.
+In this lab we will create a model class with the Jakarta Validation annotations.
 
 ## 1. Create the validation class
 
@@ -8,7 +8,7 @@ In this lab we will create a model class containing the Jakarta Validation annot
 
 1. Open the `01-jakarta-ee` project and navigate to the `src/main/java`
 2. Create a class called `Worker` in the `expert.os.labs.persistence.validation` package
-3. Add the following fields, adding the relatet annotations from the `jakarta.validation.constraints` package
+3. Add the following fields, adding the related annotations from the `jakarta.validation.constraints` package
     - `nickname` field with `@NotBlank` annotation
 
         ```java
@@ -54,7 +54,7 @@ In this lab we will create a model class containing the Jakarta Validation annot
 
 ### :material-checkbox-multiple-outline: Expected results
 
-* Class called `Worker` created in the `src/main/java` at the `expert.os.labs.persistence.validation` containing all the Jakarta Validation annotations
+* Class called `Worker` created in the `src/main/java` at the `expert.os.labs.persistence.validation` with all the Jakarta Validation annotations
 
 ### :material-check-outline: Solution
 
@@ -89,24 +89,24 @@ In this lab we will create a model class containing the Jakarta Validation annot
          private String email;
       }
       ```
-## 2. Add the constructos, getters, setters and toString
+## 2. Add the constructor, getters, setters, and toString
 
 ### :material-play-box-multiple-outline: Steps
 
 !!! tip "Tips"
-    You can use the shortcuts in your prefered IDE to generate the constructor, getters, setterns and `toString()`
+    You can use the shortcuts in your preffered IDE to generate the constructor, getters, setterns and `toString()`
 
     * __IntelliJ IDEA__: press `Command + N` and click in the related item
-    * __Visual Studio Code__: right-click in the code, click in the `Source Action` and them in the related item
+    * __Visual Studio Code__: right-click in the code, click in the `Source Action` and then in the related item
 
-1. Add a constructor containing all the fields present in the class
+1. Add a constructor with all the fields present in the class
 2. Add the getters and setters for all the fields present in the class
-3. Add the `toString()` method containing all the fields present in the class
+3. Add the `toString()` method with all the fields present in the class
     * don't forget to add the `@Override`
 
 ### :material-checkbox-multiple-outline: Expected results
 
-* The `Worker` class containing the:
+* The `Worker` class with the:
     * constructor
     * getters and setters
     * `toString()`
@@ -212,7 +212,7 @@ In this lab we will create a model class containing the Jakarta Validation annot
 ### :material-play-box-multiple-outline: Steps
 
 1. Create a class called `WorkerBuilder` in the `src/main/java` folder at the `expert.os.labs.persistence.validation` package
-2. Add the same fields we had previously added into the `Worker` class, without the annotations
+2. Add the same fields we had previously added to the `Worker` class, without the annotations
     ```java
     private String nickname;
     private String name;
@@ -232,7 +232,7 @@ In this lab we will create a model class containing the Jakarta Validation annot
          ```
 
 4. Add the `build()` method creating a new instance of `Worker` using its constructor
-5. In the `Worker` class add the builder method reffering to the `WorkerBuilder`
+5. In the `Worker` class add the builder method referring to the `WorkerBuilder`
 
     ```java
     public static WorkerBuilder builder() {
@@ -340,7 +340,7 @@ In this lab we will create a model class containing the Jakarta Validation annot
            }
         ```
 
-     - note that the `Assertions` class come from the `org.assertj.core.api.Assertions.assertThat` and must be statically imported
+     - note that the `Assertions` class comes from the `org.assertj.core.api.Assertions.assertThat` and must be statically imported
 
 5. Run the test
 

@@ -67,11 +67,12 @@ nav:
           - "2.2.1 Validation": "jakarta-ee/validation-lab.md"
           - "2.2.2 Custom Validation": "jakarta-ee/validation-lab-2.md"
       - "2.3 CDI": "jakarta-ee/cdi.md"
-      - "2.3.1 🧪 CDI Basic": "jakarta-ee/cdi-lab.md"
-      - "2.3.2 🧪 CDI Intermediate": "jakarta-ee/cdi-lab-2.md"
-      - "2.3.3 🧪 CDI After-Intermediate": "jakarta-ee/cdi-lab-3.md"  
+      - "🧪 Lab":
+          - "2.3.1 CDI Basic 1": "jakarta-ee/cdi-lab-1.md"
+          - "2.3.2 CDI Basic 2": "jakarta-ee/cdi-lab-2.md"
       - "2.4 JAX-RS": "jakarta-ee/jax-rs.md"
-      - "2.4.1 🧪 JAX-RS Basic": "jakarta-ee/jax-rs-lab.md" 
+      - "🧪 Lab":
+          - "2.4.1 🧪 JAX-RS Basic": "jakarta-ee/jax-rs-lab.md"
       - "2.5 NoSQL": "jakarta-ee/nosql.md"
       - "2.6 Data": "jakarta-ee/data.md"
   - "🔑 3. Key-Value database":
@@ -97,3 +98,6 @@ nav:
         - "6.2.2 🧪 Neo4J Java": "graph/java-lab.md"
         - "6.2.3 🧪 Neo4J Java": "graph/java-lab-2.md"
         - "6.2.4 🧪 Neo4J Java": "graph/java-lab-3.md"
+  - "🧪 7. Extra labs":
+      - "7.1 CDI Intermediate": "extra-labs/cdi-lab-3.md"
+      - "7.2 CDI After-Intermediate": "extra-labs/cdi-lab-4.md"
