@@ -1,6 +1,5 @@
 package expert.os.labs.persistence;
 
-
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -28,16 +27,16 @@ public class FishResource {
         return this.database.findAll();
     }
 
-    @POST
-    public void insert(Fish fish) {
-        this.database.save(fish);
-    }
-
     @GET
     @Path("/{id}")
     public Fish findById(@PathParam("id") String id) {
         return this.database.findById(id)
                 .orElseThrow(() -> new WebApplicationException("Fish not found", Response.Status.NOT_FOUND));
+    }
+
+    @POST
+    public void insert(Fish fish) {
+        this.database.save(fish);
     }
 
     @DELETE

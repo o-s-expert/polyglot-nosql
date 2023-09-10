@@ -16,6 +16,14 @@ public class FishDatabase {
         this.fishes = new HashMap<>();
     }
 
+    public List<Fish> findAll() {
+        return List.copyOf(this.fishes.values());
+    }
+
+    public Optional<Fish> findById(String id) {
+        return Optional.ofNullable(this.fishes.get(id));
+    }
+
     public void save(Fish fish) {
         this.fishes.put(fish.id(), fish);
     }
@@ -24,14 +32,7 @@ public class FishDatabase {
         this.fishes.remove(id);
     }
 
-    public Optional<Fish> findById(String id) {
-        return Optional.ofNullable(this.fishes.get(id));
-    }
-
     public void clear() {
         this.fishes.clear();
-    }
-    public List<Fish> findAll() {
-        return List.copyOf(this.fishes.values());
     }
 }

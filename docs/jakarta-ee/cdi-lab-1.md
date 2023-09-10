@@ -1,7 +1,6 @@
 # Jakarta CDI - Lab 1 - Basic part 1
 
-In this lab, we will explore creating the first injection where Vehicle
-interface into a single implementation Car.
+In this lab, we will explore creating the first injection where Vehicle interface into a single implementation Car.
 
 ## 1. Defining the interface
 

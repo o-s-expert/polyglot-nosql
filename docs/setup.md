@@ -9,6 +9,7 @@ The first thing we need to do is to check the setup and download the necessary p
 - [ ] Git
 - [ ] Docker
 - [ ] Docker Compose
+- [ ] curl
 
 ## 2. Download the slides
 
