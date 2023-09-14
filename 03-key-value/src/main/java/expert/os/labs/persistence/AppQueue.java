@@ -22,28 +22,33 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-public class App2 {
+public class AppQueue {
 
     public static void main(String[] args) {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
             BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+            
             Queue<String> orders = factory.getQueue("orders", String.class);
+            
             orders.clear();
             orders.add("Phone");
             orders.add("Tablet");
             orders.add("book");
+            
             // remove the element at the front of the queue
             String front = orders.remove();
             System.out.println("Front: " + front);
+            
             // peek at the element at the front of the queue
             String peeked = orders.peek();
             System.out.println("Peeked element: " + peeked);
+            
             System.out.println("the result");
             orders.forEach(System.out::println);
         }
     }
 
-    private App2() {
+    private AppQueue() {
     }
 }

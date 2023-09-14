@@ -26,19 +26,18 @@ public class App {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
             BucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
+            
             List<String> names = factory.getList("names", String.class);
             Set<String> fruits = factory.getSet("fruits", String.class);
 
             names.addAll(List.of("Otavio", "Elias", "Ada", "Poliana", "Otavio"));
-
             fruits.addAll(List.of("Banana", "Banana", "Apple", "Watermelon", "Banana", "Apple"));
 
             System.out.println("Names: ");
             names.forEach(System.out::println);
+            
             System.out.println("Fruits: ");
             fruits.forEach(System.out::println);
-
-
         }
     }
 

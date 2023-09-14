@@ -14,32 +14,32 @@ package expert.os.labs.persistence;
 
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
-import org.eclipse.jnosql.databases.redis.communication.Counter;
 import org.eclipse.jnosql.databases.redis.communication.Ranking;
 import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactory;
 import org.eclipse.jnosql.databases.redis.communication.SortedSet;
 
 import java.util.List;
+import java.util.Map;
 
-public class App5 {
+public class AppSortedMap {
 
     public static void main(String[] args) {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
             RedisBucketManagerFactory factory = container.select(RedisBucketManagerFactory.class).get();
-            Counter home = factory.getCounter("home");
-            Counter products = factory.getCounter("products");
-            home.increment();
-            products.increment();
-            products.increment(3L);
+            
+            SortedSet game = factory.getSortedSet("game");
+            game.add("Otavio", 10);
+            game.add("Elias", 20);
+            game.add("Ada", 30);
+            game.add(Ranking.of("Poliana", 40));
 
-            System.out.println("Home: " + home.get());
-            System.out.println("Products: " + products.get());
-
-
+            List<Ranking> ranking = game.getRanking();
+            System.out.println("Ranking: " + ranking);
+            System.out.println("The reverse ranking: " + game.getRevRanking());
         }
     }
 
-    private App5() {
+    private AppSortedMap() {
     }
 }

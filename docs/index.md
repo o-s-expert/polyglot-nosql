@@ -4,9 +4,9 @@
 
 This workshop will be conducted as:
 
-   * presentation (slides) about what we will learn
-   * hands-on labs, timeboxed, to create the solutions
-   * double-check the code created
+- presentation (slides) about what we will learn
+- hands-on labs, timeboxed, to create the solutions
+- double-check the code created
 
 !!! success "Do"
 
@@ -14,7 +14,6 @@ This workshop will be conducted as:
     * Interact at any time: you don't need to wait until a full explanation to say something
     * Ask for help when you need it: this is the facilitator's work
     * If you feel comfortable, help the person sit on your side
-
 
 !!! danger "Don't"
 
