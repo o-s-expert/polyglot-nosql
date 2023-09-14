@@ -20,7 +20,7 @@ import org.eclipse.jnosql.databases.redis.communication.RedisBucketManagerFactor
 import java.util.List;
 import java.util.Set;
 
-public class App {
+public class AppFirstIntegration {
 
     public static void main(String[] args) {
 
@@ -41,6 +41,6 @@ public class App {
         }
     }
 
-    private App() {
+    private AppFirstIntegration() {
     }
 }
