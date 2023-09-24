@@ -235,7 +235,7 @@ In this lab we will create a model class with the Jakarta Validation annotations
 5. In the `Worker` class add the builder method referring to the `WorkerBuilder`
 
     ```java
-    public static WorkerBuilder builder() {
+    public static WorkerBuilder build() {
        return new WorkerBuilder();
     }
     ```
