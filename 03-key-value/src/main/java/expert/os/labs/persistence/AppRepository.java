@@ -11,33 +11,36 @@
 
 package expert.os.labs.persistence;
 
-
-
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class App7 {
+public class AppRepository {
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
 
             UserRepository repository = container.select(UserRepository.class).get();
-
             User ada = User.builder().username("ada").name("Ada Lovelace")
-                    .languages(Set.of("Latin")).settings(Map.of("currency", "food")).build();
+                .languages(Set.of("Latin")).settings(Map.of("currency", "food")).build();
+
             repository.save(ada);
-            Optional<User> user = repository.findById("ada");
-            System.out.println("User found: " + user);
-            System.out.println("Exist? " + repository.existsById("ada"));
+
+            Optional<User> userFound = repository.findById("ada");
+            System.out.println(userFound);
+
+            boolean userExist = repository.existsById("ada");
+            System.out.println("userExist? = " + userExist);
+
             repository.deleteById("ada");
-            System.out.println("Exist? " + repository.existsById("ada"));
+            userExist = repository.existsById("ada");
+            System.out.println("userExist? = " + userExist);
         }
     }
 
-    private App7() {
+    private AppRepository() {
     }
 }
