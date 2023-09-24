@@ -6,9 +6,9 @@ This lab will introduce the first integration between Java and Redis using Eclip
 
     The connection properties are already defined in the `src/main/java/resources/META-INF` folder in the `microprofile-config.properties`.
 
-    The connection to Redis will be done using the database, port and host defined there.
+    The connection to Redis will be done using the database, port, and host defined there.
 
-## 1. The fisrt integration
+## 1. The first integration
 
 ### :material-play-box-multiple-outline: Steps
 
@@ -163,7 +163,7 @@ This lab will introduce the integration with Redis and a Queue.
         Queue<String> orders = factory.getQueue("orders", String.class);
         ```
 
-6. Clear the previous content using `orders.clear()` and then add the following itens in the queue using the method `add(...)`
+6. Clear the previous content using `orders.clear()` and then add the following items in the queue using the method `add(...)`
 
     - "Phone"
     - "Tablet"
@@ -255,13 +255,13 @@ This lab will introduce the integration with Redis and a Queue.
 5. Use the `BucketManagerFactory` to create and interact with a Redis map named `basket` by using the method `getBasket`
 
     - the `Map` must have the types as `Integer` and `String`
-    - the `getMap()` the key is name `"basket"` and the types are Integer` and `String`
+    - the `getMap()` the key is named `"basket"` and the types are Integer` and `String`
 
     ```java
      Map<Integer, String> basket = factory.getMap("basket", Integer.class, String.class);
     ```
 
-6. Clear the previous content using `orders.clear()` and then add the following itens in the basket using the method `put(...)`
+6. Clear the previous content using `orders.clear()` and then add the following items on the basket using the method `put(...)`
 
     | key | value |
     |--|--|
@@ -369,7 +369,7 @@ This lab will introduce the integration with Redis and a Queue.
     | "Elias" | 20 |
     | "Ada | 30 |
 
-7. Add one more item to the game, but using the `Ranking.of()` from `org.eclipse.jnosql.databases.redis.communicatio` package, adding:
+7. Add one more item to the game, but using the `Ranking.of()` from `org.eclipse.jnosql.databases.redis.communication` package, adding:
 
     | key | value |
     |--|--|

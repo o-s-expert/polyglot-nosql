@@ -1,69 +1,45 @@
-# Apache Cassandra and Java Lab
+# Cassandra - Lab 2
 
 ## 1. The Cassandra structure
 
  In this lab session, we will explore Apache Cassandra by executing various commands to create a keyspace, define column families, and create a secondary index.
 
-material-play-box-multiple-outline: Steps
+### :material-play-box-multiple-outline: Steps
 
-**Lab Steps:**
+1. Execute the following command in the CQL shell to create a keyspace named "developers" with a replication factor of 3
 
-**Step 1: Launching Cassandra Docker Container**
+    ```sql
+    CREATE KEYSPACE IF NOT EXISTS developers WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 3};
+    ```
 
-First, ensure that you have Docker installed on your system. Then, run the following command to launch a Cassandra Docker container:
+    !!! note 
+        You can ignore the warning that will be shown after running the command
 
-```bash
-docker run -d --name cassandra-instance -p 9042:9042 cassandra
-```
+        ```
+        Warnings :
+        Your replication factor 3 for keyspace developers is higher than the number of nodes 1
+        ```
 
-This command will start a Cassandra instance in a Docker container, exposing port 9042 for communication.
+2. Execute the following commands in th CQL shell to create column families for "Person" and "Movie"
 
-**Step 2: Accessing Cassandra Shell**
+    ```sql
+    CREATE COLUMNFAMILY IF NOT EXISTS developers.Person (id bigint PRIMARY KEY, name text, contacts map<text, text>);
+    CREATE TYPE IF NOT EXISTS developers.director (name text, movies set<text>);
+    CREATE COLUMNFAMILY IF NOT EXISTS developers.Movie (name text PRIMARY KEY, age int, director FROZEN<director>);
+    ```
 
-Next, access the Cassandra shell by running the following command:
+3. Create a secondary index on the "age" column of the "Movie" column family using the following command in the CQL shell
 
-```bash
-docker exec -it cassandra-instance cqlsh
-```
+    ```sql
+    create index if not exists ageIndex on developers.movie(age);
+    ```
 
-You are now connected to the Cassandra shell and can begin executing commands.
+4. Use the Cassandra shell to explore, insert, and query data within your instance
 
-**Step 3: Creating a Keyspace**
 
-Execute the following command to create a keyspace named "developers" with a replication factor of 3:
+### :material-checkbox-multiple-outline: Expected results
 
-```sql
-CREATE KEYSPACE IF NOT EXISTS developers WITH replication = {'class': 'SimpleStrategy', 'replication_factor' : 3};
-```
-
-This command defines a keyspace for our data with replication settings suitable for a development environment.
-
-**Step 4: Creating Column Families**
-
-Now, create column families to define the data structure. Execute the following commands to create column families for "Person" and "Movie":
-
-```sql
-CREATE COLUMNFAMILY IF NOT EXISTS developers.Person (id bigint PRIMARY KEY, name text, contacts map<text, text>);
-CREATE TYPE IF NOT EXISTS developers.director (name text, movies set<text>);
-CREATE COLUMNFAMILY IF NOT EXISTS developers.Movie (name text PRIMARY KEY, age int, director FROZEN<director>);
-```
-
-These commands create column families and define their data types. The "Person" and "Movie" column families are now ready to store data.
-
-**Step 5: Creating a Secondary Index**
-
-Create a secondary index on the "age" column of the "Movie" column family using the following command:
-
-```sql
-create index if not exists ageIndex on developers.movie(age);
-```
-
-This index will allow efficient queries on the "age" column in the "Movie" column family.
-
-**Step 6: Verify and Explore**
-
-You have successfully set up the Cassandra keyspace, column families, and a secondary index. You can now use the Cassandra shell to explore, insert, and query data within your instance.
-
+* Column families `movie` and `person` created
 
 ## 2 Cassandra and Java Connection
 
