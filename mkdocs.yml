@@ -63,30 +63,33 @@ nav:
   - "2. 🚢 Jakarta EE Overview":
       - "2.1 Introduction": "jakarta-ee/introduction.md"
       - "2.2 Validation": "jakarta-ee/validation.md"
-      - "🧪 Lab":
-          - "2.2.1 Validation": "jakarta-ee/validation-lab.md"
-          - "2.2.2 Custom Validation": "jakarta-ee/validation-lab-2.md"
-      - "2.3 CDI": "jakarta-ee/cdi.md"
-      - "🧪 Lab":
-          - "2.3.1 CDI Basic 1": "jakarta-ee/cdi-lab-1.md"
-          - "2.3.2 CDI Basic 2": "jakarta-ee/cdi-lab-2.md"
-      - "2.4 JAX-RS": "jakarta-ee/jax-rs.md"
-      - "🧪 Lab":
-          - "2.4.1 🧪 JAX-RS Basic": "jakarta-ee/jax-rs-lab.md"
-      - "2.5 NoSQL": "jakarta-ee/nosql.md"
-      - "2.6 Data": "jakarta-ee/data.md"
+      - "2.3 Lab 🧪":
+          - "2.3.1 Validation": "jakarta-ee/validation-lab.md"
+          - "2.3.2 Custom Validation": "jakarta-ee/validation-lab-2.md"
+      - "2.4 CDI": "jakarta-ee/cdi.md"
+      - "2.5 Lab 🧪":
+          - "2.5.1 CDI Basic 1": "jakarta-ee/cdi-lab-1.md"
+          - "2.5.2 CDI Basic 2": "jakarta-ee/cdi-lab-2.md"
+      - "2.6 JAX-RS": "jakarta-ee/jax-rs.md"
+      - "2.7 Lab 🧪":
+          - "2.7.1 🧪 JAX-RS Basic": "jakarta-ee/jax-rs-lab.md"
+      - "2.8 NoSQL": "jakarta-ee/nosql.md"
+      - "2.9 Data": "jakarta-ee/data.md"
   - "🔑 3. Key-Value database":
         - "3.1 Introduction": "key-value/introduction.md" 
         - "3.2 Redis": "key-value/redis.md"
         - "3.3 Redis commands": "key-value/redis-commands.md"
-        - "3.3.1 🧪 Redis Basic": "key-value/database-lab.md"
-        - "3.3.2 🧪 Redis Java 1": "key-value/java-lab.md"
-        - "3.3.3 🧪 Redis Java 2": "key-value/java-lab-2.md"
+        - "3.4 Lab 🧪":
+            - "3.4.1 Redis Basic": "key-value/database-lab.md"
+            - "3.4.2 Redis Java 1": "key-value/java-lab.md"
+            - "3.4.3 Redis Java 2": "key-value/java-lab-2.md"
   - "📘 4. Wide-Column database":
         - "4.1 Introduction": "column/introduction.md" 
         - "4.2 Apache Cassandra": "column/cassandra.md"
-        - "4.2.1 🧪 Apache Cassandra Basic": "column/database-lab.md"
-        - "4.2.2 🧪 Cassandra Java": "column/java-lab.md"
+        - "4.3 Cassandra Commands": "column/commands.md"
+        - "4.4 Lab 🧪":
+            - "4.4.1 Cassandra Basic": "column/database-lab.md"
+            - "4.4.2 Cassandra Java": "column/java-lab.md"
   - "📕 5. Document database":
         - "5.1 Introduction": "document/introduction.md" 
         - "5.2 MongoDB": "document/mongodb.md"
