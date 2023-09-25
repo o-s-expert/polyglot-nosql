@@ -1,4 +1,4 @@
-# Introducion
+# Introduction
 
 Document databases represent a pivotal innovation in NoSQL databases, addressing modern applications' evolving data management needs. Unlike traditional relational databases that rely on structured tables, document databases store and manage data in a flexible, schema-less format, typically using JSON or BSON documents. This approach has gained immense importance in the NoSQL landscape for several compelling reasons.
 
