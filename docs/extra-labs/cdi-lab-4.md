@@ -6,7 +6,7 @@
 
 In this lab, we will explore the CDI decorator using Workers as the sample, where we will decorate it with a manager.
 
-material-play-box-multiple-outline: Steps
+### :material-play-box-multiple-outline: Steps
 
 **Step 1:** Create the `Worker` Interface
 ```java
@@ -37,6 +37,7 @@ public class Programmer implements Worker {
 - In the `work(String job)` method, it logs that a programmer has received a job and will convert coffee into code.
 
 **Step 3:** Create the `Manager` Class (Decorator)
+
 ```java
 import jakarta.annotation.Priority;
 import jakarta.decorator.Decorator;
@@ -93,59 +94,59 @@ In summary, the provided code demonstrates the use of decorators in CDI. The `Pr
 
 ??? example "Click to see..."
 
-```java
-
-public interface Worker {
-
-    String work(String job);
-}
-
-
-import jakarta.enterprise.context.ApplicationScoped;
-
-import java.util.logging.Logger;
-
-@ApplicationScoped
-public class Programmer implements Worker {
-
-    private static final Logger LOGGER = Logger.getLogger(Programmer.class.getName());
-
-    @Override
-    public String work(String job) {
-        return "A programmer has received a job, it will convert coffee in code: " + job;
+    ```java
+    
+    public interface Worker {
+    
+        String work(String job);
     }
-}
-
-
-import jakarta.annotation.Priority;
-import jakarta.decorator.Decorator;
-import jakarta.decorator.Delegate;
-import jakarta.enterprise.inject.Any;
-import jakarta.inject.Inject;
-import jakarta.interceptor.Interceptor;
-
-@Decorator
-@Priority(Interceptor.Priority.APPLICATION)
-public class Manager implements Worker {
-
-    @Inject
-    @Delegate
-    @Any
-    private Worker worker;
-
-    @Override
-    public String work(String job) {
-        return "A manager has received a job and it will delegate to a programmer -> " + worker.work(job);
+    
+    
+    import jakarta.enterprise.context.ApplicationScoped;
+    
+    import java.util.logging.Logger;
+    
+    @ApplicationScoped
+    public class Programmer implements Worker {
+    
+        private static final Logger LOGGER = Logger.getLogger(Programmer.class.getName());
+    
+        @Override
+        public String work(String job) {
+            return "A programmer has received a job, it will convert coffee in code: " + job;
+        }
     }
-}
-
-```
+    
+    
+    import jakarta.annotation.Priority;
+    import jakarta.decorator.Decorator;
+    import jakarta.decorator.Delegate;
+    import jakarta.enterprise.inject.Any;
+    import jakarta.inject.Inject;
+    import jakarta.interceptor.Interceptor;
+    
+    @Decorator
+    @Priority(Interceptor.Priority.APPLICATION)
+    public class Manager implements Worker {
+    
+        @Inject
+        @Delegate
+        @Any
+        private Worker worker;
+    
+        @Override
+        public String work(String job) {
+            return "A manager has received a job and it will delegate to a programmer -> " + worker.work(job);
+        }
+    }
+    
+    ```
 
 ## 2. CDI Interceptor
 
 In this lab, we will explore the CDI interceptor, creating a timer for methods.
 
-material-play-box-multiple-outline: Steps
+### :material-play-box-multiple-outline: Steps
 
 **Step 1:** Create the `Timed` Annotation
 ```java
@@ -274,77 +275,77 @@ In summary, this code demonstrates the use of CDI interceptors and annotations t
 
 ??? example "Click to see..."
 
-```java
-import jakarta.interceptor.InterceptorBinding;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.Target;
-
-import static java.lang.annotation.ElementType.METHOD;
-import static java.lang.annotation.ElementType.TYPE;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-@InterceptorBinding
-@Target({METHOD, TYPE})
-@Retention(RUNTIME)
-public @interface Timed {
-}
-
-import jakarta.annotation.Priority;
-import jakarta.interceptor.AroundInvoke;
-import jakarta.interceptor.Interceptor;
-import jakarta.interceptor.InvocationContext;
-
-import java.util.logging.Logger;
-
-@Timed
-@Interceptor
-@Priority(Interceptor.Priority.APPLICATION)
-public class TimedInterceptor {
-
-    private static final Logger LOGGER = Logger.getLogger(TimedInterceptor.class.getName());
-
-    @AroundInvoke
-    public Object timer(InvocationContext ctx) throws Exception {
-        long start = System.currentTimeMillis();
-        Object result = ctx.proceed();
-        long end = System.currentTimeMillis() - start;
-        String message = String.format("Time to execute the class %s, the method %s is of %d milliseconds",
-                ctx.getTarget().getClass(), ctx.getMethod(), end);
-        LOGGER.info(message);
-        return result;
+    ```java
+    import jakarta.interceptor.InterceptorBinding;
+    
+    import java.lang.annotation.Retention;
+    import java.lang.annotation.Target;
+    
+    import static java.lang.annotation.ElementType.METHOD;
+    import static java.lang.annotation.ElementType.TYPE;
+    import static java.lang.annotation.RetentionPolicy.RUNTIME;
+    
+    @InterceptorBinding
+    @Target({METHOD, TYPE})
+    @Retention(RUNTIME)
+    public @interface Timed {
     }
-}
-
-import java.util.function.Supplier;
-
-public class FastSupplier implements Supplier<String> {
-
+    
+    import jakarta.annotation.Priority;
+    import jakarta.interceptor.AroundInvoke;
+    import jakarta.interceptor.Interceptor;
+    import jakarta.interceptor.InvocationContext;
+    
+    import java.util.logging.Logger;
+    
     @Timed
-    @Override
-    public String get() {
-        return "The Fast supplier result";
-    }
-}
-
-
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
-
-public class SlowSupplier implements Supplier<String> {
-
-    @Timed
-    @Override
-    public String get() {
-        try {
-            TimeUnit.MILLISECONDS.sleep(200L);
-        } catch (InterruptedException e) {
-            //TODO it is only a sample, don't do it on production :)
-            throw  new RuntimeException(e);
+    @Interceptor
+    @Priority(Interceptor.Priority.APPLICATION)
+    public class TimedInterceptor {
+    
+        private static final Logger LOGGER = Logger.getLogger(TimedInterceptor.class.getName());
+    
+        @AroundInvoke
+        public Object timer(InvocationContext ctx) throws Exception {
+            long start = System.currentTimeMillis();
+            Object result = ctx.proceed();
+            long end = System.currentTimeMillis() - start;
+            String message = String.format("Time to execute the class %s, the method %s is of %d milliseconds",
+                    ctx.getTarget().getClass(), ctx.getMethod(), end);
+            LOGGER.info(message);
+            return result;
         }
-        return "The slow result";
     }
-}
-
-
-```
+    
+    import java.util.function.Supplier;
+    
+    public class FastSupplier implements Supplier<String> {
+    
+        @Timed
+        @Override
+        public String get() {
+            return "The Fast supplier result";
+        }
+    }
+    
+    
+    import java.util.concurrent.TimeUnit;
+    import java.util.function.Supplier;
+    
+    public class SlowSupplier implements Supplier<String> {
+    
+        @Timed
+        @Override
+        public String get() {
+            try {
+                TimeUnit.MILLISECONDS.sleep(200L);
+            } catch (InterruptedException e) {
+                //TODO it is only a sample, don't do it on production :)
+                throw  new RuntimeException(e);
+            }
+            return "The slow result";
+        }
+    }
+    
+    
+    ```

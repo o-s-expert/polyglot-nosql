@@ -6,7 +6,7 @@
 
 In this lab, we will create an object and destroy objects using the Produces and Dispose annotations, respectively.
 
-material-play-box-multiple-outline: Steps
+### :material-play-box-multiple-outline: Steps
 
 **Step 1:** Import Required Annotations and Classes
 
@@ -78,29 +78,29 @@ In summary, this code defines an application-scoped CDI bean (`NumberProducer`) 
 
 ??? example "Click to see..."
 
-```java
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Disposes;
-import jakarta.enterprise.inject.Produces;
-
-import java.math.BigDecimal;
-import java.util.concurrent.ThreadLocalRandom;
-
-@ApplicationScoped
-class NumberProducer {
-
-    @Produces
-    public BigDecimal producer() {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        double nextDouble = random.nextInt(1, 100);
-        return new BigDecimal(nextDouble);
+    ```java
+    import jakarta.enterprise.context.ApplicationScoped;
+    import jakarta.enterprise.inject.Disposes;
+    import jakarta.enterprise.inject.Produces;
+    
+    import java.math.BigDecimal;
+    import java.util.concurrent.ThreadLocalRandom;
+    
+    @ApplicationScoped
+    class NumberProducer {
+    
+        @Produces
+        public BigDecimal producer() {
+            ThreadLocalRandom random = ThreadLocalRandom.current();
+            double nextDouble = random.nextInt(1, 100);
+            return new BigDecimal(nextDouble);
+        }
+    
+        public void destroy(@Disposes BigDecimal value) {
+            System.out.println("We don't need this number anymore: " + value);
+        }
     }
-
-    public void destroy(@Disposes BigDecimal value) {
-        System.out.println("We don't need this number anymore: " + value);
-    }
-}
-```
+    ```
 
 
 ## 2. Using InjectionPoint
@@ -109,7 +109,7 @@ class NumberProducer {
 
 In this lab, we will create an object taking information from who needs this information using the InjectionPoint. Thus, we will create a Logger producer.
 
-material-play-box-multiple-outline: Steps
+### :material-play-box-multiple-outline: Steps
 
 **Step 1:** Define an Application-Scoped Class for Logger Production
 
@@ -196,58 +196,58 @@ In summary, this code defines an application-scoped CDI bean (`LoggerProducer`) 
 
 ??? example "Click to see..."
 
-```java
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.inject.Produces;
-import jakarta.enterprise.inject.spi.InjectionPoint;
-
-import java.util.logging.Logger;
-
-@ApplicationScoped
-class LoggerProducer {
-
-    private static final Logger LOGGER = Logger.getLogger(LoggerProducer.class.getName());
-
-    @Produces
-    Logger getLog(InjectionPoint ip) {
-        String declaringClass = ip.getMember().getDeclaringClass().getName();
-        LOGGER.info("Creating instance log to " + declaringClass);
-        return Logger.getLogger(declaringClass);
+    ```java
+    
+    import jakarta.enterprise.context.ApplicationScoped;
+    import jakarta.enterprise.inject.Produces;
+    import jakarta.enterprise.inject.spi.InjectionPoint;
+    
+    import java.util.logging.Logger;
+    
+    @ApplicationScoped
+    class LoggerProducer {
+    
+        private static final Logger LOGGER = Logger.getLogger(LoggerProducer.class.getName());
+    
+        @Produces
+        Logger getLog(InjectionPoint ip) {
+            String declaringClass = ip.getMember().getDeclaringClass().getName();
+            LOGGER.info("Creating instance log to " + declaringClass);
+            return Logger.getLogger(declaringClass);
+        }
     }
-}
-
-import jakarta.inject.Inject;
-
-import java.math.BigDecimal;
-import java.util.logging.Logger;
-
-public class NumberLogger {
-
-    private Logger logger;
-
-    NumberLogger() {
+    
+    import jakarta.inject.Inject;
+    
+    import java.math.BigDecimal;
+    import java.util.logging.Logger;
+    
+    public class NumberLogger {
+    
+        private Logger logger;
+    
+        NumberLogger() {
+        }
+    
+        @Inject
+        public NumberLogger(Logger logger) {
+            this.logger = logger;
+        }
+    
+        public void log(BigDecimal value) {
+            this.logger.info("The BigDecimal value is " + value);
+        }
+    
+    
     }
-
-    @Inject
-    public NumberLogger(Logger logger) {
-        this.logger = logger;
-    }
-
-    public void log(BigDecimal value) {
-        this.logger.info("The BigDecimal value is " + value);
-    }
-
-
-}
-```
+    ```
 
 ## 3. CDI events
 
 
 In this lab, we will explore more about the CDI events.
 
-material-play-box-multiple-outline: Steps
+### :material-play-box-multiple-outline: Steps
 
 **Step 1:** Create a `News` Class
 ```java
@@ -387,87 +387,87 @@ In summary, the provided code sets up a simple event-based news distribution sys
 
 ??? example "Click to see..."
 
-```java
-
-import java.util.Objects;
-import java.util.function.Supplier;
-
-public final class News implements Supplier<String> {
-
-    private final String name;
-
-    private News(String name) {
-        this.name = name;
+    ```java
+    
+    import java.util.Objects;
+    import java.util.function.Supplier;
+    
+    public final class News implements Supplier<String> {
+    
+        private final String name;
+    
+        private News(String name) {
+            this.name = name;
+        }
+    
+        @Override
+        public String get() {
+            return name;
+        }
+    
+        public static News of(String news) {
+            Objects.requireNonNull(news, "news is required");
+            return new News(news);
+        }
     }
-
-    @Override
-    public String get() {
-        return name;
+    
+    import jakarta.enterprise.event.Observes;
+    
+    import java.util.function.Consumer;
+    import java.util.logging.Logger;
+    
+    public class Magazine implements Consumer<News> {
+    
+        private static final Logger LOGGER = Logger.getLogger(Magazine.class.getName());
+    
+        @Override
+        public void accept(@Observes News news) {
+            LOGGER.info("We got the news, we'll publish it on a magazine: " + news.get());
+        }
     }
-
-    public static News of(String news) {
-        Objects.requireNonNull(news, "news is required");
-        return new News(news);
+    
+    @ApplicationScoped
+    public class NewsPaper implements Consumer<News> {
+    
+        private static final Logger LOGGER = Logger.getLogger(NewsPaper.class.getName());
+    
+        @Override
+        public void accept(@Observes News news) {
+            LOGGER.info("We got the news, we'll publish it on a newspaper: " + news.get());
+        }
     }
-}
-
-import jakarta.enterprise.event.Observes;
-
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
-public class Magazine implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(Magazine.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it on a magazine: " + news.get());
+    
+    import jakarta.enterprise.context.ApplicationScoped;
+    import jakarta.enterprise.event.Observes;
+    
+    import java.util.function.Consumer;
+    import java.util.logging.Logger;
+    
+    @ApplicationScoped
+    public class SocialMedia implements Consumer<News> {
+    
+        private static final Logger LOGGER = Logger.getLogger(SocialMedia.class.getName());
+    
+        @Override
+        public void accept(@Observes News news) {
+            LOGGER.info("We got the news, we'll publish it on Social Media: " + news.get());
+        }
     }
-}
-
-@ApplicationScoped
-public class NewsPaper implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(NewsPaper.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it on a newspaper: " + news.get());
+    
+    import jakarta.enterprise.context.ApplicationScoped;
+    import jakarta.enterprise.event.Event;
+    import jakarta.inject.Inject;
+    
+    @ApplicationScoped
+    public class Journalist {
+    
+        @Inject
+        private Event<News> event;
+    
+        public void receiveNews(News news) {
+            this.event.fire(news);
+        }
+    
     }
-}
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
-
-import java.util.function.Consumer;
-import java.util.logging.Logger;
-
-@ApplicationScoped
-public class SocialMedia implements Consumer<News> {
-
-    private static final Logger LOGGER = Logger.getLogger(SocialMedia.class.getName());
-
-    @Override
-    public void accept(@Observes News news) {
-        LOGGER.info("We got the news, we'll publish it on Social Media: " + news.get());
-    }
-}
-
-import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Event;
-import jakarta.inject.Inject;
-
-@ApplicationScoped
-public class Journalist {
-
-    @Inject
-    private Event<News> event;
-
-    public void receiveNews(News news) {
-        this.event.fire(news);
-    }
-
-}
-
-```
+    
+    ```
