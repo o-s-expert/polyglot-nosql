@@ -184,161 +184,161 @@ Compile the Java classes and run the `App` class to execute the Cassandra operat
 
 ??? example "Click to see..."
 
-```java
-
-
-import jakarta.nosql.Column;
-import jakarta.nosql.Entity;
-import jakarta.nosql.Id;
-
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
-
-
-@Entity("Person")
-public class Person {
-
-    @Id("id")
-    private long id;
-
-    @Column
-    private String name;
-
-    @Column
-    private Map<String, String> contacts;
-
-    public Person() {
-    }
-
-    Person(long id, String name, Map<String, String> contacts) {
-        this.id = id;
-        this.name = name;
-        this.contacts = contacts;
-    }
-
-    public long id() {
-        return id;
-    }
-
-    public String name() {
-        return name;
-    }
-
-    public Map<String, String> contacts() {
-        return Collections.unmodifiableMap(contacts);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Person person = (Person) o;
-        return id == person.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Person{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", contacts=" + contacts +
-                '}';
-    }
-
-    public static PersonBuilder builder() {
-        return new PersonBuilder();
-    }
-}
-
-import java.util.Collections;
-import java.util.Map;
-
-public class PersonBuilder {
-    private long id;
-    private String name;
-    private Map<String, String> contacts = Collections.emptyMap();
-    PersonBuilder() {
-    }
-
-    public PersonBuilder id(long id) {
-        this.id = id;
-        return this;
-    }
-
-    public PersonBuilder name(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public PersonBuilder contacts(Map<String, String> contacts) {
-        this.contacts = contacts;
-        return this;
-    }
-
-    public Person build() {
-        return new Person(id, name, contacts);
-    }
-}
-
-
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-import jakarta.nosql.column.ColumnTemplate;
-
-import java.time.Duration;
-import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
-
-
-public class App {
-
-
-    public static void main(String[] args) throws InterruptedException {
-
-        try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
-            Person otaviojava = Person.builder()
-                    .contacts(Map.of("twitter", "otaviojava", "linkedin", "otaviojava",
-                            "youtube", "otaviojava"))
-                    .name("Otavio Santana").id(1).build();
-
-            Person elderjava = Person.builder()
-                    .contacts(Map.of("twitter", "elderjava", "linkedin", "elderjava",
-                            "youtube", "elderjava"))
-                    .name("Elder Moraes").id(2).build();
-
-            ColumnTemplate template =  container.select(ColumnTemplate.class).get();
-            template.insert(otaviojava);
-
-            template.insert(elderjava, Duration.ofSeconds(1));
-
-            System.out.println("The elder find: " + template.find(Person.class, 2L));
-
-            TimeUnit.SECONDS.sleep(2L);
-
-            System.out.println("The elder find: " + template.find(Person.class, 2L));
-
-            Optional<Person> person = template.select(Person.class)
-                    .where("id").eq(1L).singleResult();
-            System.out.println("Entity found: " + person);
-
-        }
-    }
-
-    private App() {}
-}
-```
+      ```java
+      
+      
+      import jakarta.nosql.Column;
+      import jakarta.nosql.Entity;
+      import jakarta.nosql.Id;
+      
+      import java.util.Collections;
+      import java.util.Map;
+      import java.util.Objects;
+      
+      
+      @Entity("Person")
+      public class Person {
+      
+          @Id("id")
+          private long id;
+      
+          @Column
+          private String name;
+      
+          @Column
+          private Map<String, String> contacts;
+      
+          public Person() {
+          }
+      
+          Person(long id, String name, Map<String, String> contacts) {
+              this.id = id;
+              this.name = name;
+              this.contacts = contacts;
+          }
+      
+          public long id() {
+              return id;
+          }
+      
+          public String name() {
+              return name;
+          }
+      
+          public Map<String, String> contacts() {
+              return Collections.unmodifiableMap(contacts);
+          }
+      
+          @Override
+          public boolean equals(Object o) {
+              if (this == o) {
+                  return true;
+              }
+              if (o == null || getClass() != o.getClass()) {
+                  return false;
+              }
+              Person person = (Person) o;
+              return id == person.id;
+          }
+      
+          @Override
+          public int hashCode() {
+              return Objects.hashCode(id);
+          }
+      
+          @Override
+          public String toString() {
+              return "Person{" +
+                      "id=" + id +
+                      ", name='" + name + '\'' +
+                      ", contacts=" + contacts +
+                      '}';
+          }
+      
+          public static PersonBuilder builder() {
+              return new PersonBuilder();
+          }
+      }
+      
+      import java.util.Collections;
+      import java.util.Map;
+      
+      public class PersonBuilder {
+          private long id;
+          private String name;
+          private Map<String, String> contacts = Collections.emptyMap();
+          PersonBuilder() {
+          }
+      
+          public PersonBuilder id(long id) {
+              this.id = id;
+              return this;
+          }
+      
+          public PersonBuilder name(String name) {
+              this.name = name;
+              return this;
+          }
+      
+          public PersonBuilder contacts(Map<String, String> contacts) {
+              this.contacts = contacts;
+              return this;
+          }
+      
+          public Person build() {
+              return new Person(id, name, contacts);
+          }
+      }
+      
+      
+      import jakarta.enterprise.inject.se.SeContainer;
+      import jakarta.enterprise.inject.se.SeContainerInitializer;
+      import jakarta.nosql.column.ColumnTemplate;
+      
+      import java.time.Duration;
+      import java.util.Map;
+      import java.util.Optional;
+      import java.util.concurrent.TimeUnit;
+      
+      
+      public class App {
+      
+      
+          public static void main(String[] args) throws InterruptedException {
+      
+              try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+      
+                  Person otaviojava = Person.builder()
+                          .contacts(Map.of("twitter", "otaviojava", "linkedin", "otaviojava",
+                                  "youtube", "otaviojava"))
+                          .name("Otavio Santana").id(1).build();
+      
+                  Person elderjava = Person.builder()
+                          .contacts(Map.of("twitter", "elderjava", "linkedin", "elderjava",
+                                  "youtube", "elderjava"))
+                          .name("Elder Moraes").id(2).build();
+      
+                  ColumnTemplate template =  container.select(ColumnTemplate.class).get();
+                  template.insert(otaviojava);
+      
+                  template.insert(elderjava, Duration.ofSeconds(1));
+      
+                  System.out.println("The elder find: " + template.find(Person.class, 2L));
+      
+                  TimeUnit.SECONDS.sleep(2L);
+      
+                  System.out.println("The elder find: " + template.find(Person.class, 2L));
+      
+                  Optional<Person> person = template.select(Person.class)
+                          .where("id").eq(1L).singleResult();
+                  System.out.println("Entity found: " + person);
+      
+              }
+          }
+      
+          private App() {}
+      }
+      ```
 
 ## 3 Cassandra specialization
 
@@ -424,43 +424,43 @@ Compile the Java classes and run the `App2` class to execute the Cassandra opera
 
 ??? example "Click to see..."
 
-```java
-
-import com.datastax.oss.driver.api.core.ConsistencyLevel;
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-import org.eclipse.jnosql.databases.cassandra.mapping.CassandraTemplate;
-
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-
-public class App2 {
-
-
-    public static void main(String[] args) {
-
-        try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
-            Person ada = Person.builder()
-                    .contacts(Map.of("twitter", "ada"))
-                    .name("Ada Lovelace").id(3).build();
-
-            CassandraTemplate template =  container.select(CassandraTemplate.class).get();
-            template.save(ada, ConsistencyLevel.ONE);
-
-
-            List<Person> people = template.<Person>cql("select * from developers.Person where id = 1")
-                    .collect(Collectors.toList());
-            System.out.println("Entity found: " + people);
-
-        }
-    }
-
-    private App2() {}
-}
-```
+      ```java
+      
+      import com.datastax.oss.driver.api.core.ConsistencyLevel;
+      import jakarta.enterprise.inject.se.SeContainer;
+      import jakarta.enterprise.inject.se.SeContainerInitializer;
+      import org.eclipse.jnosql.databases.cassandra.mapping.CassandraTemplate;
+      
+      import java.util.List;
+      import java.util.Map;
+      import java.util.stream.Collectors;
+      
+      
+      public class App2 {
+      
+      
+          public static void main(String[] args) {
+      
+              try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+      
+                  Person ada = Person.builder()
+                          .contacts(Map.of("twitter", "ada"))
+                          .name("Ada Lovelace").id(3).build();
+      
+                  CassandraTemplate template =  container.select(CassandraTemplate.class).get();
+                  template.save(ada, ConsistencyLevel.ONE);
+      
+      
+                  List<Person> people = template.<Person>cql("select * from developers.Person where id = 1")
+                          .collect(Collectors.toList());
+                  System.out.println("Entity found: " + people);
+      
+              }
+          }
+      
+          private App2() {}
+      }
+      ```
 
 ## 3 Cassandra Repository
 
@@ -568,48 +568,48 @@ Compile the Java classes and run the `App3` class to execute the Spring Data rep
 
 ??? example "Click to see..."
 
-```java
-
-import jakarta.data.repository.CrudRepository;
-import jakarta.data.repository.Repository;
-@Repository
-public interface PersonRepository extends CrudRepository<Person, Long> {
-
-}
-
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-
-import java.util.Map;
-import java.util.Optional;
-
-
-public class App3 {
-
-
-    public static void main(String[] args){
-
-        try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
-            Person otaviojava = Person.builder()
-                    .contacts(Map.of("twitter", "otaviojava", "linkedin", "otaviojava",
-                            "youtube", "otaviojava"))
-                    .name("Otavio Santana").id(1).build();
-
-
-            PersonRepository repository = container.select(PersonRepository.class).get();
-            repository.save(otaviojava);
-
-            Optional<Person> person = repository.findById(1L);
-            System.out.println("Entity found: " + person);
-
-        }
-    }
-
-    private App3() {}
-}
-
-```
+      ```java
+      
+      import jakarta.data.repository.CrudRepository;
+      import jakarta.data.repository.Repository;
+      @Repository
+      public interface PersonRepository extends CrudRepository<Person, Long> {
+      
+      }
+      
+      import jakarta.enterprise.inject.se.SeContainer;
+      import jakarta.enterprise.inject.se.SeContainerInitializer;
+      
+      import java.util.Map;
+      import java.util.Optional;
+      
+      
+      public class App3 {
+      
+      
+          public static void main(String[] args){
+      
+              try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+      
+                  Person otaviojava = Person.builder()
+                          .contacts(Map.of("twitter", "otaviojava", "linkedin", "otaviojava",
+                                  "youtube", "otaviojava"))
+                          .name("Otavio Santana").id(1).build();
+      
+      
+                  PersonRepository repository = container.select(PersonRepository.class).get();
+                  repository.save(otaviojava);
+      
+                  Optional<Person> person = repository.findById(1L);
+                  System.out.println("Entity found: " + person);
+      
+              }
+          }
+      
+          private App3() {}
+      }
+      
+      ```
 
 ## 3 Cassandra UDT
 
@@ -748,214 +748,214 @@ Compile the Java classes and run the `App4` class to execute Spring Data reposit
 
 ??? example "Click to see..."
 
-```java
-
-import jakarta.nosql.Column;
-import jakarta.nosql.Entity;
-
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-
-@Entity
-public class Director {
-
-    @Column
-    private String name;
-
-    @Column
-    private Set<String> movies;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<String> getMovies() {
-        return movies;
-    }
-
-    public void setMovies(Set<String> movies) {
-        this.movies = movies;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Director)) return false;
-        Director director = (Director) o;
-        return Objects.equals(name, director.name) &&
-                Objects.equals(movies, director.movies);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, movies);
-    }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Director{");
-        sb.append("name='").append(name).append('\'');
-        sb.append(", movies=").append(movies);
-        sb.append('}');
-        return sb.toString();
-    }
-
-    public static DirectorBuilder builder() {
-        return new DirectorBuilder();
-    }
-
-    public static class DirectorBuilder {
-
-        private String name;
-
-        private Set<String> movies = new HashSet<>();
-
-        public DirectorBuilder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public DirectorBuilder add(String movie) {
-            this.movies.add(movie);
-            return this;
-        }
-
-        public Director build() {
-            Director director = new Director();
-            director.setName(name);
-            director.setMovies(movies);
-            return director;
-        }
-    }
-}
-
-
-import jakarta.nosql.Column;
-import jakarta.nosql.Entity;
-import jakarta.nosql.Id;
-import org.eclipse.jnosql.databases.cassandra.mapping.UDT;
-
-import java.util.Objects;
-
-@Entity
-public class Movie {
-
-    @Id("name")
-    private String name;
-
-    @Column
-    private Integer age;
-
-    @Column
-    @UDT("director")
-    private Director director;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public Director getDirector() {
-        return director;
-    }
-
-    public void setDirector(Director director) {
-        this.director = director;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Movie)) return false;
-        Movie movie = (Movie) o;
-        return Objects.equals(name, movie.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(name);
-    }
-
-    @Override
-    public String toString() {
-        return "Movie{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", director=" + director +
-                '}';
-    }
-}
-
-@Repository
-public interface MovieRepository extends CassandraRepository<Movie, String> {
-
-
-    List<Movie> findByAge(Integer age);
-
-    @CQL("select * from developers.Movie")
-    List<Movie> findAllQuery();
-}
-
-
-
-import jakarta.enterprise.inject.se.SeContainer;
-import jakarta.enterprise.inject.se.SeContainerInitializer;
-
-import java.util.List;
-
-public class App4 {
-
-
-    public static void main(String[] args) {
-
-        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
-            MovieRepository repository = container.select(MovieRepository.class).get();
-
-            Movie matrix = new Movie();
-            matrix.setName("The Matrix");
-            matrix.setAge(1999);
-            matrix.setDirector(Director.builder().withName("Lana Wachowski")
-                    .add("The Matrix").add("The Matrix Reloaded").add("Assassins").build());
-
-            Movie fightClub = new Movie();
-            fightClub.setName("Fight Club");
-            fightClub.setAge(1999);
-            fightClub.setDirector(Director.builder().withName("David Fincher")
-                    .add("Fight Club").add("Seven").add("The Social Network").build());
-
-            Movie americanBeauty = new Movie();
-            americanBeauty.setName("American Beauty");
-            americanBeauty.setAge(1999);
-            americanBeauty.setDirector(Director.builder().withName("Sam Mendes")
-                    .add("Spectre").add("Skyfall").add("American Beauty").build());
-
-
-            repository.saveAll(List.of(matrix, fightClub, americanBeauty));
-            System.out.println("Find all: " + repository.findAllQuery());
-            System.out.println("Movies from 1999: " + repository.findByAge(1999));
-
-
-        }
-    }
-
-    private App4() {}
-}
-
-```
+      ```java
+      
+      import jakarta.nosql.Column;
+      import jakarta.nosql.Entity;
+      
+      import java.util.HashSet;
+      import java.util.Objects;
+      import java.util.Set;
+      
+      @Entity
+      public class Director {
+      
+          @Column
+          private String name;
+      
+          @Column
+          private Set<String> movies;
+      
+          public String getName() {
+              return name;
+          }
+      
+          public void setName(String name) {
+              this.name = name;
+          }
+      
+          public Set<String> getMovies() {
+              return movies;
+          }
+      
+          public void setMovies(Set<String> movies) {
+              this.movies = movies;
+          }
+      
+          @Override
+          public boolean equals(Object o) {
+              if (this == o) return true;
+              if (!(o instanceof Director)) return false;
+              Director director = (Director) o;
+              return Objects.equals(name, director.name) &&
+                      Objects.equals(movies, director.movies);
+          }
+      
+          @Override
+          public int hashCode() {
+              return Objects.hash(name, movies);
+          }
+      
+          @Override
+          public String toString() {
+              final StringBuilder sb = new StringBuilder("Director{");
+              sb.append("name='").append(name).append('\'');
+              sb.append(", movies=").append(movies);
+              sb.append('}');
+              return sb.toString();
+          }
+      
+          public static DirectorBuilder builder() {
+              return new DirectorBuilder();
+          }
+      
+          public static class DirectorBuilder {
+      
+              private String name;
+      
+              private Set<String> movies = new HashSet<>();
+      
+              public DirectorBuilder withName(String name) {
+                  this.name = name;
+                  return this;
+              }
+      
+              public DirectorBuilder add(String movie) {
+                  this.movies.add(movie);
+                  return this;
+              }
+      
+              public Director build() {
+                  Director director = new Director();
+                  director.setName(name);
+                  director.setMovies(movies);
+                  return director;
+              }
+          }
+      }
+      
+      
+      import jakarta.nosql.Column;
+      import jakarta.nosql.Entity;
+      import jakarta.nosql.Id;
+      import org.eclipse.jnosql.databases.cassandra.mapping.UDT;
+      
+      import java.util.Objects;
+      
+      @Entity
+      public class Movie {
+      
+          @Id("name")
+          private String name;
+      
+          @Column
+          private Integer age;
+      
+          @Column
+          @UDT("director")
+          private Director director;
+      
+          public String getName() {
+              return name;
+          }
+      
+          public void setName(String name) {
+              this.name = name;
+          }
+      
+          public Integer getAge() {
+              return age;
+          }
+      
+          public void setAge(Integer age) {
+              this.age = age;
+          }
+      
+          public Director getDirector() {
+              return director;
+          }
+      
+          public void setDirector(Director director) {
+              this.director = director;
+          }
+      
+          @Override
+          public boolean equals(Object o) {
+              if (this == o) return true;
+              if (!(o instanceof Movie)) return false;
+              Movie movie = (Movie) o;
+              return Objects.equals(name, movie.name);
+          }
+      
+          @Override
+          public int hashCode() {
+              return Objects.hashCode(name);
+          }
+      
+          @Override
+          public String toString() {
+              return "Movie{" +
+                      "name='" + name + '\'' +
+                      ", age=" + age +
+                      ", director=" + director +
+                      '}';
+          }
+      }
+      
+      @Repository
+      public interface MovieRepository extends CassandraRepository<Movie, String> {
+      
+      
+          List<Movie> findByAge(Integer age);
+      
+          @CQL("select * from developers.Movie")
+          List<Movie> findAllQuery();
+      }
+      
+      
+      
+      import jakarta.enterprise.inject.se.SeContainer;
+      import jakarta.enterprise.inject.se.SeContainerInitializer;
+      
+      import java.util.List;
+      
+      public class App4 {
+      
+      
+          public static void main(String[] args) {
+      
+              try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+      
+                  MovieRepository repository = container.select(MovieRepository.class).get();
+      
+                  Movie matrix = new Movie();
+                  matrix.setName("The Matrix");
+                  matrix.setAge(1999);
+                  matrix.setDirector(Director.builder().withName("Lana Wachowski")
+                          .add("The Matrix").add("The Matrix Reloaded").add("Assassins").build());
+      
+                  Movie fightClub = new Movie();
+                  fightClub.setName("Fight Club");
+                  fightClub.setAge(1999);
+                  fightClub.setDirector(Director.builder().withName("David Fincher")
+                          .add("Fight Club").add("Seven").add("The Social Network").build());
+      
+                  Movie americanBeauty = new Movie();
+                  americanBeauty.setName("American Beauty");
+                  americanBeauty.setAge(1999);
+                  americanBeauty.setDirector(Director.builder().withName("Sam Mendes")
+                          .add("Spectre").add("Skyfall").add("American Beauty").build());
+      
+      
+                  repository.saveAll(List.of(matrix, fightClub, americanBeauty));
+                  System.out.println("Find all: " + repository.findAllQuery());
+                  System.out.println("Movies from 1999: " + repository.findByAge(1999));
+      
+      
+              }
+          }
+      
+          private App4() {}
+      }
+      
+      ```
