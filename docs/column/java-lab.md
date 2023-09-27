@@ -748,6 +748,7 @@ Compile the Java classes and run the `App4` class to execute Spring Data reposit
 
 ??? example "Click to see..."
 
+      Director class 
       ```java
       
       import jakarta.nosql.Column;
@@ -833,8 +834,10 @@ Compile the Java classes and run the `App4` class to execute Spring Data reposit
               }
           }
       }
+      ```
       
-      
+      Movie class
+      ```java
       import jakarta.nosql.Column;
       import jakarta.nosql.Entity;
       import jakarta.nosql.Id;
@@ -901,7 +904,9 @@ Compile the Java classes and run the `App4` class to execute Spring Data reposit
                       '}';
           }
       }
-      
+      ```
+     MovieRepository class
+     ```java
       @Repository
       public interface MovieRepository extends CassandraRepository<Movie, String> {
       
@@ -911,9 +916,10 @@ Compile the Java classes and run the `App4` class to execute Spring Data reposit
           @CQL("select * from developers.Movie")
           List<Movie> findAllQuery();
       }
-      
-      
-      
+      ```
+
+      App4 class
+      ```java
       import jakarta.enterprise.inject.se.SeContainer;
       import jakarta.enterprise.inject.se.SeContainerInitializer;
       
