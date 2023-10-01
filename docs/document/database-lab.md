@@ -31,29 +31,32 @@ This command starts the MongoDB Shell (mongosh) and connects it to the MongoDB i
 
 **Step 3: Creating a Database and a Collection**
 
-Once you're connected to MongoDB, let's create a database named "people" and a collection named "person." In the MongoDB Shell (mongosh), run the following commands:
+Once you're connected to MongoDB, let's create a database named "workplace" and a collection named "people." In the MongoDB Shell (mongosh), run the following commands:
 
 ```bash
-use people; // Set the current database to "people"
+use workplace; // Set the current database to "workplace"
 
-db.createCollection("person"); // Create a collection named "person"
+db.createCollection("people"); // Create a collection named "people"
 ```
 
-These commands create a database named "people" and a collection named "person" within that database.
+These commands create a database named "workplace" and a collection named "people" within that database.
 
 **Step 4: Inserting and Querying Documents**
 
-Now, let's insert some documents into the "person" collection and query them. In the MongoDB Shell (mongosh), run the following commands:
+Now, let's insert some documents into the "people" collection and query them. In the MongoDB Shell (mongosh), run the following commands:
 
 ```bash
-db.person.insertOne({ name: "Alice", age: 30 });
-db.person.insertOne({ name: "Bob", age: 25 });
-db.person.insertOne({ name: "Charlie", age: 35 });
+db.people.insertOne({ name: "Alice", age: 30 });
 
-db.person.find();
+db.people.insertMany([
+    { name: "Bob", age: 25 },
+    { name: "Charlie", age: 35 }
+]);
+
+db.people.find();
 ```
 
-These commands insert three documents into the "person" collection and then retrieve all documents. You should see the documents you inserted displayed in the query results.
+These commands insert three documents into the "people" collection and then retrieve all documents. You should see the documents you inserted displayed in the query results.
 
 
 ### MongoDB commands:

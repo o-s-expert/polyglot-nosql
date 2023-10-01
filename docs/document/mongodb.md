@@ -15,7 +15,7 @@ MongoDB is a leading NoSQL database management system that revolutionizes storin
 
 5. **Flexible Indexing:** MongoDB offers flexible indexing options to optimize query performance, including compound indexes, geospatial indexes, and text indexes.
 
-6. **Powerful Query Language:** MongoDB's query language supports a wide range of query types, including range queries, regular expressions, and geospatial queries, enabling complex data retrieval.
+6. **Powerful Query API:** MongoDB's query API supports a wide range of query types, including range queries, regular expressions, and geospatial queries, enabling complex data retrieval.
 
 7. **Aggregation Framework:** MongoDB's aggregation framework allows you to perform advanced data transformations and aggregations, making it suitable for real-time analytics and reporting.
 
