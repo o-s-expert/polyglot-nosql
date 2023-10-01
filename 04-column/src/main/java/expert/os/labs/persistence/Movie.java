@@ -9,7 +9,7 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package expert.os.labs.persistence.persistence;
+package expert.os.labs.persistence;
 
 
 import jakarta.nosql.Column;

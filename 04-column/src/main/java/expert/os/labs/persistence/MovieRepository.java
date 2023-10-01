@@ -9,13 +9,21 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package expert.os.labs.persistence.persistence;
+package expert.os.labs.persistence;
 
 
-import jakarta.data.repository.CrudRepository;
 import jakarta.data.repository.Repository;
+import org.eclipse.jnosql.databases.cassandra.mapping.CQL;
+import org.eclipse.jnosql.databases.cassandra.mapping.CassandraRepository;
+
+import java.util.List;
 
 @Repository
-public interface PersonRepository extends CrudRepository<Person, Long> {
+public interface MovieRepository extends CassandraRepository<Movie, String> {
 
+
+    List<Movie> findByAge(Integer age);
+
+    @CQL("select * from developers.Movie")
+    List<Movie> findAllQuery();
 }

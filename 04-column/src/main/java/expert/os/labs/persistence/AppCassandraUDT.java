@@ -9,50 +9,47 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package expert.os.labs.persistence.persistence;
-
-
+package expert.os.labs.persistence;
 
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 
 import java.util.List;
 
-public class App4 {
-
+public class AppCassandraUDT {
 
     public static void main(String[] args) {
-
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
             MovieRepository repository = container.select(MovieRepository.class).get();
 
             Movie matrix = new Movie();
             matrix.setName("The Matrix");
             matrix.setAge(1999);
-            matrix.setDirector(Director.builder().withName("Lana Wachowski")
-                    .add("The Matrix").add("The Matrix Reloaded").add("Assassins").build());
+            matrix.setDirector(Director.builder().name("Lana Wachowski")
+                .addMovie("The Matrix").addMovie("The Matrix Reloaded").addMovie("Assassins").build());
 
             Movie fightClub = new Movie();
             fightClub.setName("Fight Club");
             fightClub.setAge(1999);
-            fightClub.setDirector(Director.builder().withName("David Fincher")
-                    .add("Fight Club").add("Seven").add("The Social Network").build());
+            fightClub.setDirector(Director.builder().name("David Fincher")
+                .addMovie("Fight Club").addMovie("Seven").addMovie("The Social Network").build());
 
             Movie americanBeauty = new Movie();
             americanBeauty.setName("American Beauty");
             americanBeauty.setAge(1999);
-            americanBeauty.setDirector(Director.builder().withName("Sam Mendes")
-                    .add("Spectre").add("Skyfall").add("American Beauty").build());
-
+            americanBeauty.setDirector(Director.builder().name("Sam Mendes")
+                .addMovie("Spectre").addMovie("SkyFall").addMovie("American Beauty").build());
 
             repository.saveAll(List.of(matrix, fightClub, americanBeauty));
-            System.out.println("Find all: " + repository.findAllQuery());
-            System.out.println("Movies from 1999: " + repository.findByAge(1999));
 
+            List<Movie> allMovies = repository.findAllQuery();
+            System.out.println("All movies = " + allMovies);
 
+            List<Movie> movieByAge = repository.findByAge(1999);
+            System.out.println("Movies from 1999 = " + movieByAge);
         }
     }
 
-    private App4() {}
+    public AppCassandraUDT() {
+    }
 }

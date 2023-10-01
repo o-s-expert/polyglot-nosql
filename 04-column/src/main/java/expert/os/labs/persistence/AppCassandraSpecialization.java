@@ -9,9 +9,7 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package expert.os.labs.persistence.persistence;
-
-
+package expert.os.labs.persistence;
 import com.datastax.oss.driver.api.core.ConsistencyLevel;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
@@ -21,28 +19,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
-public class App2 {
-
+public class AppCassandraSpecialization {
 
     public static void main(String[] args) {
 
-        try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
-            Person ada = Person.builder()
-                    .contacts(Map.of("twitter", "ada"))
-                    .name("Ada Lovelace").id(3).build();
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+            Person user1 = Person.builder().contacts(Map.of("twitter", "ada")).name("Lovelace").id(3).build();
 
             CassandraTemplate template =  container.select(CassandraTemplate.class).get();
-            template.save(ada, ConsistencyLevel.ONE);
-
+            template.save(user1, ConsistencyLevel.ONE);
 
             List<Person> people = template.<Person>cql("select * from developers.Person where id = 1")
-                    .collect(Collectors.toList());
-            System.out.println("Entity found: " + people);
+                .collect(Collectors.toList());
 
+            System.out.println(people);
         }
     }
 
-    private App2() {}
+    private AppCassandraSpecialization() {
+    }
 }

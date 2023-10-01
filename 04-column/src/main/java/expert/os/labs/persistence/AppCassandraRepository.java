@@ -9,8 +9,7 @@
  * You may elect to redistribute this code under either of these licenses.
  */
 
-package expert.os.labs.persistence.persistence;
-
+package expert.os.labs.persistence;
 
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
@@ -18,29 +17,22 @@ import jakarta.enterprise.inject.se.SeContainerInitializer;
 import java.util.Map;
 import java.util.Optional;
 
+public class AppCassandraRepository {
 
-
-public class App3 {
-
-
-    public static void main(String[] args){
-
-        try(SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
-            Person otaviojava = Person.builder()
-                    .contacts(Map.of("twitter", "otaviojava", "linkedin", "otaviojava",
-                            "youtube", "otaviojava"))
-                    .name("Otavio Santana").id(1).build();
-
+    public static void main(String[] args) {
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
+            Person user1 = Person.builder()
+                .contacts(Map.of("twitter", "otaviojava", "linkedin", "otaviojava","youtube", "otaviojava"))
+                .name("Otavio Santana").id(1).build();
 
             PersonRepository repository = container.select(PersonRepository.class).get();
-            repository.save(otaviojava);
+            repository.save(user1);
 
             Optional<Person> person = repository.findById(1L);
             System.out.println("Entity found: " + person);
-
         }
     }
 
-    private App3() {}
+    private AppCassandraRepository() {
+    }
 }

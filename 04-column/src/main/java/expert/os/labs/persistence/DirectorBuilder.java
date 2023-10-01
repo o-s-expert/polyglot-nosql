@@ -8,34 +8,27 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-package expert.os.labs.persistence.persistence;
 
-import java.util.Collections;
-import java.util.Map;
+package expert.os.labs.persistence;
 
-public class PersonBuilder {
-    private long id;
+import java.util.Set;
+
+public class DirectorBuilder {
+
     private String name;
-    private Map<String, String> contacts = Collections.emptyMap();
-    PersonBuilder() {
-    }
+    private final Set<String> movies = new HashSet<>();
 
-    public PersonBuilder id(long id) {
-        this.id = id;
-        return this;
-    }
-
-    public PersonBuilder name(String name) {
+    public DirectorBuilder name(String name) {
         this.name = name;
         return this;
     }
 
-    public PersonBuilder contacts(Map<String, String> contacts) {
-        this.contacts = contacts;
+    public DirectorBuilder addMovie(String movie) {
+        this.movies.add(movie);
         return this;
     }
 
-    public Person build() {
-        return new Person(id, name, contacts);
+    public Director build() {
+        return new Director(name, movies);
     }
 }
