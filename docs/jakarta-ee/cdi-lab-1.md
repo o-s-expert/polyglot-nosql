@@ -1,6 +1,6 @@
 # Jakarta CDI - Lab 1 - Basic part 1
 
-In this lab, we will explore creating the first injection where Vehicle interface into a single implementation Car.
+In this lab, we will explore creating the first injection where the Vehicle interface into a single implementation Car.
 
 ## 1. Defining the interface
 
@@ -57,11 +57,11 @@ In this lab, we will explore creating the first injection where Vehicle interfac
 	!!! Tip
 		You can use the `UUID.randomUUID().toString()` method to generate a random String
 
-7. Override the method `move()` logging the `name` of the veicle using the logger
+7. Override the method `move()` by logging the `name` of the vehicle using the logger
 
 ### :material-checkbox-multiple-outline: Expected results
 
-* Class `Car` implenmenting `Vehicle` created containing a method `move()`
+* Class `Car` implementing `Vehicle` created containing a method `move()`
 
 ### :material-check-outline: Solution
 

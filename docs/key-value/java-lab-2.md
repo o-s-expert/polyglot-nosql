@@ -2,13 +2,12 @@
 
 This lab will introduce an entity integration with Redis database with Java.
 
-
 ## 1. Create an entity
 
 ### :material-play-box-multiple-outline: Steps
 
 1. Create a class called `User` in the `expert.os.labs.persistence` package
-2. Annotate this class with `@Entity` , indicating that it's a persistent entity
+2. Annotate this class with `@Entity`, indicating that it's a persistent entity
 3. Add the following `private` fields with its types
 
     | type | field |
@@ -18,7 +17,7 @@ This lab will introduce an entity integration with Redis database with Java.
     | `Map<String, String>` | `settings` |
     | `Set<String>` | `languages` |
 
-4. Annotate the `userName` with `@Id`
+4. Annotate the `userName` with `@Id` from the `jakarta.nosql` package
 5. Create a constructor using all fields
 6. Create get methods for each field
 7. Add the `toString()` method
@@ -26,7 +25,6 @@ This lab will introduce an entity integration with Redis database with Java.
 ### :material-checkbox-multiple-outline: Expected results
 
 * Entity `User` created
-
 
 ### :material-check-outline: Solution
 
@@ -198,7 +196,7 @@ This lab will introduce an entity integration with Redis database with Java.
 2. Add a main method
 
     ```java
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
     }
     ```
 
@@ -215,7 +213,7 @@ This lab will introduce an entity integration with Redis database with Java.
     KeyValueTemplate template = container.select(KeyValueTemplate.class).get();
     ```
 
-5. Create two user instances using the `UserBuilder` class with different data insde the `try` statement
+5. Create two user instances using the builder from the `User` class with different data inside the `try` statement
 
     ```java
     User user1 = User.builder().username("user1").name("Otavio Santana")
@@ -228,14 +226,14 @@ This lab will introduce an entity integration with Redis database with Java.
         .settings(Map.of("location", "Portugal", "currency", "EUR")).build();
     ```
 
-6. Add the two user instances into the key-value store using the `KeuValueTemplate`, where the second one will have a delat of 1 second
+6. Add the two user instances into the key-value store using the `KeuValueTemplate`, where the second one will have a delay of 1 second
 
     ```java
     template.put(user1);
     template.put(user2, Duration.ofSeconds(1));
     ```
 
-7. Retrieve the `user2` data based on its `userName` and print out the result
+7. Retrieve the `user2` data based on its `userName` and printout the result
     - use the method `get()` from the `template` field
     - the first parameter is the value of the `userName` field and the second parameter is the class
 
@@ -244,7 +242,7 @@ This lab will introduce an entity integration with Redis database with Java.
     System.out.println("User2 data: " + user2Data);
     ```
 
-8. Add a wait time, then retrieve and print out the same user again
+8. Add a wait time, then retrieve and printout the same user again
 
     ```java
     TimeUnit.SECONDS.sleep(2L);
@@ -252,7 +250,7 @@ This lab will introduce an entity integration with Redis database with Java.
     System.out.println("User2 second retrieve data: " + user2DataSecondRetrieve);
     ```
 
-9. Retrieve the `user1` data based on its `userName` and print out the result
+9. Retrieve the `user1` data based on its `userName` and printout the result
 
     ```java
     Optional<User> user1Data = template.get("user1", User.class);
@@ -278,7 +276,7 @@ This lab will introduce an entity integration with Redis database with Java.
     User1 data: Optional[User{userName='user1', name='Otavio Santana', settings={location=Portugal, currency=EUR}, languages=[English, Italian, French, Portuguese, Spanish]}]
     ```
 
-* The second print out, related to the `user2` does not show any data because it expired
+* The second printout, related to the `user2` does not show any data because it expired
 
 ### :material-check-outline: Solution
 
@@ -394,17 +392,17 @@ This lab will introduce an entity integration with Redis database with Java.
     repository.save(ada);
     ```
 
-7. Retrieve the `User` object saved by its id, which is `username`, using the `findById` method fom the repository and print out the result
+7. Retrieve the `User` object saved by its id, which is `username`, using the `findById` method from the repository and printout the result
 
     ```java
     Optional<User> userFound = repository.findById("ada");
     System.out.println(userFound);
     ```
 
-8. Check if an user already exists using the `existsById` method from the repository, and print out the result
+8. Check if a user already exists using the `existsById` method from the repository, and printout the result
 
     ```java
-    boolean userExist = repository.existsById("ada");
+    boolea userExist = repository.existsById("ada");
     System.out.println("userExist? = " + userExist);
     ```
 
@@ -414,7 +412,7 @@ This lab will introduce an entity integration with Redis database with Java.
     repository.deleteById("ada");
     ```
 
-10. Check if an user still exists using the `existsById` method from the repository, and print out the result
+10. Check if a user still exists using the `existsById` method from the repository, and printout the result
 
     ```java
     userExist = repository.existsById("ada");
@@ -466,7 +464,7 @@ This lab will introduce an entity integration with Redis database with Java.
                 Optional<User> userFound = repository.findById("ada");
                 System.out.println(userFound);
 
-                boolean userExist = repository.existsById("ada");
+                boolea userExist = repository.existsById("ada");
                 System.out.println("userExist? = " + userExist);
 
                 repository.deleteById("ada");

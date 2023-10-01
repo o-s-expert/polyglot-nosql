@@ -89,7 +89,9 @@ nav:
         - "4.3 Cassandra Commands": "column/commands.md"
         - "4.4 Lab 🧪":
             - "4.4.1 Cassandra Basic": "column/database-lab.md"
-            - "4.4.2 Cassandra Java": "column/java-lab.md"
+            - "4.4.2 Cassandra Java 1": "column/java-lab.md"
+            - "4.4.3 Cassandra Java 2": "column/java-lab-2.md"
+            - "4.4.4 Cassandra Java 3": "column/java-lab-3.md"
   - "📕 5. Document database":
         - "5.1 Introduction": "document/introduction.md" 
         - "5.2 MongoDB": "document/mongodb.md"

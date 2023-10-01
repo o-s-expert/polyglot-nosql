@@ -24,8 +24,8 @@ You might wonder, "Why is CDI so crucial when working with NoSQL databases in mo
 | **Request**                 | Scoped to an HTTP request in a web application. The bean instance is created for the duration of an HTTP request and destroyed when the request is completed. |
 | **Session**                 | Scoped to an HTTP session in a web application. The bean instance is created when the session is initiated and destroyed when the session ends. |
 | **Application**             | Scoped to the entire lifecycle of the application. The bean instance is created when the application starts and destroyed when the application is shut down. |
-| **Conversation**            | Scoped to a long-running conversation in a web application. It spans multiple HTTP requests and allows maintaining conversational state. The bean instance is created at the beginning of a conversation and destroyed when the conversation ends. |
-| **Singleton**               | Scoped to a single, shared instance across the entire application. The same bean instance is reused for all clients, promoting global state and sharing among components. |
+| **Conversation**            | Scoped to a long-running conversation in a web application. It spans multiple HTTP requests and allows maintaining a conversational state. The bean instance is created at the beginning of a conversation and destroyed when the conversation ends. |
+| **Singleton**               | Scoped to a single, shared instance across the entire application. The same bean instance is reused for all clients, promoting a global state and sharing among components. |
 
 
 These CDI scopes provide a powerful mechanism for managing the lifecycle and visibility of beans in your application, allowing you to control how and when dependencies are created and maintained. The choice of scope depends on the specific requirements of your application and how you want to manage bean instances and their interactions.
