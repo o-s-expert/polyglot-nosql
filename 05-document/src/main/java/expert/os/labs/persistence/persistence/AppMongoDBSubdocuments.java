@@ -15,36 +15,38 @@ package expert.os.labs.persistence.persistence;
 import com.github.javafaker.Faker;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
+import jakarta.nosql.document.DocumentTemplate;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class App4 {
-
+public class AppMongoDBSubdocuments {
 
     public static void main(String[] args) {
-
         ThreadLocalRandom random = ThreadLocalRandom.current();
+        long id = random.nextLong();
+
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
             Faker faker = new Faker();
+
             Address address = new Address(faker.address().streetName(), faker.address().city());
             Job job = new Job(12.12, faker.job().title());
-            Author author = Author.builder().
-                    withPhones(Arrays.asList(faker.phoneNumber().cellPhone(), faker.phoneNumber().cellPhone()))
-                    .withName(faker.name().fullName())
-                    .withAddress(address)
-                    .withJob(job)
-                    .withId(random.nextLong()).build();
+            Author author = Author.builder()
+                .phones(Arrays.asList(faker.phoneNumber().cellPhone(), faker.phoneNumber().cellPhone()))
+                .name(faker.name().fullName()).address(address).job(job).id(id).build();
 
-            AuthorRepository template = container.select(AuthorRepository.class).get();
-             template.save(author);
+            DocumentTemplate template = container.select(DocumentTemplate.class).get();
 
-            System.out.println("The entity find: " + template.findByName(author.getName()));
-            System.out.println("The entity find: " + template.findByPhones(author.getPhones().get(0)).toList());
+            Author saved = template.insert(author);
+            System.out.println("Author saved = " + saved);
 
+            List<Author> people = template.select(Author.class).where("address.city").eq(address.getCity()).result();
+            System.out.println("Entities found: " + people);
         }
     }
 
-    private App4() {
+    private AppMongoDBSubdocuments() {
     }
 }
+

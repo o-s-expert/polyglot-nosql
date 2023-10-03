@@ -11,7 +11,6 @@
 
 package expert.os.labs.persistence.persistence;
 
-
 import com.github.javafaker.Faker;
 import jakarta.data.repository.Page;
 import jakarta.data.repository.Pageable;
@@ -19,34 +18,31 @@ import jakarta.data.repository.Sort;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 
-public class App2 {
+import java.util.stream.IntStream;
 
+public class AppMongoDBPagable {
 
     public static void main(String[] args) {
-        Faker faker = new Faker();
-        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
 
+        try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
             Library library = container.select(Library.class).get();
 
-            for (int index = 0; index < 100; index++) {
-                Book book = Book.of(faker);
-                library.save(book);
-            }
 
-            Pageable pageable = Pageable.ofSize(10).sortBy(Sort.asc("title"),
-                    Sort.desc("year"));
+            Faker faker = new Faker();
+            IntStream.range(0, 100).mapToObj(index -> Book.of(faker)).forEach(library::save);
 
+            Pageable pageable = Pageable.ofSize(10).sortBy(Sort.asc("title"), Sort.desc("year"));
             Page<Book> page = library.findAll(pageable);
-            System.out.println("Page: " + page.content());
-            var pageable2 = pageable.next();
-            var page2 = library.findAll(pageable2);
-            System.out.println("Page 2: " + page2.content());
-            System.out.println("The result: ");
-            library.findByTitle("Effective Java").forEach(System.out::println);
+            System.out.println("Page = " + page.content());
 
+            Pageable nextPage = pageable.next();
+            Page<Book> page2 = library.findAll(nextPage);
+            System.out.println("Page 2 = " + page2);
+
+            library.findByTitle("Effective Java").forEach(System.out::println);
         }
     }
 
-    private App2() {
+    private AppMongoDBPagable() {
     }
 }

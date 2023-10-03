@@ -19,25 +19,21 @@ import jakarta.nosql.document.DocumentTemplate;
 import java.util.Optional;
 import java.util.UUID;
 
-public class App {
-
+public class AppMongoDb {
 
     public static void main(String[] args) {
-
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
             Book book = new Book(UUID.randomUUID().toString(), "Effective Java", 1, 2019);
+
             DocumentTemplate template = container.select(DocumentTemplate.class).get();
             Book saved = template.insert(book);
-            System.out.println("Book saved" + saved);
+            System.out.println("Book saved: = " + saved);
 
-            Optional<Book> bookOptional = template.select(Book.class)
-                    .where("title").eq("Effective Java").singleResult();
-            System.out.println("Entity found: " + bookOptional);
-
+            Optional<Book> bookFound = template.select(Book.class).where("title").eq("Effective Java").singleResult();
+            System.out.println("Book Found = " + bookFound);
         }
     }
 
-    private App() {
+    private AppMongoDb() {
     }
 }

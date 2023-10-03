@@ -1,4 +1,4 @@
-# MongoDB Lab
+# MongoDB - Lab 1
 
 In this lab session, we will explore MongoDB by setting up a Docker MongoDB instance using the provided command. We will cover the following:
 
@@ -7,71 +7,107 @@ In this lab session, we will explore MongoDB by setting up a Docker MongoDB inst
 3. Creating a Database and a Collection
 4. Inserting and Querying Documents
 
-material-play-box-multiple-outline: Steps
 
-**Step 1: Launching a Docker MongoDB Container**
+## 1. Starting MongoDB
 
-Open your terminal and execute the following command to launch a Docker MongoDB instance:
+### :material-play-box-multiple-outline: Steps
 
-```bash
-docker run -d --name mongodb-instance -p 27017:27017 mongo
-```
+1.  Start up Docker
+2.  Open your Terminal
+3.  Execute the following command
 
-This command creates a Docker container named "mongodb-instance" running the MongoDB image, mapping port 27017 on your host to port 27017 inside the container, and runs MongoDB in the background.
+    ```bash
+    docker run -d --name mongodb-instance -p 27017:27017 mongo
+    ```
 
-**Step 2: Connecting to the MongoDB Instance**
+    !!! info
 
-Now, let's connect to the MongoDB instance running in the Docker container using the MongoDB Shell (mongosh). In your terminal, run the following command:
+        This command creates a Docker container named "mongodb-instance" running the MongoDB image, mapping port 27017 on your host to port 27017 inside the container, and running MongoDB in the background.
 
-```bash
-docker exec -it mongodb-instance mongosh
-```
+### :material-checkbox-multiple-outline: Expected results
 
-This command starts the MongoDB Shell (mongosh) and connects it to the MongoDB instance within the Docker container.
+- The terminal will show the container ID
 
-**Step 3: Creating a Database and a Collection**
+## 2. Connecting to the MongoDB Instance
 
-Once you're connected to MongoDB, let's create a database named "workplace" and a collection named "people." In the MongoDB Shell (mongosh), run the following commands:
+### :material-play-box-multiple-outline: Steps
 
-```bash
-use workplace; // Set the current database to "workplace"
+1. Open the Terminal (or stay in the same Terminal window)
+2. Execute the following command
 
-db.createCollection("people"); // Create a collection named "people"
-```
+   ```bash
+   docker exec -it mongodb-instance mongosh
+   ```
 
-These commands create a database named "workplace" and a collection named "people" within that database.
+### :material-checkbox-multiple-outline: Expected results
 
-**Step 4: Inserting and Querying Documents**
+* The following information in the Terminal
 
-Now, let's insert some documents into the "people" collection and query them. In the MongoDB Shell (mongosh), run the following commands:
+    ```
+    Current Mongosh Log ID:	651983f1eda3dad76726cddf
+    Connecting to:		URL to MongoDB
+    Using MongoDB:		7.0.1
+    Using Mongosh:		1.10.6
+    ```
 
-```bash
-db.people.insertOne({ name: "Alice", age: 30 });
+## 3. Create a database and a collection
 
-db.people.insertMany([
-    { name: "Bob", age: 25 },
-    { name: "Charlie", age: 35 }
-]);
+### :material-play-box-multiple-outline: Steps
 
-db.people.find();
-```
+1. Create a database named `workspace` by running the following command in the MongoDB Shell
 
-These commands insert three documents into the "people" collection and then retrieve all documents. You should see the documents you inserted displayed in the query results.
+    ```bash
+    use workplace;
+    ```
 
+2. Create a collection called `people` by running the following command in the MongoDB Shell
 
-### MongoDB commands:
+    ```bash
+    db.createCollection("people");
+    ```
 
+### :material-checkbox-multiple-outline: Expected results
 
-| Command                                       | Description                                           |
-|-----------------------------------------------|-------------------------------------------------------|
-| **use database_name;**                        | Switches to a specific database for operations. |
-| **db.createCollection("collection_name");**    | Creates a new collection within the current database. |
-| **db.collection_name.insertOne(document);**    | Inserts a single document into a collection. |
-| **db.collection_name.insertMany(documents);**  | Inserts multiple documents into a collection. |
-| **db.collection_name.find(query, projection);** | Retrieves documents from a collection based on a query. |
-| **db.collection_name.updateOne(filter, update);** | Updates a single document in a collection that matches the filter. |
-| **db.collection_name.updateMany(filter, update);** | Updates multiple documents in a collection that match the filter. |
-| **db.collection_name.deleteOne(filter);**       | Deletes a single document from a collection that matches the filter. |
-| **db.collection_name.deleteMany(filter);**     | Deletes multiple documents from a collection that match the filter. |
-| **db.collection_name.aggregate(pipeline);**     | Performs aggregation operations on documents in a collection using a pipeline. |
+* Two logs in your Terminal related to the previous commands
 
+    ```
+    switched to db workplace;
+    { ok: 1 }
+    ```
+
+## 4. Inserting and Querying Documents
+
+### :material-play-box-multiple-outline: Steps
+
+1. Insert the following documents to the `people` collection, using the MongoDB Shell
+
+    ```bash
+    db.people.insertOne({ name: "Alice", age: 30 });
+
+    db.people.insertMany([
+        { name: "Bob", age: 25 },
+        { name: "Charlie", age: 35 }
+    ]);
+    ```
+
+2. Query the documents, to prove that they were successfully inserted, by running the following command into the MondBD Shell
+
+    ```bash
+    db.people.find();
+    ```
+
+### :material-checkbox-multiple-outline: Expected results
+
+* The following information in the Terminal
+
+    ```json
+    [
+        { _id: ObjectId("651985c0eda3dad76726cde0"), name: 'Alice', age: 30 },
+        { _id: ObjectId("651985c1eda3dad76726cde1"), name: 'Bob', age: 25 },
+        {
+            _id: ObjectId("651985c1eda3dad76726cde2"),
+            name: 'Charlie',
+            age: 35
+        }
+    ]
+    ```

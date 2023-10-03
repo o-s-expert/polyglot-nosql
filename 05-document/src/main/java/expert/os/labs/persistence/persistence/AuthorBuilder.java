@@ -26,28 +26,28 @@ public class AuthorBuilder {
 
     private Job job;
 
-    public AuthorBuilder withId(long id) {
+    public AuthorBuilder id(long id) {
         this.id = id;
         return this;
     }
 
-    public AuthorBuilder withName(String name) {
+    public AuthorBuilder name(String name) {
         this.name = name;
         return this;
     }
 
 
-    public AuthorBuilder withPhones(List<String> phones) {
+    public AuthorBuilder phomes(List<String> phones) {
         this.phones = phones;
         return this;
     }
-
-    public AuthorBuilder withAddress(Address address) {
+lo
+    public AuthorBuilder address(Address address) {
         this.address = address;
         return this;
     }
 
-    public AuthorBuilder withJob(Job job) {
+    public AuthorBuilder job(Job job) {
         this.job = job;
         return this;
     }
