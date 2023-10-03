@@ -296,13 +296,13 @@ The class includes methods to play specific types of instruments (`string()`, `p
 
 * List of `INFO` messages related to each instrument called by the Orchestra
 
-```
-INFO: The percussion's sound: xylophone
-INFO: The keyboard's sound: piano
-INFO: The string's sound: violin
-INFO: The solo's sound: piano
-INFO: All instruments sounds are: piano, violin, xylophone
-```
+    ```
+    INFO: The percussion's sound: xylophone
+    INFO: The keyboard's sound: piano
+    INFO: The string's sound: violin
+    INFO: The solo's sound: piano
+    INFO: All instruments sounds are: piano, violin, xylophone
+    ```
 
 ### :material-check-outline: Solution
 
