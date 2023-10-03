@@ -41,7 +41,7 @@ public class AuthorBuilder {
         this.phones = phones;
         return this;
     }
-lo
+
     public AuthorBuilder address(Address address) {
         this.address = address;
         return this;
