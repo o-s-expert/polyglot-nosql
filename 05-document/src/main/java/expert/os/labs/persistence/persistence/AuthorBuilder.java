@@ -37,7 +37,7 @@ public class AuthorBuilder {
     }
 
 
-    public AuthorBuilder phomes(List<String> phones) {
+    public AuthorBuilder phones(List<String> phones) {
         this.phones = phones;
         return this;
     }
