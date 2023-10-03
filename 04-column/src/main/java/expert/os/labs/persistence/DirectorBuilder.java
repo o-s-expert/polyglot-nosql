@@ -12,6 +12,7 @@
 package expert.os.labs.persistence;
 
 import java.util.Set;
+import java.util.HashSet;
 
 public class DirectorBuilder {
 
