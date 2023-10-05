@@ -8,7 +8,6 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-
 package expert.os.labs.persistence.persistence;
 
 

@@ -239,7 +239,7 @@ Try to, first implement, and later, see the  solution!
 ### :material-play-box-multiple-outline: Steps
 
 1. Create a class called `AppMarketing` in the `expert.os.labs.persistence` package
-2. Add all the fields and methods from the code below to the class
+2. Add the necessary below code to the class
 
     ```java
     import jakarta.enterprise.inject.se.SeContainer;
