@@ -135,7 +135,7 @@ In this lab, we will learn how to create a Java connection with Cassandra.
 
 3. Add the builder methods for each field
 4. Add the `build()` method creating a new instance of `Person` using its constructor
-5. In the `Perdon` class add the builder method referring to the `PersonBuilder`
+5. In the `Person` class add the builder method referring to the `PersonBuilder`
 
 ### :material-check-outline: Solution
 

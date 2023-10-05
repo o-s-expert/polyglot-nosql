@@ -15,8 +15,6 @@ In this lab, you will create a Java application that interacts with a NoSQL data
     - `@Column int edition`
     - `@Column int year`
 
-5. Create a static method to create
-
 ### :material-checkbox-multiple-outline: Expected results
 
 * Record `Book` created
