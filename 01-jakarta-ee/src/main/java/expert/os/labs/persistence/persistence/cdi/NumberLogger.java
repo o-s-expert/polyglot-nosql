@@ -1,4 +1,4 @@
-package expert.os.labs.persistence.persistence.cdi.producer;
+package expert.os.labs.persistence.persistence.cdi;
 
 import jakarta.inject.Inject;
 

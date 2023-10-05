@@ -116,8 +116,11 @@ nav:
             - "6.4.2 🧪 Neo4J Java 1": "graph/java-lab.md"
   - "🧪 7. Extra labs":
       - "7.1 CDI":
-          - "7.1.1 CDI Intermediate": "extra-labs/cdi-lab-3.md"
-          - "7.1.2 CDI After-Intermediate": "extra-labs/cdi-lab-4.md"
+          - "7.1.1 CDI Intermediate 1": "extra-labs/cdi-lab-intermediate-1.md"
+          - "7.1.2 CDI Intermediate 2": "extra-labs/cdi-lab-intermediate-2.md"
+          - "7.1.3 CDI Intermediate 3": "extra-labs/cdi-lab-intermediate-3.md"
+          - "7.1.4 CDI After-Intermediate 1": "extra-labs/cdi-lab-after-intermediate-1.md"
+          - "7.1.5 CDI After-Intermediate 1": "extra-labs/cdi-lab-after-intermediate-2.md"
       - "7.2 Graph database":
-          - "7.2.1 Graph Intermediate": "extra-labs/graph-lab-2.md"  
-          - "7.2.1 Graph After-Intermediate": "extra-labs/graph-lab-3.md"   
+          - "7.2.1 Graph Intermediate": "extra-labs/graph-intermediate.md"  
+          - "7.2.1 Graph After-Intermediate": "extra-labs/graph-after-intermediate.md"   

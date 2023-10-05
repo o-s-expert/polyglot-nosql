@@ -13,8 +13,8 @@ class LoggerProducer {
     private static final Logger LOGGER = Logger.getLogger(LoggerProducer.class.getName());
 
     @Produces
-    Logger getLog(InjectionPoint ip) {
-        String declaringClass = ip.getMember().getDeclaringClass().getName();
+    Logger getLog(InjectionPoint injectionPoint) {
+        String declaringClass = injectionPoint.getMember().getDeclaringClass().getName();
         LOGGER.info("Creating instance log to " + declaringClass);
         return Logger.getLogger(declaringClass);
     }

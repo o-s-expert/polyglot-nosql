@@ -1,8 +1,8 @@
 # Neo4J Lab - Intermediate
 
-This lab won't show the steps in much detail, instead it will be shorter and you need to figure out (with some tips) how to implement it.
+This lab won't show the steps in much detail, instead, it will be shorter and you need to figure out (with some tips) how to implement it.
 
-Try to, first implement, and later, see the  solution!
+Try to, first implement, and later, see the solution!
 
 ## 1. Define the `Person` Entity Class
 
@@ -170,7 +170,7 @@ Try to, first implement, and later, see the  solution!
     | `save` | Save or retrieve a person that has a `name` using the `traversalVertex()` method from `graph`|
     | `knows` | Create a relationship between two people using the label `"knows"`|
     | `love` | Create a relationship between two people using the label `"knows"` adding two more relationships: `"feels"` and `"love"` |
-    | `developers` | Retrieve a list of people who has the occupation as `"developer"` and is a `"Developer"` |
+    | `developers` | Retrieve a list of people who have the occupation as `"developer"` and is a `"Developer"` |
     | `whoDevelopersKnows` | Retrieve a list of people by developers with salary >= 3000 and age between 20 and 25 |
     | `both` | Retrieve a list of people who are developers and known by developers with salary >= 3000 and age between 20 and 25 |
     | `couple` | Retrieve a list of developers who are in love (have a "feel" attribute set to "love") |

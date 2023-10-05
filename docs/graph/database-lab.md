@@ -28,10 +28,10 @@ In this lab session, we will explore Neo4j by setting up a Docker Neo4j instance
 
 ### :material-play-box-multiple-outline: Steps
 
-1. Open you web browser and navigate to [http://localhost:7474](http://localhost:7474)
+1. Open your web browser and navigate to [http://localhost:7474](http://localhost:7474)
 2. Connect to the Neo4J using the following information:
     - Connect URL: `neo4j://neo4j://localhost:7687`
-    - Database - leave empty for default: leve it empty
+    - Database - leave empty for default: leave it empty
     - Authentication type: `Username / Password`
     - Username: `neo4j`
     - Password: `admin123`
@@ -40,7 +40,7 @@ In this lab session, we will explore Neo4j by setting up a Docker Neo4j instance
 
 ### :material-play-box-multiple-outline: Steps
 
-1. Create a simple grath database with nodes and relationship in the user interface
+1. Create a simple graph database with nodes and relationships in the user interface
     - paste the content into the top section on your screen with start with `neo4j$`
     - hit the play button
 

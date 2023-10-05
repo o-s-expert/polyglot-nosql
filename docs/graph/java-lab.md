@@ -182,8 +182,8 @@ In this lab, we will explore more about Neo4J and Java.
     }
     ```
 
-6. Create a method named `category` to stablish a relationship between `Book` and `Category`, so they will become the parameters
-    - use the `graph.edge()` method to stablish the `IS` relationship
+6. Create a method named `category` to establish a relationship between `Book` and `Category`, so they will become the parameters
+    - use the `graph.edge()` method to establish the `IS` relationship
 
         ```java
         public void category(Book book, Category category){
@@ -192,8 +192,8 @@ In this lab, we will explore more about Neo4J and Java.
         ```
 
 
-7. Create a method named `category` to stablish a relationship between other categories, creating a sub-category
-    - use the `graph.edge()` method to stablish the `IS` relationship
+7. Create a method named `category` to establish a relationship between other categories, creating a sub-category
+    - use the `graph.edge()` method to establish the `IS` relationship
 
     ```java
     public void category(Category subCategory, Category category){
@@ -201,7 +201,7 @@ In this lab, we will explore more about Neo4J and Java.
     }
     ```
 
-8. Create a method to retrieve a list of categories by its name related to "Software"
+8. Create a method to retrieve a list of categories by their name related to "Software"
 
     ```java
     public List<String> softwareCategories(){
@@ -213,7 +213,7 @@ In this lab, we will explore more about Neo4J and Java.
     }
     ```
 
-9. Create a method to retrieve a list of books by its name related to "Software"
+9. Create a method to retrieve a list of books by their name related to "Software"
 
     ```java
     public List<String> softwareBooks(){
@@ -281,7 +281,7 @@ In this lab, we will explore more about Neo4J and Java.
 
 6. Create the following books by using the `BookService` instance
     - Effective Java
-    - NoSQL Distrilled
+    - NoSQL Distilled
     - Migrating to Microservice Databases
     - The Shack
 
@@ -292,7 +292,7 @@ In this lab, we will explore more about Neo4J and Java.
         Book shack = service.book("The Shack");
         ```
 
-7. Associate the sub-categories withing the categories
+7. Associate the sub-categories within the categories
     - Java and Software
     - NoSQL and Software
     - Microservice and Software
@@ -305,7 +305,7 @@ In this lab, we will explore more about Neo4J and Java.
 
 8. Associate the books with the categories
     - Effective Java and Software
-    - NoSQL Distrilled and Software
+    - NoSQL Distilled and Software
     - MicroServices and Software        
 
         ```java
@@ -314,9 +314,9 @@ In this lab, we will explore more about Neo4J and Java.
         service.category(migratingMicroservice, software);
         ```
 
-9. Associate the sub-categorory with the books
+9. Associate the sub-category with the books
     - Effective Java and Java
-    - NoSQL Distrilled and NoSQL
+    - NoSQL Distilled and NoSQL
     - Migrating to Microservices to MicroService
     - Shack to Romance
 
@@ -340,7 +340,7 @@ In this lab, we will explore more about Neo4J and Java.
     System.out.println("Software Books = " + softwareBooks);
     ```   
 
- 12. Filter all the software and NoSQL books by usung the `softwareNoSQLBooks()` method and printout the result
+ 12. Filter all the software and NoSQL books by using the `softwareNoSQLBooks()` method and printout the result
 
     ```java
     List<String> softwareNoSQLBooks = service.softwareNoSQLBooks();

@@ -1,8 +1,8 @@
 # Neo4J Lab - After Intermediate
 
-This lab won't show the steps in much detail, instead it will be shorter and you need to figure out (with some tips) how to implement it.
+This lab won't show the steps in much detail, instead, it will be shorter and you need to figure out (with some tips) how to implement it.
 
-Try to, first implement, and later, see the  solution!
+Try to, first implement, and later, see the solution!
 
 ## 1. Define the `Person` Entity Class
 
@@ -35,7 +35,7 @@ Try to, first implement, and later, see the  solution!
 ## 2. Create the service class
 
 1. Create a class called `AnimalService` in the `expert.os.labs.persistence` package
-2. Add all the fields and methods from the code below to the class and implements the empty methods
+2. Add all the fields and methods from the code below to the class and implement the empty methods
 
     ```java
     import jakarta.enterprise.context.ApplicationScoped;
@@ -60,7 +60,7 @@ Try to, first implement, and later, see the  solution!
         }
 
         List<Animal> eatsTwice() {
-            // Retrieve a list of animals who eats twice
+            // Retrieve a list of animals that eats twice
         }
 
         List<Animal> untilGrass() {
@@ -147,10 +147,10 @@ Try to, first implement, and later, see the  solution!
                 // Use the service method eats() to define which animal can eat another one based on the chain food
 
 
-                // Retrieve and printout the list of animals that eats twice
+                // Retrieve and printout the list of animals that eat twice
 
 
-                // Retrieve and printout the list of animals that eats grass
+                // Retrieve and printout the list of animals that eat grass
 
 
                 // Retrieve the entity tree and print it out
@@ -207,11 +207,11 @@ Try to, first implement, and later, see the  solution!
                 service.eats(frog, grasshopper);
                 service.eats(grasshopper, grass);
 
-                // Retrieve and printout the list of animals that eats twice
+                // Retrieve and printout the list of animals that eat twice
                 List<Animal> animalEatsTwice = service.eatsTwice();
                 System.out.println("The animals that eat twice: " + animalEatsTwice);
 
-                // Retrieve and printout the list of animals that eats grass
+                // Retrieve and printout the list of animals that eat grass
                 List<Animal> animalEatGrass = service.untilGrass();
                 System.out.println("The animals that eat until grass: " + animalEatGrass);
 

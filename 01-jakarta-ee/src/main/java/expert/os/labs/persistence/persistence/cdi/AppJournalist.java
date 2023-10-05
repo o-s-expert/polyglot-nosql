@@ -5,7 +5,7 @@ import expert.os.labs.persistence.persistence.cdi.news.Journalist;
 import jakarta.enterprise.inject.se.SeContainer;
 import jakarta.enterprise.inject.se.SeContainerInitializer;
 
-public class App4 {
+public class AppJournalist {
 
     public static void main(String[] args) {
 
