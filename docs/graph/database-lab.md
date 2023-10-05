@@ -1,4 +1,4 @@
-# Neo4J Lab
+# Neo4J - Lab 1
 
 In this lab session, we will explore Neo4j by setting up a Docker Neo4j instance using the provided command. We will cover the following:
 
@@ -7,69 +7,80 @@ In this lab session, we will explore Neo4j by setting up a Docker Neo4j instance
 3. Creating a Sample Graph Database
 4. Running Cypher Queries
 
-material-play-box-multiple-outline: Steps
+## 1. Lauch a Docker Neo4j Container
 
-**Step 1: Launching a Docker Neo4j Container**
+### :material-play-box-multiple-outline: Steps
 
-Open your terminal and execute the following command to launch a Docker Neo4j instance:
+1.  Start up Docker
+2.  Open your Terminal
+3.  Execute the following command
 
-```bash
-docker run --publish=7474:7474 --publish=7687:7687 --env NEO4J_AUTH=neo4j/admin123 neo4j
-```
+    ```bash
+    docker run --publish=7474:7474 --publish=7687:7687 --env NEO4J_AUTH=neo4j/admin123 neo4j
+    ```
 
-This command creates a Docker container running the Neo4j image, maps ports 7474 and 7687 from the container to the host machine, and sets the initial authentication to "neo4j/admin123."
+    !!! info
 
-**Step 2: Accessing the Neo4j Browser Interface**
+        This command creates a Docker container running the Neo4j image, maps ports 7474 and 7687 from the container to the host machine, and sets the initial authentication to "neo4j/admin123."
 
-Once the container runs, open a web browser and navigate to `http://localhost:7474`. It will take you to the Neo4j Browser interface.
 
-**Step 3: Creating a Sample Graph Database**
+## 2. Access the Neo4j Browser Interface
 
-In the Neo4j Browser, you can run Cypher queries to create a sample graph database. For example, let's create a simple graph with nodes and relationships:
+### :material-play-box-multiple-outline: Steps
 
-```cypher
-CREATE (Alice:Person {name: "Alice", age: 30})
-CREATE (Bob:Person {name: "Bob", age: 25})
-CREATE (Charlie:Person {name: "Charlie", age: 35})
-CREATE (Alice)-[:FRIEND]->(Bob)
-CREATE (Alice)-[:FRIEND]->(Charlie)
-```
+1. Open you web browser and navigate to [http://localhost:7474](http://localhost:7474)
+2. Connect to the Neo4J using the following information:
+    - Connect URL: `neo4j://neo4j://localhost:7687`
+    - Database - leave empty for default: leve it empty
+    - Authentication type: `Username / Password`
+    - Username: `neo4j`
+    - Password: `admin123`
 
-These Cypher queries create three "Person" nodes with properties and two "FRIEND" relationships between them.
+## 2. Create a Sample Graph Database
 
-**Step 4: Running Cypher Queries**
+### :material-play-box-multiple-outline: Steps
 
-Once you have created the sample graph, you can run Cypher queries to retrieve information. For instance, let's find friends of Alice:
+1. Create a simple grath database with nodes and relationship in the user interface
+    - paste the content into the top section on your screen with start with `neo4j$`
+    - hit the play button
 
-```cypher
-MATCH (Alice:Person {name: "Alice"})-[:FRIEND]->(friend)
-RETURN Alice, friend
-```
+        ```cypher
+        CREATE (Alice:Person {name: "Alice", age: 30})
+        CREATE (Bob:Person {name: "Bob", age: 25})
+        CREATE (Charlie:Person {name: "Charlie", age: 35})
+        CREATE (Alice)-[:FRIEND]->(Bob)
+        CREATE (Alice)-[:FRIEND]->(Charlie)
+        ``` 
+### :material-checkbox-multiple-outline: Expected results
+
+* The following information in the log
+
+    ```
+    Added 3 labels, created 3 nodes, set 6 properties, created 2 relationships, completed after 31 ms.
+    ```
+
+## 4. Run Cypher Queries
+
+### :material-play-box-multiple-outline: Steps
+
+1. Run the following Cypher query into the Neo4J interface
+
+    ```
+    MATCH (Alice:Person {name: "Alice"})-[:FRIEND]->(friend)
+    RETURN Alice, friend
+    ```
+
+2. Click on the _Graph_ icon in the left page
 
 This query retrieves Alice and her friends.
 
 
-## Cypher commands:
+### :material-checkbox-multiple-outline: Expected results
 
-| Cypher Command                             | Description                                           |
-|--------------------------------------------|-------------------------------------------------------|
-| **MATCH (node:Label)-[:RELATIONSHIP]->(other) RETURN node, other;** | Retrieves nodes and relationships based on specified criteria, filtering and returning results. |
+* The following relationship between `Alice` and its friends
 
-| **CREATE (node:Label {property: value});**  | Creates nodes with optional labels and properties. You can also create relationships between nodes in the same query. |
-
-| **MERGE (node:Label {property: value});**  | Combines node creation and matching, ensuring that a node with the specified properties and labels either exists or is created. |
-
-| **DELETE node;**                           | Removes nodes and their relationships from the graph. You can also use this command to delete relationships. |
-
-| **SET node.property = value;**              | Sets or updates the value of a property on a node or relationship. |
-
-| **RETURN DISTINCT node.property;**          | Returns distinct values of a specified property from the query results. |
-
-| **ORDER BY node.property ASC/DESC;**       | Orders query results based on the specified property in ascending (ASC) or descending (DESC) order. |
-
-| **LIMIT n;**                               | Limits the number of results returned by the query to the specified value (n). |
-
-| **WITH node AS alias;**                    | Creates an alias for a node or a result set, allowing you to reference it in subsequent parts of the query. |
-
-| **OPTIONAL MATCH (node)-[:RELATIONSHIP]->(other) RETURN node, other;** | Performs a match operation that doesn't require a match to exist, allowing you to retrieve optional relationships without affecting the main query. |
-
+    ``` mermaid
+    erDiagram
+    Charlie ||--o{ Alice : friend
+    Bob ||--o{ Alice : friend
+    ```

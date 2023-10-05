@@ -92,41 +92,4 @@ public class Person {
     public static PersonBuilder builder() {
         return new PersonBuilder();
     }
-
-    public static class PersonBuilder {
-
-        private String name;
-
-        private Long age;
-
-        private String occupation;
-
-        private Double salary;
-
-
-        public PersonBuilder withName(String name) {
-            this.name = name;
-            return this;
-        }
-
-        public PersonBuilder withAge(Long age) {
-            this.age = age;
-            return this;
-        }
-
-        public PersonBuilder withOccupation(String occupation) {
-            this.occupation = occupation;
-            return this;
-        }
-
-        public PersonBuilder withSalary(Double salary) {
-            this.salary = salary;
-            return this;
-        }
-
-        public Person build() {
-            return new Person(name, age, occupation, salary);
-        }
-    }
-
 }

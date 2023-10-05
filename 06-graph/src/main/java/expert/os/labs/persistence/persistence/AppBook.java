@@ -15,28 +15,23 @@ import jakarta.enterprise.inject.se.SeContainerInitializer;
 
 import java.util.List;
 
-public final class BookApp {
-
-    private BookApp() {
-    }
+public class AppBook {
 
     public static void main(String[] args) {
 
         try (SeContainer container = SeContainerInitializer.newInstance().initialize()) {
-
             BookService service = container.select(BookService.class).get();
 
             Category software = service.category("Software");
             Category romance = service.category("Romance");
             Category java = service.category("Java");
             Category nosql =service.category("NoSQL");
-            Category microService =service.category("Micro Service");
+            Category microService =service.category("MicroService");
 
             Book effectiveJava = service.book("Effective Java");
             Book nosqlDistilled = service.book("NoSQL Distilled");
             Book migratingMicroservice = service.book("Migrating to Microservice Databases");
             Book shack = service.book("The Shack");
-
 
             service.category(java, software);
             service.category(nosql, software);
@@ -49,21 +44,19 @@ public final class BookApp {
             service.category(effectiveJava, java);
             service.category(nosqlDistilled, nosql);
             service.category(migratingMicroservice, microService);
-
             service.category(shack, romance);
 
             List<String> softwareCategories =service.softwareCategories();
+            System.out.println("Software Categories = " + softwareCategories);
 
             List<String> softwareBooks = service.softwareBooks();
+            System.out.println("Software Books = " + softwareBooks);
 
             List<String> softwareNoSQLBooks = service.softwareNoSQLBooks();
-
-
-            System.out.println("The software categories: " + softwareCategories);
-            System.out.println("The software books: " + softwareBooks);
-            System.out.println("The software and NoSQL books: " + softwareNoSQLBooks);
-
-
+            System.out.println("Software and NoSQL Books = " + softwareNoSQLBooks);
         }
+    }
+
+    private AppBook() {
     }
 }

@@ -56,6 +56,11 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
   - md_in_html
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - "🏠 Home": "index.md"
   - "🛠️ Setup": "setup.md"
@@ -105,10 +110,14 @@ nav:
   - "👨‍👨‍👧‍👧 6. Graph database":
         - "6.1 Introduction": "graph/introduction.md" 
         - "6.2 Neo4J": "graph/neo4j.md"
-        - "6.2.1 🧪 Neo4J Basic": "graph/database-lab.md"
-        - "6.2.2 🧪 Neo4J Java": "graph/java-lab.md"
-        - "6.2.3 🧪 Neo4J Java": "graph/java-lab-2.md"
-        - "6.2.4 🧪 Neo4J Java": "graph/java-lab-3.md"
+        - "6.3 Commnands": "graph/commands.md"
+        - "6.4 Lab 🧪":
+            - "6.4.1 🧪 Neo4J Basic": "graph/database-lab.md"
+            - "6.4.2 🧪 Neo4J Java 1": "graph/java-lab.md"
   - "🧪 7. Extra labs":
-      - "7.1 CDI Intermediate": "extra-labs/cdi-lab-3.md"
-      - "7.2 CDI After-Intermediate": "extra-labs/cdi-lab-4.md"
+      - "7.1 CDI":
+          - "7.1.1 CDI Intermediate": "extra-labs/cdi-lab-3.md"
+          - "7.1.2 CDI After-Intermediate": "extra-labs/cdi-lab-4.md"
+      - "7.2 Graph database":
+          - "7.2.1 Graph Intermediate": "extra-labs/graph-lab-2.md"  
+          - "7.2.1 Graph After-Intermediate": "extra-labs/graph-lab-3.md"   

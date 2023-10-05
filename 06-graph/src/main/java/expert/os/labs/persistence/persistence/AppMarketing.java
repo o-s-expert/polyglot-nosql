@@ -17,14 +17,10 @@ import jakarta.enterprise.inject.se.SeContainerInitializer;
 
 import java.util.List;
 
-import static expert.os.labs.persistence.persistence.Person.builder;
+public final class AppMarketing {
 
-public final class MarketingApp {
-
-
-    private MarketingApp() {
+    private AppMarketing() {
     }
-
 
     public static void main(String[] args) {
 
@@ -32,17 +28,17 @@ public final class MarketingApp {
 
             PersonService service = container.select(PersonService.class).get();
 
-            Person banner = service.save(builder().withAge(30L).withName("Banner")
-                    .withOccupation("Developer").withSalary(3_000D).build());
+            Person banner = service.save(Person.builder().age(30L).name("Banner")
+                    .occupation("Developer").salary(3_000D).build());
 
-            Person natalia = service.save(builder().withAge(32L).withName("Natalia")
-                    .withOccupation("Developer").withSalary(5_000D).build());
+            Person natalia = service.save(Person.builder().age(32L).name("Natalia")
+                    .occupation("Developer").salary(5_000D).build());
 
-            Person rose = service.save(builder().withAge(40L).withName("Rose")
-                    .withOccupation("Design").withSalary(1_000D).build());
+            Person rose = service.save(Person.builder().age(40L).name("Rose")
+                    .occupation("Design").salary(1_000D).build());
 
-            Person tony =service.save(builder().withAge(22L).withName("tony")
-                    .withOccupation("Developer").withSalary(4_500D).build());
+            Person tony =service.save(Person.builder().age(22L).name("tony")
+                    .occupation("Developer").salary(4_500D).build());
 
             service.love(tony, rose);
             service.knows(tony, natalia);
@@ -61,7 +57,6 @@ public final class MarketingApp {
             System.out.println("Person who the Developers target know: " + peopleWhoDeveloperKnows);
             System.out.println("The person and the developers target: " + both);
             System.out.println("Developers to Valentine days: " + couple);
-
         }
     }
 }
