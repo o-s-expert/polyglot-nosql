@@ -1,6 +1,5 @@
 package expert.os.labs.persistence.persistence;
 
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.eclipse.jnosql.mapping.graph.GraphTemplate;

@@ -8,7 +8,7 @@
  *
  * You may elect to redistribute this code under either of these licenses.
  */
-
+package expert.os.labs.persistence.persistence;
 
 public class PersonBuilder {
     private Long id;
@@ -43,6 +43,6 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(id, name, age, occupation, salary);
+        return new Person(name, age, occupation, salary);
     }
 }

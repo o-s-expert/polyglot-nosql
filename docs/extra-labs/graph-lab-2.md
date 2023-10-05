@@ -50,8 +50,7 @@ Try to, first implement, and later, see the  solution!
         public Person() {
         }
 
-        public Person(Long id, String name, Long age, String occupation, Double salary) {
-            this.id = id;
+        public Person(String name, Long age, String occupation, Double salary) {
             this.name = name;
             this.age = age;
             this.occupation = occupation;
@@ -110,7 +109,7 @@ Try to, first implement, and later, see the  solution!
         }
 
         public Person build() {
-            return new Person(id, name, age, occupation, salary);
+            return new Person(name, age, occupation, salary);
         }
     }
     ```

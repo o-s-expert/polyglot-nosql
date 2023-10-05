@@ -11,13 +11,11 @@
 
 package expert.os.labs.persistence.persistence;
 
-
 import jakarta.nosql.Column;
 import jakarta.nosql.Entity;
 import jakarta.nosql.Id;
 
 import java.util.Objects;
-
 
 @Entity
 public class Person {
@@ -54,7 +52,7 @@ public class Person {
     Person() {
     }
 
-    Person(String name, Long age, String occupation, Double salary) {
+    public Person(String name, Long age, String occupation, Double salary) {
         this.name = name;
         this.age = age;
         this.salary = salary;
